@@ -60,3 +60,4 @@ E:\NAUKA\Programowanie\C Sharp\SocialApp\SocialApp\API\obj\Debug\netcoreapp3.1\A
 E:\NAUKA\Programowanie\C Sharp\SocialApp\SocialApp\API\obj\Debug\netcoreapp3.1\API.dll
 E:\NAUKA\Programowanie\C Sharp\SocialApp\SocialApp\API\obj\Debug\netcoreapp3.1\API.pdb
 E:\NAUKA\Programowanie\C Sharp\SocialApp\SocialApp\API\obj\Debug\netcoreapp3.1\API.genruntimeconfig.cache
+E:\NAUKA\Programowanie\C Sharp\SocialApp\SocialApp\API\obj\Debug\netcoreapp3.1\API.csprojAssemblyReference.cache
