@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "sGiPCUeRNfo3eq2gvPBNCl993qkbWah8wvYLmVL+gkK6IhTpgtpeyhBDmn8mIH/sXKtvF2doiQfxkSQPtYbFZw==",
+  "dgSpecHash": "AS+iRaWqckEsrLD6c/Lw5qQdsMmr2cwGeMdjN3tMDnw/wVysTyQhDmlKPeUY5y414A/dTR2pG93IGsUUD423iw==",
   "success": true,
   "projectFilePath": "E:\\NAUKA\\Programowanie\\C Sharp\\SocialApp\\SocialApp\\API\\API.csproj",
   "expectedPackageFiles": [
@@ -14,6 +14,7 @@
     "C:\\Users\\danio\\.nuget\\packages\\microsoft.entityframeworkcore.design\\5.0.3\\microsoft.entityframeworkcore.design.5.0.3.nupkg.sha512",
     "C:\\Users\\danio\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\5.0.3\\microsoft.entityframeworkcore.relational.5.0.3.nupkg.sha512",
     "C:\\Users\\danio\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\5.0.3\\microsoft.entityframeworkcore.sqlserver.5.0.3.nupkg.sha512",
+    "C:\\Users\\danio\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\5.0.3\\microsoft.entityframeworkcore.tools.5.0.3.nupkg.sha512",
     "C:\\Users\\danio\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\5.0.0\\microsoft.extensions.caching.abstractions.5.0.0.nupkg.sha512",
     "C:\\Users\\danio\\.nuget\\packages\\microsoft.extensions.caching.memory\\5.0.0\\microsoft.extensions.caching.memory.5.0.0.nupkg.sha512",
     "C:\\Users\\danio\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\5.0.0\\microsoft.extensions.configuration.abstractions.5.0.0.nupkg.sha512",
