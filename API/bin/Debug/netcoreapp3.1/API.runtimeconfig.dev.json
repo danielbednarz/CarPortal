@@ -1,8 +1,0 @@
-{
-  "runtimeOptions": {
-    "additionalProbingPaths": [
-      "C:\\Users\\danio\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\danio\\.nuget\\packages"
-    ]
-  }
-}
