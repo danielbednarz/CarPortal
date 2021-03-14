@@ -4,4 +4,4 @@
 
 /.vs/SocialApp/v16
 /API/bin/*
-/API/obj/Debug/*
+/API/obj/Debug/netcoreapp3.1/*
