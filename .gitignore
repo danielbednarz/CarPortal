@@ -5,3 +5,5 @@
 /.vs/SocialApp/v16
 /API/bin/*
 /API/obj/Debug/netcoreapp3.1/*
+/API/API.csproj
+/API/API.csproj.user
