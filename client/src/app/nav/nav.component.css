@@ -1,0 +1,10 @@
+.navbar-brand {
+    color: lightgray;
+}
+
+.dropdown-toggle, .dropdown-item {
+    cursor: pointer;
+}
+.loggingBtn {
+    color:white
+}

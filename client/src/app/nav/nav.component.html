@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
   <div class="container">
     <a class="navbar-brand" href="#">Car Portal</a>
-    <ul class="navbar-nav mr-auto">
+    <ul class="navbar-nav mr-auto" *ngIf="loggedIn">
       <li class="nav-item">
         <a class="nav-link" href="#">Przeglądaj</a>
       </li>
@@ -12,7 +12,17 @@
         <a class="nav-link" href="#">Wiadomości</a>
       </li>
     </ul>
+
+    <div class="dropdown" *ngIf="loggedIn" dropdown>
+        <a class="dropdown-toggle text-light" dropdownToggle aria-controls="dropdown-animated">{{model.username}}</a>
+        <div class="dropdown-menu mt-3" *dropdownMenu aria-labelledby="button-animated">
+          <a class="dropdown-item">Edytuj profil</a>
+          <a class="dropdown-item" (click)="logout()">Wyloguj się</a>
+        </div>
+    </div>
+    
     <form
+      *ngIf="!loggedIn"
       #loginForm="ngForm"
       class="form-inline mt-2 mt-md-0"
       (ngSubmit)="login()"
@@ -31,8 +41,10 @@
         class="form-control mr-sm-2" 
         type="password" 
         placeholder="Hasło" />
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-        Zaloguj się
+      <button class="btn bg-dark" type="submit">
+        <span class="loggingBtn">
+          <i class="fas fa-arrow-right fa-1x"></i>
+        </span>
       </button>
     </form>
   </div>
