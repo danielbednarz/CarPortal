@@ -21,6 +21,8 @@
     "@angular/router": "~11.2.0",
     "@schematics/angular": "^9.1.0",
     "bootstrap": "4.1.1",
+    "devextreme": "20.2.7",
+    "devextreme-angular": "20.2.7",
     "font-awesome": "^4.7.0",
     "ngx-bootstrap": "^6.2.0",
     "rxjs": "~6.6.0",
