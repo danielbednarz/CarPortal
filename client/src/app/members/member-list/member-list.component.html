@@ -1,0 +1,15 @@
+<h2>Lista użytkowników</h2>
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Login</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor='let user of users'>
+        <th scope="row">{{user.id}}</th>
+        <td>{{user.userName}}</td>
+      </tr>
+    </tbody>
+  </table>

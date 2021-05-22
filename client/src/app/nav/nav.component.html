@@ -1,26 +1,31 @@
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-primary">
   <div class="container">
-    <a class="navbar-brand" href="#"><i class="fas fa-car-side fa-lg"></i></a>
-    <ul class="navbar-nav mr-auto" *ngIf="accountService.currentUser$ | async">
-      <li class="nav-item">
-        <a class="nav-link" href="#">Przeglądaj</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Mój profil</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Wiadomości</a>
-      </li>
+    <a class="navbar-brand" routerLink="/" routerLinkActive="active"
+      ><i class="fas fa-car-side fa-lg"></i
+    ></a>
+
+    <ul class="navbar-nav mr-auto">
+      <ng-container *ngIf="accountService.currentUser$ | async">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/members" routerLinkActive="active">Przeglądaj</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/myProfile" routerLinkActive="active">Mój profil</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/messages" routerLinkActive="active">Wiadomości</a>
+        </li>
+      </ng-container>
     </ul>
 
-    <div class="dropdown" *ngIf="accountService.currentUser$ | async" dropdown>
-        <a class="dropdown-toggle text-light" dropdownToggle>{{model.username}}</a>
-        <div class="dropdown-menu mt-3" *dropdownMenu>
-          <a class="dropdown-item">Edytuj profil</a>
-          <a class="dropdown-item" (click)="logout()">Wyloguj się</a>
-        </div>
+    <div class="dropdown" *ngIf="(accountService.currentUser$ | async) as user" dropdown>
+      <a class="dropdown-toggle text-light" dropdownToggle>{{user.username}}</a>
+      <div class="dropdown-menu mt-3" *dropdownMenu>
+        <a class="dropdown-item">Edytuj profil</a>
+        <a class="dropdown-item" (click)="logout()">Wyloguj się</a>
+      </div>
     </div>
-    
+
     <form
       *ngIf="(accountService.currentUser$ | async) === null"
       #loginForm="ngForm"
@@ -37,11 +42,12 @@
       />
       <input
         name="password"
-        [(ngModel)]="model.password" 
-        class="form-control mr-sm-2" 
-        type="password" 
-        placeholder="Hasło" />
-      <button class="btn bg-dark" type="submit">
+        [(ngModel)]="model.password"
+        class="form-control mr-sm-2"
+        type="password"
+        placeholder="Hasło"
+      />
+      <button class="btn btn-dark" type="submit">
         <span class="loggingBtn">
           <i class="fas fa-arrow-right fa-1x"></i>
         </span>

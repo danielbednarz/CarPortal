@@ -1,9 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-//add-migration -o Data/Migrations Init
-//update-database
-
 namespace API.Data.Migrations
 {
     public partial class Init : Migration
