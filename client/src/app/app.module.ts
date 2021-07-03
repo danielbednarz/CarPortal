@@ -17,6 +17,7 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
 import { ToastrModule } from 'ngx-toastr';
 import { DxButtonModule } from 'devextreme-angular';
 import { DxDataGridModule } from 'devextreme-angular';
+import { SharedModule } from './modules/shared.module';
 
 @NgModule({
   declarations: [
@@ -36,12 +37,7 @@ import { DxDataGridModule } from 'devextreme-angular';
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
-    BsDropdownModule.forRoot(),
-    ToastrModule.forRoot({
-      positionClass: 'toast-bottom-right'
-    }),
-    DxButtonModule,
-    DxDataGridModule
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
