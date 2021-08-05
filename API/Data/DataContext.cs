@@ -12,6 +12,7 @@ namespace API.Data
 
         public DbSet<AppUser> Users { get; set; }
 
+        // Add-Migration -o Data/Migrations Init
         // dotnet ef migrations add Init -o Data\Migrations
         // dotnet ef database update
     }
