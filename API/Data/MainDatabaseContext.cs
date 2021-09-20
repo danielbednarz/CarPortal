@@ -3,14 +3,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Data
 {
-    public class DataContext : DbContext
+    public class MainDatabaseContext : DbContext
     {
-        public DataContext(DbContextOptions options) : base(options)
+        public MainDatabaseContext(DbContextOptions options) : base(options)
         {
             
         }
 
-        public DbSet<AppUser> Users { get; set; }
+        public DbSet<User> Users { get; set; }
 
         // Add-Migration -o Data/Migrations Init
         // dotnet ef migrations add Init -o Data\Migrations

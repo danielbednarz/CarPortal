@@ -7,8 +7,8 @@ namespace API.Controllers
 {
     public class ErrorTestingController : BaseController
     {
-        private readonly DataContext _context;
-        public ErrorTestingController(DataContext context)
+        private readonly MainDatabaseContext _context;
+        public ErrorTestingController(MainDatabaseContext context)
         {
             _context = context;
         }
@@ -21,7 +21,7 @@ namespace API.Controllers
         }
 
         [HttpGet("not-found")]
-        public ActionResult<AppUser> GetNotFound()
+        public ActionResult<User> GetNotFound()
         {
             var user = _context.Users.Find(-1);
 

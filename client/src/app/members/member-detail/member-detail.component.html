@@ -1,1 +1,41 @@
-<p>member-detail works!</p>
+<div class="container" *ngIf="member">
+    <div class="row mb-3">
+        <div class="col-6">
+            <div class="card">
+                <img src="{{member.photoUrl || './assets/user.png'}}" alt="{{member.name}}" class="card-img-top img-thumbnail">
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card">
+                <h5 class="card-header text-muted"><strong>Dane o właścicielu</strong></h5>
+                <div class="card-body">
+                    <h6 class="card-text text-muted">Użytkownik: {{member.name}}</h6>
+                    <h6 class="card-text text-muted">Jest z nami od: {{member.createDate}}</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card">
+                <h5 class="card-header text-muted"><strong>Dziennik kosztów</strong></h5>
+                <div class="card-body">
+                    <h6 class="card-text text-muted">Spalanie: 10.5l/100km</h6>
+                    <h6 class="card-text text-muted">Średni koszt przejechania 100km: 49.88zł</h6>
+                    <div class="details-btn btn btn-primary">Szczegóły</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <h4 class="card-header"><strong>{{member.brand}} {{member.model}}</strong></h4>
+                <div class="card-body">
+                    <h5 class="card-subtitle text-muted mb-2">Silnik: {{member.engineCapacity}}</h5>
+                    <h5 class="card-subtitle text-muted mb-2">Moc: {{member.enginePower}}KM</h5>
+                    <h5 class="card-subtitle text-muted">Przebieg: {{member.mileage}}km</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

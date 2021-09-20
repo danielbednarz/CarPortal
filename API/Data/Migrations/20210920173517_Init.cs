@@ -17,11 +17,13 @@ namespace API.Data.Migrations
                     PasswordHash = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     PasswordSalt = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AccountCreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastActive = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Brand = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Model = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Engine = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EngineCapacity = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EnginePower = table.Column<int>(type: "int", nullable: false),
+                    Mileage = table.Column<long>(type: "bigint", nullable: false),
                     ProductionDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
