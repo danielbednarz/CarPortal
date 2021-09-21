@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ToastrModule } from 'ngx-toastr';
 import { DxButtonModule, DxDataGridModule } from 'devextreme-angular';
-
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 
 @NgModule({
   declarations: [],
@@ -14,13 +14,15 @@ import { DxButtonModule, DxDataGridModule } from 'devextreme-angular';
       positionClass: 'toast-bottom-right'
     }),
     DxButtonModule,
-    DxDataGridModule
+    DxDataGridModule,
+    NgxGalleryModule
   ],
   exports: [
     BsDropdownModule,
     ToastrModule,
     DxButtonModule,
-    DxDataGridModule
+    DxDataGridModule,
+    NgxGalleryModule
   ]
 })
 export class SharedModule { }

@@ -2,7 +2,8 @@
     <div class="row mb-3">
         <div class="col-6">
             <div class="card">
-                <img src="{{member.photoUrl || './assets/user.png'}}" alt="{{member.name}}" class="card-img-top img-thumbnail">
+                <!-- <img src="{{member.photoUrl }}" alt="{{member.name}}" class="card-img-top img-thumbnail"> -->
+                <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
             </div>
         </div>
         <div class="col-3">
