@@ -7,8 +7,8 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/members" routerLinkActive="active">Przeglądaj</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/myProfile" routerLinkActive="active">Mój profil</a>
+        <li class="nav-item" *ngIf="(accountService.currentUser$ | async) as user">
+          <a class="nav-link" routerLink='/members/{{user.username}}' routerLinkActive="active">Mój profil</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/messages" routerLinkActive="active">Wiadomości</a>
@@ -22,7 +22,7 @@
     <div class="dropdown" *ngIf="(accountService.currentUser$ | async) as user" dropdown>
       <a class="dropdown-toggle text-light" dropdownToggle>{{user.username}} </a>
       <div class="dropdown-menu mt-3" *dropdownMenu>
-        <a class="dropdown-item">Edytuj profil</a>
+        <a routerLink='/member/edit' class="dropdown-item">Edytuj profil</a>
         <a class="dropdown-item" (click)="logout()">Wyloguj się</a>
       </div>
     </div>

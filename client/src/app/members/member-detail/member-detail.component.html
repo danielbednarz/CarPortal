@@ -1,8 +1,13 @@
 <div class="container" *ngIf="member">
     <div class="row mb-3">
+        <div class="col-12">
+            <h2>Mój profil</h2>
+        </div>
+    </div>
+    <div class="row mb-3">
+        
         <div class="col-6">
             <div class="card">
-                <!-- <img src="{{member.photoUrl }}" alt="{{member.name}}" class="card-img-top img-thumbnail"> -->
                 <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
             </div>
         </div>

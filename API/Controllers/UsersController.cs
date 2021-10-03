@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using API.Interfaces.Repositories;
 using API.DTOs;
 using AutoMapper;
+using System.Security.Claims;
 
 namespace API.Controllers
 {
@@ -42,6 +43,23 @@ namespace API.Controllers
             return Ok(data);
         }
 
+        [HttpPut]
+        public async Task<ActionResult> UpdateUser(MemberUpdateDto member)
+        {
+            var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = await _userRepository.GetUserByUsernameAsync(username);
 
+            _mapper.Map(member, user);
+            _userRepository.Update(user);
+
+            if(await _userRepository.SaveAllAsync())
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("Błąd przy próbie zaktualizowania użytkownika");
+            }
+        }
     }
 }

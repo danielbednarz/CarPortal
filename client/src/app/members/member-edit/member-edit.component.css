@@ -1,0 +1,12 @@
+.details-btn {
+    float: right;
+}
+
+.ngx-gallery { 
+    display: inline-block; 
+    margin-bottom: 20px; 
+}
+
+.fa-info-circle {
+    vertical-align: middle;
+}
