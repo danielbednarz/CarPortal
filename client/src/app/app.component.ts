@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, HostListener, OnInit, ViewEncapsulation } from '@angular/core';
 import { User } from './models/user';
 import { AccountService } from './services/account.service';
 
@@ -11,6 +11,10 @@ import { AccountService } from './services/account.service';
 export class AppComponent implements OnInit{
   title = 'Car Portal';
   users: any;
+  @HostListener("window:onbeforeunload",["$event"])
+    clearLocalStorage(event){
+        localStorage.clear();
+    }
 
   constructor(private accountService: AccountService) {}
 

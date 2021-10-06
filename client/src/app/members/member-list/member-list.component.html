@@ -1,6 +1,10 @@
-<h2>Lista użytkowników</h2>
-<div class="row">
-    <div *ngFor="let member of members" class="col-3">
+<div class="container">
+  <div class="row">
+    <h2>Lista użytkowników ({{members.length}})</h2>
+  </div>
+  <div class="row">
+    <div *ngFor="let member of members" class="col-3 mb-2 align-items-stretch">
       <app-member-card [member]="member"></app-member-card>
+    </div>
   </div>
 </div>

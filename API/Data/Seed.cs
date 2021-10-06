@@ -14,7 +14,7 @@ namespace API.Data
     {
         public static async Task SeedUsers(MainDatabaseContext context)
         {
-            if(await context.Users.AnyAsync())
+            if (await context.Users.AnyAsync())
             {
                 return;
             }
@@ -36,5 +36,30 @@ namespace API.Data
 
             await context.SaveChangesAsync();
         }
+
+        //private static void AddUsers(MainDatabaseContext context)
+        //{
+        //    var photo = new Photo
+        //    {
+        //        IsMain = true,
+        //        Url = "https://8.allegroimg.com/s1024/0cf8af/41505e654bd1af47b98a6ddc5da8"
+        //    };
+
+        //    var user = new User
+        //    {
+        //        UserName = "Szymon",
+        //        Name = "Szymon",
+        //        Brand = "Renault",
+        //        Model = "Scenic",
+        //        EngineCapacity = "1.6",
+        //        EnginePower = 82,
+        //        Mileage = 356000,
+        //        ProductionDate = new DateTime(1999, 10, 10),
+        //        Photos = photo
+        //    };
+        //    context.Users.Add(user);
+
+
+        //}
     }
 }
