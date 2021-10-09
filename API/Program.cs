@@ -23,7 +23,7 @@ namespace API
             {
                 var context = services.GetRequiredService<MainDatabaseContext>();
                 await context.Database.MigrateAsync();
-                await Seed.SeedUsers(context);
+                Seed.AddSeed(context);
             }
             catch(Exception ex)
             {

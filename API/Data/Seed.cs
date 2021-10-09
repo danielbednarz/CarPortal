@@ -12,14 +12,22 @@ namespace API.Data
 {
     public class Seed
     {
-        public static async Task SeedUsers(MainDatabaseContext context)
+        public static void AddSeed(MainDatabaseContext context)
         {
-            if (await context.Users.AnyAsync())
+            AddUsers(context);
+            AddBrands(context);
+
+            context.SaveChanges();
+        }
+
+        private static void AddUsers(MainDatabaseContext context)
+        {
+            if (context.Users.Any())
             {
                 return;
             }
 
-            var userData = await System.IO.File.ReadAllTextAsync("Data/UserSeedData.json");
+            var userData = System.IO.File.ReadAllText("Data/UserSeedData.json");
             var users = JsonSerializer.Deserialize<List<User>>(userData);
 
             foreach (var user in users)
@@ -34,7 +42,26 @@ namespace API.Data
                 context.Users.Add(user);
             }
 
-            await context.SaveChangesAsync();
+            context.SaveChanges();
+        }
+
+        private static void AddBrands(MainDatabaseContext context)
+        {
+            if (context.Brands.Any())
+            {
+                return;
+            }
+
+            var brands = new List<Brand>()
+            {
+                new Brand() { Name = "Audi"},
+                new Brand() { Name = "BMW" },
+                new Brand() { Name = "Volvo" },
+                new Brand() { Name = "Renault" },
+                new Brand() { Name = "Ferrari" },
+            };
+
+            context.AddRange(brands);
         }
 
         //private static void AddUsers(MainDatabaseContext context)

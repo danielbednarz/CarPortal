@@ -4,9 +4,11 @@ import { Router } from '@angular/router';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs/operators';
+import { Brand } from 'src/app/models/brand';
 import { Member } from 'src/app/models/member';
 import { User } from 'src/app/models/user';
 import { AccountService } from 'src/app/services/account.service';
+import { BrandsService } from 'src/app/services/brands.service';
 import { MembersService } from 'src/app/services/members.service';
 
 @Component({
@@ -18,6 +20,7 @@ export class MemberEditComponent implements OnInit {
   @ViewChild('editForm') editForm: NgForm;
   member: Member;
   user: User;
+  brands: Brand[];
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
   @HostListener("window:beforeunload", ['$event']) unloadNotification($event: any) {
@@ -27,12 +30,13 @@ export class MemberEditComponent implements OnInit {
   }
 
   constructor(private accountService: AccountService, private memberService: MembersService, 
-    private toastrService: ToastrService, private router: Router) { 
+    private toastrService: ToastrService, private router: Router, private brandService: BrandsService) { 
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
   }
 
   ngOnInit(): void {
     this.loadMember();
+    this.loadBrands();
     this.galleryOptions = [
       {
         imagePercent: 100,
@@ -42,6 +46,12 @@ export class MemberEditComponent implements OnInit {
         imageAnimation: NgxGalleryAnimation.Slide
       }
     ]
+  }
+
+  loadBrands() {
+    this.brandService.getBrands().subscribe(brands => {
+      this.brands = brands;
+    })
   }
 
   loadMember() {

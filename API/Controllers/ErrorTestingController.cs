@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    public class ErrorTestingController : BaseController
+    public class ErrorTestingController : AppController
     {
         private readonly MainDatabaseContext _context;
         public ErrorTestingController(MainDatabaseContext context)

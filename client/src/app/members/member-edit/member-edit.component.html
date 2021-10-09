@@ -43,7 +43,9 @@
             <div class="card">
                 <form #editForm="ngForm" autocomplete="off" id="editForm" (ngSubmit)="updateMember()">
                     <h4 class="card-header"><strong>Marka:</strong>
-                    <input [(ngModel)]="member.brand" type="text" name="brand" class="form-control mt-1"></h4>
+                    <select [(ngModel)]="member.brand" name="brand" class="form-select" data-live-search="true">
+                        <option *ngFor="let brand of brands" [value]="brand.name">{{brand.name}}</option>
+                    </select></h4>
                     <h4 class="card-header"><strong>Model:</strong>
                     <input [(ngModel)]="member.model" type="text" name="model" class="form-control mt-1"></h4>
                 

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
-    public class AccountController : BaseController
+    public class AccountController : AppController
     {
         private readonly MainDatabaseContext _context;
         private readonly ITokenService _tokenService;

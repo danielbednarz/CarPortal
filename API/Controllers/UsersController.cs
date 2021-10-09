@@ -14,7 +14,7 @@ using System.Security.Claims;
 namespace API.Controllers
 {
     [Authorize]
-    public class UsersController : BaseController
+    public class UsersController : AppController
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
