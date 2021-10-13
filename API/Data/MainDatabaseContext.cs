@@ -11,11 +11,14 @@ namespace API.Data
             
         }
 
-        public DbSet<User> Users { get; set; }
-        public DbSet<Brand> Brands { get; set; }
-
         // Add-Migration -o Data/Migrations Init
         // dotnet ef migrations add Init -o Data\Migrations
         // dotnet ef database update
+
+        public DbSet<User> Users { get; set; }
+        public DbSet<Brand> Brands { get; set; }
+        public DbSet<Model> Models { get; set; }
+
+
     }
 }

@@ -1,3 +1,5 @@
+import { Brand } from "./brand";
+import { Model } from "./model";
 import { Photo } from "./photo";
 
 export interface Member {
@@ -7,8 +9,10 @@ export interface Member {
     name: string;
     createDate: Date;
     lastActive: Date;
-    brand: string;
-    model: string;
+    brand: Brand;
+    brandId: number;
+    model: Model;
+    modelId: number;
     engineCapacity: string;
     enginePower: number;
     mileage: number;

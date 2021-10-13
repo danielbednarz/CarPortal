@@ -8,8 +8,11 @@ import { Brand } from 'src/app/models/brand';
 import { Member } from 'src/app/models/member';
 import { User } from 'src/app/models/user';
 import { AccountService } from 'src/app/services/account.service';
-import { BrandsService } from 'src/app/services/brands.service';
 import { MembersService } from 'src/app/services/members.service';
+import { CarPropertiesService } from 'src/app/services/carProperties.service';
+import { Model } from 'src/app/models/model';
+import value from 'globalize';
+
 
 @Component({
   selector: 'app-member-edit',
@@ -21,6 +24,7 @@ export class MemberEditComponent implements OnInit {
   member: Member;
   user: User;
   brands: Brand[];
+  models: Model[];
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
   @HostListener("window:beforeunload", ['$event']) unloadNotification($event: any) {
@@ -30,7 +34,7 @@ export class MemberEditComponent implements OnInit {
   }
 
   constructor(private accountService: AccountService, private memberService: MembersService, 
-    private toastrService: ToastrService, private router: Router, private brandService: BrandsService) { 
+    private toastrService: ToastrService, private router: Router, private carPropertiesService: CarPropertiesService) { 
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
   }
 
@@ -49,8 +53,14 @@ export class MemberEditComponent implements OnInit {
   }
 
   loadBrands() {
-    this.brandService.getBrands().subscribe(brands => {
+    this.carPropertiesService.getBrands().subscribe(brands => {
       this.brands = brands;
+    })
+  }
+
+  loadModels(id: number) {
+    this.carPropertiesService.getModels(id).subscribe(models => {
+      this.models = models;
     })
   }
 
@@ -58,10 +68,14 @@ export class MemberEditComponent implements OnInit {
     this.memberService.getMember(this.user.username).subscribe(member => {
       this.member = member;
       this.galleryImages = this.getImages();
+      this.loadModels(member.brandId);
     })
   }
 
   updateMember() {
+    debugger;
+    this.member.brandId = Number(this.member.brandId);
+    this.member.modelId = Number(this.member.modelId);
     this.memberService.updateMember(this.member).subscribe(() => {
       this.toastrService.success("Profil został zaktualizowany");
       this.editForm.reset(this.member);
@@ -82,4 +96,11 @@ export class MemberEditComponent implements OnInit {
     }
     return imageUrls;
   }
+
+  onChange(e) {
+    const brandName: number = parseInt(e.target['value']);
+    this.loadModels(brandName);
+  }
 }
+
+

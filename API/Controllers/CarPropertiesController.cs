@@ -12,17 +12,25 @@ namespace API.Controllers
 {
     public class CarPropertiesController : AppController
     {
-        private readonly IBrandRepository _brandRepository;
+        private readonly ICarPropertiesRepository _carPropertiesRepository;
 
-        public CarPropertiesController(IBrandRepository brandRepository)
+        public CarPropertiesController(ICarPropertiesRepository carPropertiesRepository)
         {
-            _brandRepository = brandRepository;
+            _carPropertiesRepository = carPropertiesRepository;
         }
 
         [HttpGet("getBrands")]
         public async Task<ActionResult<List<Brand>>> GetBrands()
         {
-            var data = await _brandRepository.GetBrandsToList();
+            var data = await _carPropertiesRepository.GetBrandsToList();
+
+            return Ok(data);
+        }
+
+        [HttpGet("getModels/{id}")]
+        public async Task<ActionResult<List<Brand>>> GetModels(int id)
+        {
+            var data = await _carPropertiesRepository.GetModelsToList(id);
 
             return Ok(data);
         }

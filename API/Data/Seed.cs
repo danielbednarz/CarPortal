@@ -14,8 +14,10 @@ namespace API.Data
     {
         public static void AddSeed(MainDatabaseContext context)
         {
-            AddUsers(context);
             AddBrands(context);
+            AddModels(context);
+            AddUsers(context);
+
 
             context.SaveChanges();
         }
@@ -62,6 +64,72 @@ namespace API.Data
             };
 
             context.AddRange(brands);
+            context.SaveChanges();
+        }
+
+        private static void AddModels(MainDatabaseContext context)
+        {
+            if (context.Models.Any())
+            {
+                return;
+            }
+
+            #region Volvo models
+
+            var volvo = context.Brands.FirstOrDefault(x => x.Name == "Volvo");
+            var volvoModels = new List<Model>()
+            {
+                new Model() {BrandId = volvo.Id, Name = "S40" },
+            };
+            context.AddRange(volvoModels);
+
+            #endregion
+
+            #region Renault models
+
+            var renault = context.Brands.FirstOrDefault(x => x.Name == "Renault");
+            var renaultModels = new List<Model>()
+            {
+                new Model() {BrandId = renault.Id, Name = "Scenic" },
+            };
+            context.AddRange(renaultModels);
+
+            #endregion
+
+            #region Audi models
+
+            var audi = context.Brands.FirstOrDefault(x => x.Name == "Audi");
+            var audiModels = new List<Model>()
+            {
+                new Model() {BrandId = audi.Id, Name = "80" },
+            };
+            context.AddRange(audiModels);
+
+            #endregion
+
+            #region Ferrari models
+
+            var ferrari = context.Brands.FirstOrDefault(x => x.Name == "Ferrari");
+            var ferrariModels = new List<Model>()
+            {
+                new Model() {BrandId = ferrari.Id, Name = "SF90 Stradale" },
+            };
+            context.AddRange(ferrariModels);
+
+            #endregion
+
+            #region BMW models
+
+            var bmw = context.Brands.FirstOrDefault(x => x.Name == "BMW");
+            var bmwModels = new List<Model>()
+            {
+                new Model() { BrandId = bmw.Id, Name = "E46" },
+            };
+            context.AddRange(bmwModels);
+
+            #endregion
+
+            context.SaveChanges();
         }
 
         //private static void AddUsers(MainDatabaseContext context)

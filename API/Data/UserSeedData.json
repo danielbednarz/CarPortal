@@ -5,8 +5,8 @@
     "Name": "Daniel",
     "CreateDate": "2021-08-01",
     "LastActive": "2021-08-28",
-    "Brand": "Volvo",
-    "Model": "S40",
+    "BrandId": 3,
+    "ModelId": 1,
     "EngineCapacity": "2.4i",
 	"EnginePower": 170,
 	"Mileage": 251600,
@@ -32,8 +32,8 @@
     "Name": "Szymon",
     "CreateDate": "2021-08-01",
     "LastActive": "2021-08-28",
-    "Brand": "Renualt",
-    "Model": "Scenic",
+    "BrandId": 4,
+    "ModelId": 2,
     "EngineCapacity": "1.6",
 	"EnginePower": 82,
 	"Mileage": 398423,
@@ -55,8 +55,8 @@
     "Name": "Admin",
     "CreateDate": "2021-08-01",
     "LastActive": "2021-08-28",
-    "Brand": "Ferrari",
-    "Model": "SF90 Stradale",
+    "BrandId": 5,
+    "ModelId": 4,
     "EngineCapacity": "4.0",
 	"EnginePower": 500,
 	"Mileage": 1560,
@@ -74,8 +74,8 @@
     "Name": "Maciek",
     "CreateDate": "2021-08-01",
     "LastActive": "2021-08-28",
-    "Brand": "BMW",
-    "Model": "E46",
+    "BrandId": 2,
+    "ModelId": 5,
     "EngineCapacity": "2.2",
 	"EnginePower": 170,
 	"Mileage": 999675,
@@ -83,25 +83,6 @@
     "Photos": [
       {
         "Url": "https://www.wyborkierowcow.pl/wp-content/uploads/2020/05/BMW-serii-3-E46-20.jpg",
-        "IsMain": true
-      }
-    ]
-  },
-    {
-    "UserName": "Damian",
-    "DateOfBirth": "1999-03-23",
-    "Name": "Damian",
-    "CreateDate": "2021-08-01",
-    "LastActive": "2021-08-28",
-    "Brand": "Audi",
-    "Model": "A3",
-    "EngineCapacity": "1.9",
-	"EnginePower": 105,
-	"Mileage": 643234,
-    "ProductionDate": "2007-05-09",
-    "Photos": [
-      {
-        "Url": "https://lh3.googleusercontent.com/proxy/6im_UQJgo1GzSXC26HPUMgN23Y2PhEA_Mfz02LOmRTxWxtov9Tv-JaHvpcnn6aUfqHUlffpSO3rv7U9Wq-XkAKkHvsnBwghMPh0_1OsQd-uG6c9rMaMhpQ",
         "IsMain": true
       }
     ]

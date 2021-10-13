@@ -1,4 +1,5 @@
-﻿using System;
+﻿using API.Entities;
+using System;
 using System.Collections.Generic;
 
 namespace API.DTOs
@@ -11,8 +12,10 @@ namespace API.DTOs
         public string Name { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime LastActive { get; set; }
-        public string Brand { get; set; }
-        public string Model { get; set; }
+        public int BrandId { get; set; }
+        public Brand Brand { get; set; }
+        public int ModelId { get; set; }
+        public Model Model { get; set; }
         public string EngineCapacity { get; set; }
         public int EnginePower { get; set; }
         public long Mileage { get; set; }

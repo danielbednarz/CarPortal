@@ -13,8 +13,10 @@ namespace API.Entities
         public string Name { get; set; }
         public DateTime CreateDate { get; set; } = DateTime.Now;
         public DateTime LastActive { get; set; } = DateTime.Now;
-        public string Brand { get; set; }
-        public string Model { get; set; }
+        public int BrandId { get; set; }
+        public virtual Brand Brand { get; set; }
+        public int ModelId { get; set; }
+        public virtual Model Model { get; set; }
         public string EngineCapacity { get; set; }
         public int EnginePower { get; set; }
         public long Mileage { get; set; }

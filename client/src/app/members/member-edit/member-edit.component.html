@@ -43,11 +43,25 @@
             <div class="card">
                 <form #editForm="ngForm" autocomplete="off" id="editForm" (ngSubmit)="updateMember()">
                     <h4 class="card-header"><strong>Marka:</strong>
-                    <select [(ngModel)]="member.brand" name="brand" class="form-select" data-live-search="true">
-                        <option *ngFor="let brand of brands" [value]="brand.name">{{brand.name}}</option>
-                    </select></h4>
+                        <select [(ngModel)]="member.brandId" name="brand" class="form-select" (change)="onChange($event)">
+                            
+                            <option *ngFor="let brand of brands" [value]="brand.id" [label]="brand.name"></option>
+                        </select>
+                        <!-- <mat-form-field appearance="fill">
+                            <mat-label>Marka</mat-label>
+                            <mat-select>
+                              <mat-option *ngFor="let brand of brands" [value]="brand.name">
+                                {{brand.name}}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field> -->
+                    </h4>
                     <h4 class="card-header"><strong>Model:</strong>
-                    <input [(ngModel)]="member.model" type="text" name="model" class="form-control mt-1"></h4>
+                        <select [(ngModel)]="member.modelId" id="modelSelect" name="model" class="form-select" required>
+                            <option value="" selected hidden></option>
+                            <option *ngFor="let model of models" [value]="model.id" [label]="model.name"></option>
+                        </select>
+                    </h4>
                 
                     <div class="card-body">
                         <h5 class="card-subtitle text-muted mb-1">Silnik:</h5>

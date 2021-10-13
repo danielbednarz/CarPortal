@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
+import { FindOutMoreComponent } from './find-out-more/find-out-more.component';
 import { AuthGuard } from './guards/auth.guard';
 import { UnsavedChangesBlockGuard } from './guards/unsaved-changes-block.guard';
 import { HomeComponent } from './home/home.component';
@@ -15,6 +16,7 @@ import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
+  {path: 'info', component: FindOutMoreComponent},
   {
     path: '',
     runGuardsAndResolvers: 'always',
@@ -26,12 +28,13 @@ const routes: Routes = [
       {path: 'myProfile', component: MyProfileComponent},
       {path: 'messages', component: MessagesComponent},
       {path: 'register', component: RegisterComponent},
+      
     ]
   },
   {path: 'errors', component: TestErrorsComponent},
   {path: 'not-found', component: NotFoundComponent},
   {path: 'server-error', component: ServerErrorComponent},
-  {path: '**', component: HomeComponent, pathMatch: 'full'},
+  {path: '**', component: NotFoundComponent},
   
 ];
 

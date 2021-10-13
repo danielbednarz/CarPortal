@@ -23,6 +23,9 @@ import { MemberCardComponent } from './members/member-card/member-card.component
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { LoadingInterceptor } from './interceptors/loading.interceptor';
+import { FindOutMoreComponent } from './find-out-more/find-out-more.component';
+import { DxSelectBoxModule } from 'devextreme-angular';
+
 
 @NgModule({
   declarations: [
@@ -39,7 +42,8 @@ import { LoadingInterceptor } from './interceptors/loading.interceptor';
     NotFoundComponent,
     ServerErrorComponent,
     MemberCardComponent,
-    MemberEditComponent
+    MemberEditComponent,
+    FindOutMoreComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +51,8 @@ import { LoadingInterceptor } from './interceptors/loading.interceptor';
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    DxSelectBoxModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
@@ -57,3 +62,4 @@ import { LoadingInterceptor } from './interceptors/loading.interceptor';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+ 

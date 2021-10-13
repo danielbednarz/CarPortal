@@ -21,7 +21,7 @@ namespace API.Extensions
         {
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IBrandRepository, BrandRepository>();
+            services.AddScoped<ICarPropertiesRepository, CarPropertiesRepository>();
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             services.AddDbContext<MainDatabaseContext>(options =>
             {

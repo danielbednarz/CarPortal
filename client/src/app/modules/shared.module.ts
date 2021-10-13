@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ToastrModule } from 'ngx-toastr';
-import { DxButtonModule, DxDataGridModule } from 'devextreme-angular';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { NgxSpinnerModule } from 'ngx-spinner';
+
 
 @NgModule({
   declarations: [],
@@ -14,18 +14,14 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right'
     }),
-    DxButtonModule,
-    DxDataGridModule,
     NgxGalleryModule,
     NgxSpinnerModule
   ],
   exports: [
     BsDropdownModule,
     ToastrModule,
-    DxButtonModule,
-    DxDataGridModule,
     NgxGalleryModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
   ]
 })
 export class SharedModule { }
