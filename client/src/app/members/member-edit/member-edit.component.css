@@ -10,3 +10,11 @@
 .fa-info-circle {
     vertical-align: middle;
 }
+
+.form-select {
+    background-color: rgb(190, 190, 190);
+}
+
+.form-control {
+    background-color: rgb(190, 190, 190);
+}

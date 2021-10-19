@@ -25,7 +25,7 @@ import { MemberEditComponent } from './members/member-edit/member-edit.component
 import { LoadingInterceptor } from './interceptors/loading.interceptor';
 import { FindOutMoreComponent } from './find-out-more/find-out-more.component';
 import { DxSelectBoxModule } from 'devextreme-angular';
-
+import { PhotoAddComponent } from './members/photo-add/photo-add.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +43,8 @@ import { DxSelectBoxModule } from 'devextreme-angular';
     ServerErrorComponent,
     MemberCardComponent,
     MemberEditComponent,
-    FindOutMoreComponent
+    FindOutMoreComponent,
+    PhotoAddComponent
   ],
   imports: [
     BrowserModule,

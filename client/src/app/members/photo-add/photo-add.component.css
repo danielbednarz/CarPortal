@@ -1,0 +1,7 @@
+.nv-file-over {
+    border: solid 2px white;
+    background-color: rgb(190, 190, 190);
+    transition-duration: 400ms;
+    transition-timing-function: ease-in;
+    opacity: 0.7;
+}

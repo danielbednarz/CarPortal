@@ -73,7 +73,6 @@ export class MemberEditComponent implements OnInit {
   }
 
   updateMember() {
-    debugger;
     this.member.brandId = Number(this.member.brandId);
     this.member.modelId = Number(this.member.modelId);
     this.memberService.updateMember(this.member).subscribe(() => {

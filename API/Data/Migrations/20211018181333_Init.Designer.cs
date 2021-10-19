@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Data.Migrations
 {
     [DbContext(typeof(MainDatabaseContext))]
-    [Migration("20211013180943_Init")]
+    [Migration("20211018181333_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -71,6 +71,9 @@ namespace API.Data.Migrations
 
                     b.Property<bool>("IsMain")
                         .HasColumnType("bit");
+
+                    b.Property<string>("PublicId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Url")
                         .HasColumnType("nvarchar(max)");

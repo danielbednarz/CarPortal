@@ -38,7 +38,7 @@ namespace API.Data.Migrations
                         column: x => x.BrandId,
                         principalTable: "Brands",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -85,6 +85,7 @@ namespace API.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Url = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsMain = table.Column<bool>(type: "bit", nullable: false),
+                    PublicId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AppUserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

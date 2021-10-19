@@ -38,9 +38,12 @@ export class MembersService {
     return this.http.put(this.baseUrl + 'users', member).pipe(
       map(() => {
         const i = this.members.indexOf(member);
-        debugger;
         this.members[i] = member;
       })
     );
+  }
+
+  setMainPhoto(photoId: number) {
+    return this.http.put(this.baseUrl + 'users/set-main-photo/' + photoId, {});
   }
 }
