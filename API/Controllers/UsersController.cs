@@ -43,7 +43,7 @@ namespace API.Controllers
         {
             var user = await _userRepository.GetMemberAsync(username);
             var data = _mapper.Map<MemberDto>(user);
-            
+
             return Ok(data);
         }
 
@@ -56,7 +56,7 @@ namespace API.Controllers
             _mapper.Map(member, user);
             _userRepository.Update(user);
 
-            if(await _userRepository.SaveAllAsync())
+            if (await _userRepository.SaveAllAsync())
             {
                 return Ok();
             }
@@ -72,9 +72,14 @@ namespace API.Controllers
             var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var user = await _userRepository.GetUserByUsernameAsync(username);
 
+            if (user.Photos.Count >= 5)
+            {
+                return BadRequest("Możesz mieć maksymalnie 5 zdjęć");
+            }
+
             var result = await _photoService.AddPhoto(file);
 
-            if(result.Error != null)
+            if (result.Error != null)
             {
                 return BadRequest(result.Error.Message);
             }
@@ -85,21 +90,21 @@ namespace API.Controllers
                 PublicId = result.PublicId
             };
 
-            if(user.Photos.Count == 0)
+            if (user.Photos.Count == 0)
             {
                 photo.IsMain = true;
             }
 
             user.Photos.Add(photo);
 
-            if(!await _userRepository.SaveAllAsync())
+            if (!await _userRepository.SaveAllAsync())
             {
                 return BadRequest("Błąd przy próbie dodania zdjęcia");
             }
 
             var data = _mapper.Map<PhotoDto>(photo);
 
-            return CreatedAtRoute("GetUser", new { username = user.UserName}, data);
+            return CreatedAtRoute("GetUser", new { username = user.UserName }, data);
         }
 
         [HttpPut("set-main-photo/{photoId}")]
@@ -110,25 +115,59 @@ namespace API.Controllers
 
             var photo = user.Photos.FirstOrDefault(x => x.Id == photoId);
 
-            if(photo.IsMain)
+            if (photo.IsMain)
             {
                 return BadRequest("To zdjęcie jest już ustawione jako profilowe");
             }
 
             var currentMainPhoto = user.Photos.FirstOrDefault(x => x.IsMain);
 
-            if(currentMainPhoto != null)
+            if (currentMainPhoto != null)
             {
                 currentMainPhoto.IsMain = false;
             }
             photo.IsMain = true;
 
-            if(!await _userRepository.SaveAllAsync())
+            if (!await _userRepository.SaveAllAsync())
             {
                 return BadRequest("Błąd przy próbie zmiany zdjęcia profilowego");
             }
 
             return NoContent();
+        }
+
+        [HttpDelete("delete-photo/{photoId}")]
+        public async Task<ActionResult> DeletePhoto(int photoId)
+        {
+            var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = await _userRepository.GetUserByUsernameAsync(username);
+
+            var photo = user.Photos.FirstOrDefault(x => x.Id == photoId);
+
+            if (photo == null)
+            {
+                return NotFound();
+            }
+
+            if (photo.IsMain)
+            {
+                return BadRequest("Nie można usunąć zdjęcia profilowego");
+            }
+
+            if (photo.PublicId != null)
+            {
+                var result = await _photoService.DeletePhoto(photo.PublicId);
+
+                if (result.Error != null)
+                {
+                    return BadRequest(result.Error.Message);
+                }
+            }
+
+            user.Photos.Remove(photo);
+            await _userRepository.SaveAllAsync();
+
+            return Ok();
         }
     }
 }

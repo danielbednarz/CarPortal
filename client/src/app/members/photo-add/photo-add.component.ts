@@ -7,6 +7,7 @@ import { User } from 'src/app/models/user';
 import { take } from 'rxjs/operators';
 import { MembersService } from 'src/app/services/members.service';
 import { Photo } from 'src/app/models/photo';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-photo-add',
@@ -21,8 +22,9 @@ export class PhotoAddComponent implements OnInit {
   hasBaseDropZoneOver = false;
   baseUrl = environment.baseApiUrl;
 
+  PHOTO_LIMIT: number = 5;
 
-  constructor(private accountService: AccountService, private memberService: MembersService) { 
+  constructor(private accountService: AccountService, private memberService: MembersService, private toastrService: ToastrService) { 
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
 
     this.uploader = new FileUploader({
@@ -59,10 +61,22 @@ export class PhotoAddComponent implements OnInit {
       this.accountService.setCurrentUser(this.user);
       this.member.photoUrl = photo.url;
       this.member.photos.forEach(p => {
-        if(p.isMain) p.isMain = false;
-        if(p.id === photo.id) p.isMain = true;
-      })
-    })
+        if(p.isMain) {
+          p.isMain = false;
+        } 
+        if(p.id === photo.id) {
+          p.isMain = true;
+        } 
+      });
+      this.toastrService.success("Zdjęcie profilowe zostało zmienione");
+    });
+  }
+
+  deletePhoto(photoId: number) {
+    this.memberService.deletePhoto(photoId).subscribe(() => {
+      this.member.photos = this.member.photos.filter(x => x.id !== photoId);
+      this.toastrService.success("Zdjęcie zostało usunięte");
+    });
   }
 
 }
