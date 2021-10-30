@@ -24,7 +24,24 @@ namespace API.Data.Repositories
 
         public async Task<IEnumerable<Model>> GetModelsToList(int id)
         {
-            return await _context.Models.Where(x => x.BrandId == id).ToListAsync();
+            return await _context.Models.Where(x => x.BrandId == id).OrderBy(y => y.Name).ToListAsync();
+        }
+
+        public async Task<IEnumerable<EnginesForModel>> GetEnginesForModel(int modelId)
+        {
+            return await _context.EnginesForModels.Include(x => x.Engine).Include(y => y.Model).Where(i => i.ModelId == modelId).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Engine>> GetEngines(List<int> engineIds)
+        {
+            var engineList = new List<Engine>();
+
+            foreach(var item in engineIds)
+            {
+                engineList.Add(_context.Engines.FirstOrDefault(x => x.Id == item));
+            }
+
+            return engineList.OrderBy(x => x.EngineCapacity);
         }
     }
 }

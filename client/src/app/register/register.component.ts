@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Brand } from '../models/brand';
+import { Engine } from '../models/engine';
+import { EnginesForModel } from '../models/enginesForModel';
 import { Model } from '../models/model';
 import { AccountService } from '../services/account.service';
 import { CarPropertiesService } from '../services/carProperties.service';
@@ -17,6 +19,7 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   brands: Brand[];
   models: Model[];
+  engines: EnginesForModel[];
 
   constructor(private accountService: AccountService, private toastr: ToastrService,
     private formBuilder: FormBuilder, private carPropertiesService: CarPropertiesService) { }
@@ -76,10 +79,23 @@ export class RegisterComponent implements OnInit {
     })
   }
 
-  onChange(e) {
+  loadEngines(modelId: number) {
+    this.carPropertiesService.getEnginesForModel(modelId).subscribe(engines => {
+      this.engines = engines;
+    })
+  }
+
+  onBrandChange(e) {
     this.registerForm.controls.model.setValue("");
+    this.registerForm.controls.engineCapacity.setValue("");
     const brandName: number = parseInt(e.target['value']);
     this.loadModels(brandName);
+  }
+
+  onModelChange(e) {
+    this.registerForm.controls.engineCapacity.setValue("");
+    const modelName: number = parseInt(e.target['value']);
+    this.loadEngines(modelName);
   }
 
 }

@@ -28,11 +28,29 @@ namespace API.Controllers
         }
 
         [HttpGet("getModels/{id}")]
-        public async Task<ActionResult<List<Brand>>> GetModels(int id)
+        public async Task<ActionResult<List<Model>>> GetModels(int id)
         {
             var data = await _carPropertiesRepository.GetModelsToList(id);
 
             return Ok(data);
         }
+
+        [HttpGet("getEnginesForModel/{modelId}")]
+        public async Task<ActionResult<List<EnginesForModel>>> GetEnginesForModel(int modelId)
+        {
+            var enginesForModel = await _carPropertiesRepository.GetEnginesForModel(modelId);
+
+            var engineIds = new List<int>();
+
+            foreach(var item in enginesForModel)
+            {
+                engineIds.Add(item.EngineId);
+            }
+
+            var data = await _carPropertiesRepository.GetEngines(engineIds);
+
+            return Ok(data);
+        }
+
     }
 }

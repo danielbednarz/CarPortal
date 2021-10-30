@@ -5,12 +5,11 @@ using System.Threading.Tasks;
 
 namespace API.Entities
 {
-    public class Model
+    public class Engine
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public int BrandId { get; set; }
-        public virtual Brand Brand { get; set; }
+        public string EngineCapacity { get; set; }
+        public int EnginePower { get; set; }
         public virtual ICollection<EnginesForModel> EnginesForModel { get; set; }
     }
 }

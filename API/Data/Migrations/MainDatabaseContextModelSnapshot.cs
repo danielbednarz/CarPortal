@@ -37,6 +37,46 @@ namespace API.Data.Migrations
                     b.ToTable("Brands");
                 });
 
+            modelBuilder.Entity("API.Entities.Engine", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("EngineCapacity")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("EnginePower")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Engines");
+                });
+
+            modelBuilder.Entity("API.Entities.EnginesForModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("EngineId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ModelId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EngineId");
+
+                    b.HasIndex("ModelId");
+
+                    b.ToTable("EnginesForModels");
+                });
+
             modelBuilder.Entity("API.Entities.Model", b =>
                 {
                     b.Property<int>("Id")
@@ -135,12 +175,31 @@ namespace API.Data.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("API.Entities.EnginesForModel", b =>
+                {
+                    b.HasOne("API.Entities.Engine", "Engine")
+                        .WithMany("EnginesForModel")
+                        .HasForeignKey("EngineId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("API.Entities.Model", "Model")
+                        .WithMany("EnginesForModel")
+                        .HasForeignKey("ModelId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Engine");
+
+                    b.Navigation("Model");
+                });
+
             modelBuilder.Entity("API.Entities.Model", b =>
                 {
                     b.HasOne("API.Entities.Brand", "Brand")
                         .WithMany()
                         .HasForeignKey("BrandId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Brand");
@@ -151,7 +210,7 @@ namespace API.Data.Migrations
                     b.HasOne("API.Entities.User", "AppUser")
                         .WithMany("Photos")
                         .HasForeignKey("AppUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("AppUser");
@@ -162,18 +221,28 @@ namespace API.Data.Migrations
                     b.HasOne("API.Entities.Brand", "Brand")
                         .WithMany()
                         .HasForeignKey("BrandId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("API.Entities.Model", "Model")
                         .WithMany()
                         .HasForeignKey("ModelId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Brand");
 
                     b.Navigation("Model");
+                });
+
+            modelBuilder.Entity("API.Entities.Engine", b =>
+                {
+                    b.Navigation("EnginesForModel");
+                });
+
+            modelBuilder.Entity("API.Entities.Model", b =>
+                {
+                    b.Navigation("EnginesForModel");
                 });
 
             modelBuilder.Entity("API.Entities.User", b =>

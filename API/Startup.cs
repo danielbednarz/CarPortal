@@ -1,15 +1,10 @@
-using API.Data;
 using API.Extensions;
 using API.Middleware;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
+using System.Text.Json.Serialization;
 
 namespace API
 {
@@ -27,7 +22,8 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAppServices(_config);
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
             services.AddCors();
             services.AddIdentityServices(_config);
         }

@@ -26,11 +26,10 @@
       name="brand"
       class="form-select"
       formControlName="brand"
-      (change)="onChange($event)"
+      (change)="onBrandChange($event)"
       required
     >
       <option
-        class="text-muted"
         label="Marka samochodu"
         selected
         hidden
@@ -58,6 +57,7 @@
       name="model"
       class="form-select"
       formControlName="model"
+      (change)="onModelChange($event)"
       required
     >
       <option label="Model" selected hidden></option>
@@ -77,7 +77,7 @@
 
   <!-- Pojemność silnika -->
   <div class="form-group">
-    <input
+    <!-- <input
       [class.is-invalid]="
         registerForm.get('engineCapacity').errors &&
         registerForm.get('engineCapacity').touched
@@ -86,7 +86,27 @@
       class="form-control"
       formControlName="engineCapacity"
       placeholder="Pojemność silnika"
-    />
+    /> -->
+    <select
+    [class.is-invalid]="
+      registerForm.get('engineCapacity').errors && registerForm.get('engineCapacity').touched
+    "
+    name="engineCapacity"
+    class="form-select"
+    formControlName="engineCapacity"
+    required
+  >
+    <option
+      label="Pojemność silnika"
+      selected
+      hidden
+    ></option>
+    <option
+      *ngFor="let engine of engines"
+      [value]="engine.id"
+      [label]="engine.engineCapacity"
+    ></option>
+  </select>
     <div
       *ngIf="registerForm.get('engineCapacity').hasError('required')"
       class="invalid-feedback"

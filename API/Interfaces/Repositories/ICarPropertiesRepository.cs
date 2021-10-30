@@ -10,5 +10,7 @@ namespace API.Interfaces.Repositories
     {
         Task<IEnumerable<Brand>> GetBrandsToList();
         Task<IEnumerable<Model>> GetModelsToList(int id);
+        Task<IEnumerable<EnginesForModel>> GetEnginesForModel(int modelId);
+        Task<IEnumerable<Engine>> GetEngines(List<int> engineIds);
     }
 }
