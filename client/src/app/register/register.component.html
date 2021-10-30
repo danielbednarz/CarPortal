@@ -1,12 +1,224 @@
-<form #registerForm="ngForm" (ngSubmit)="register()" autocomplete="off">
-    <h1 class="text-center">Rejestracja</h1>
-    <hr>
-    <div class="form-group">
-        <input type="text" class="form-control mb-2" name="username" [(ngModel)]="model.username" placeholder="Nazwa użytkownika">
-        <input type="password" class="form-control" name="password" [(ngModel)]="model.password" placeholder="Hasło">
+<form [formGroup]="registerForm" (ngSubmit)="register()" autocomplete="off">
+  <h1 class="text-center">Rejestracja</h1>
+  <hr />
+
+  <!-- Nazwa użytkownika -->
+  <div class="form-group">
+    <input
+      [class.is-invalid]="
+        registerForm.get('username').errors &&
+        registerForm.get('username').touched
+      "
+      type="text"
+      class="form-control"
+      formControlName="username"
+      placeholder="Nazwa użytkownika"
+    />
+    <div class="invalid-feedback">Podaj nazwę użytkownika</div>
+  </div>
+
+  <!-- Marka samochodu -->
+  <div class="form-group">
+    <select
+      [class.is-invalid]="
+        registerForm.get('brand').errors && registerForm.get('brand').touched
+      "
+      name="brand"
+      class="form-select"
+      formControlName="brand"
+      (change)="onChange($event)"
+      required
+    >
+      <option
+        class="text-muted"
+        label="Marka samochodu"
+        selected
+        hidden
+      ></option>
+      <option
+        *ngFor="let brand of brands"
+        [value]="brand.id"
+        [label]="brand.name"
+      ></option>
+    </select>
+    <div
+      *ngIf="registerForm.get('brand').hasError('required')"
+      class="invalid-feedback"
+    >
+      Podaj markę samochodu
     </div>
-    <div class="form-group text-center">
-        <button class="btn btn-success mr-2" type="submit">Zarejestruj się</button>
-        <button class="btn btn-danger mr-2" (click)="cancel()" type="button">Anuluj</button>
+  </div>
+
+  <!-- Model samochodu -->
+  <div class="form-group">
+    <select
+      [class.is-invalid]="
+        registerForm.get('model').errors && registerForm.get('model').touched
+      "
+      name="model"
+      class="form-select"
+      formControlName="model"
+      required
+    >
+      <option label="Model" selected hidden></option>
+      <option
+        *ngFor="let model of models"
+        [value]="model.id"
+        [label]="model.name"
+      ></option>
+    </select>
+    <div
+      *ngIf="registerForm.get('model').hasError('required')"
+      class="invalid-feedback"
+    >
+      Podaj model samochodu
     </div>
+  </div>
+
+  <!-- Pojemność silnika -->
+  <div class="form-group">
+    <input
+      [class.is-invalid]="
+        registerForm.get('engineCapacity').errors &&
+        registerForm.get('engineCapacity').touched
+      "
+      type="engineCapacity"
+      class="form-control"
+      formControlName="engineCapacity"
+      placeholder="Pojemność silnika"
+    />
+    <div
+      *ngIf="registerForm.get('engineCapacity').hasError('required')"
+      class="invalid-feedback"
+    >
+      Podaj pojemność silnika
+    </div>
+  </div>
+
+  <!-- Moc silnika -->
+  <div class="form-group">
+    <input
+      [class.is-invalid]="
+        registerForm.get('enginePower').errors &&
+        registerForm.get('enginePower').touched
+      "
+      type="number"
+      class="form-control"
+      formControlName="enginePower"
+      placeholder="Moc silnika [KM]"
+    />
+    <div
+      *ngIf="registerForm.get('enginePower').hasError('required')"
+      class="invalid-feedback"
+    >
+      Podaj moc silnika
+    </div>
+  </div>
+
+  <!-- Przebieg -->
+  <div class="form-group">
+    <input
+      [class.is-invalid]="
+        registerForm.get('mileage').errors &&
+        registerForm.get('mileage').touched
+      "
+      type="number"
+      class="form-control"
+      formControlName="mileage"
+      placeholder="Przebieg [km]"
+    />
+    <div
+      *ngIf="registerForm.get('mileage').hasError('required')"
+      class="invalid-feedback"
+    >
+      Podaj przebieg
+    </div>
+  </div>
+
+  <!-- Rok produkcji -->
+  <div class="form-group">
+    <input
+      [class.is-invalid]="
+        registerForm.get('productionDate').errors &&
+        registerForm.get('productionDate').touched
+      "
+      type="date"
+      class="form-control"
+      formControlName="productionDate"
+      placeholder="Data produkcji"
+    />
+    <div
+      *ngIf="registerForm.get('productionDate').hasError('required')"
+      class="invalid-feedback"
+    >
+      Podaj rok produkcji
+    </div>
+  </div>
+
+  <!-- Hasło -->
+  <div class="form-group">
+    <input
+      [class.is-invalid]="
+        registerForm.get('password').errors &&
+        registerForm.get('password').touched
+      "
+      type="password"
+      class="form-control"
+      formControlName="password"
+      placeholder="Hasło"
+    />
+    <div
+      *ngIf="registerForm.get('password').hasError('required')"
+      class="invalid-feedback"
+    >
+      Podaj hasło
+    </div>
+    <div
+      *ngIf="registerForm.get('password').hasError('minlength')"
+      class="invalid-feedback"
+    >
+      Hasło musi zawierać co najmniej 8 znaków
+    </div>
+    <div
+      *ngIf="registerForm.get('password').hasError('maxlength')"
+      class="invalid-feedback"
+    >
+      Hasło może zawierać maksymalnie 32 znaki
+    </div>
+  </div>
+
+  <!-- Powtórz hasło -->
+  <div class="form-group">
+    <input
+      [class.is-invalid]="
+        registerForm.get('confirmPassword').errors &&
+        registerForm.get('confirmPassword').touched
+      "
+      type="password"
+      class="form-control"
+      formControlName="confirmPassword"
+      placeholder="Powtórz hasło"
+    />
+    <div
+      *ngIf="registerForm.get('confirmPassword').hasError('required')"
+      class="invalid-feedback"
+    >
+      Podaj ponownie hasło
+    </div>
+    <div
+      *ngIf="registerForm.get('confirmPassword').hasError('isMatching')"
+      class="invalid-feedback"
+    >
+      Hasła są różne
+    </div>
+  </div>
+
+  <div class="form-group text-center">
+    <button class="btn btn-success mr-2" type="submit">Zarejestruj się</button>
+    <button class="btn btn-danger mr-2" (click)="cancel()" type="button">
+      Anuluj
+    </button>
+  </div>
 </form>
+<p>Form val: {{ registerForm.value | json }}</p>
+<p>Form val: {{ registerForm.status | json }}</p>
