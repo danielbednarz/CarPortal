@@ -1,4 +1,4 @@
-<form [formGroup]="registerForm" (ngSubmit)="register()" autocomplete="off">
+<form [formGroup]="registerForm" (ngSubmit)="registerForm.valid && register()" autocomplete="off">
   <h1 class="text-center">Rejestracja</h1>
   <hr />
 
@@ -21,11 +21,12 @@
   <div class="form-group">
     <select
       [class.is-invalid]="
-        registerForm.get('brand').errors && registerForm.get('brand').touched
+        registerForm.get('brandId').errors && registerForm.get('brandId').touched
       "
-      name="brand"
+      type="number"
+      name="brandId"
       class="form-select"
-      formControlName="brand"
+      formControlName="brandId"
       (change)="onBrandChange($event)"
       required
     >
@@ -36,12 +37,12 @@
       ></option>
       <option
         *ngFor="let brand of brands"
-        [value]="brand.id"
+        [ngValue]="brand.id"
         [label]="brand.name"
       ></option>
     </select>
     <div
-      *ngIf="registerForm.get('brand').hasError('required')"
+      *ngIf="registerForm.get('brandId').hasError('required')"
       class="invalid-feedback"
     >
       Podaj markę samochodu
@@ -50,25 +51,39 @@
 
   <!-- Model samochodu -->
   <div class="form-group">
-    <select
+    <!-- <select
       [class.is-invalid]="
-        registerForm.get('model').errors && registerForm.get('model').touched
+        registerForm.get('modelId').errors && registerForm.get('modelId').touched
       "
-      name="model"
+      type="number"
+      name="modelId"
       class="form-select"
-      formControlName="model"
-      (change)="onModelChange($event)"
+      formControlName="modelId"
+      (ngModelChange)="onModelChange($event)"
+      [ngModel]="models"
+      placeholder="Model"
+      required
+    > -->
+        <select
+      [class.is-invalid]="
+        registerForm.get('modelId').errors && registerForm.get('modelId').touched
+      "
+      type="number"
+      name="modelId"
+      class="form-select"
+      formControlName="modelId"
+      (change)="onModelChange($event.target.value)"
       required
     >
       <option label="Model" selected hidden></option>
       <option
         *ngFor="let model of models"
-        [value]="model.id"
+        [ngValue]="model.id"
         [label]="model.name"
       ></option>
     </select>
     <div
-      *ngIf="registerForm.get('model').hasError('required')"
+      *ngIf="registerForm.get('modelId').hasError('required')"
       class="invalid-feedback"
     >
       Podaj model samochodu
@@ -77,23 +92,14 @@
 
   <!-- Pojemność silnika -->
   <div class="form-group">
-    <!-- <input
-      [class.is-invalid]="
-        registerForm.get('engineCapacity').errors &&
-        registerForm.get('engineCapacity').touched
-      "
-      type="engineCapacity"
-      class="form-control"
-      formControlName="engineCapacity"
-      placeholder="Pojemność silnika"
-    /> -->
     <select
     [class.is-invalid]="
-      registerForm.get('engineCapacity').errors && registerForm.get('engineCapacity').touched
+      registerForm.get('engineId').errors && registerForm.get('engineId').touched
     "
-    name="engineCapacity"
+    type="number"
+    name="engineId"
     class="form-select"
-    formControlName="engineCapacity"
+    formControlName="engineId"
     required
   >
     <option
@@ -103,12 +109,12 @@
     ></option>
     <option
       *ngFor="let engine of engines"
-      [value]="engine.id"
+      [ngValue]="engine.id"
       [label]="engine.engineCapacity"
     ></option>
   </select>
     <div
-      *ngIf="registerForm.get('engineCapacity').hasError('required')"
+      *ngIf="registerForm.get('engineId').hasError('required')"
       class="invalid-feedback"
     >
       Podaj pojemność silnika
@@ -233,12 +239,12 @@
     </div>
   </div>
 
+  <!-- Przyciski -->
   <div class="form-group text-center">
-    <button class="btn btn-success mr-2" type="submit">Zarejestruj się</button>
+    <button [disabled]='!registerForm.valid' class="btn btn-success mr-2" type="submit">Zarejestruj się</button>
     <button class="btn btn-danger mr-2" (click)="cancel()" type="button">
       Anuluj
     </button>
   </div>
+
 </form>
-<p>Form val: {{ registerForm.value | json }}</p>
-<p>Form val: {{ registerForm.status | json }}</p>

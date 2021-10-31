@@ -10,14 +10,14 @@ namespace API.Entities
         public string UserName { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
-        public string Name { get; set; }
         public DateTime CreateDate { get; set; } = DateTime.Now;
         public DateTime LastActive { get; set; } = DateTime.Now;
         public int BrandId { get; set; }
         public virtual Brand Brand { get; set; }
         public int ModelId { get; set; }
         public virtual Model Model { get; set; }
-        public string EngineCapacity { get; set; }
+        public int EngineId { get; set; }
+        public virtual Engine Engine { get; set; }
         public int EnginePower { get; set; }
         public long Mileage { get; set; }
         public DateTime ProductionDate { get; set; }

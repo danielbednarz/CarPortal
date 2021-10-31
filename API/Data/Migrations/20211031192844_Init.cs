@@ -90,12 +90,11 @@ namespace API.Data.Migrations
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PasswordHash = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     PasswordSalt = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastActive = table.Column<DateTime>(type: "datetime2", nullable: false),
                     BrandId = table.Column<int>(type: "int", nullable: false),
                     ModelId = table.Column<int>(type: "int", nullable: false),
-                    EngineCapacity = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EngineId = table.Column<int>(type: "int", nullable: false),
                     EnginePower = table.Column<int>(type: "int", nullable: false),
                     Mileage = table.Column<long>(type: "bigint", nullable: false),
                     ProductionDate = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -107,6 +106,12 @@ namespace API.Data.Migrations
                         name: "FK_Users_Brands_BrandId",
                         column: x => x.BrandId,
                         principalTable: "Brands",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Users_Engines_EngineId",
+                        column: x => x.EngineId,
+                        principalTable: "Engines",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -165,6 +170,11 @@ namespace API.Data.Migrations
                 column: "BrandId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Users_EngineId",
+                table: "Users",
+                column: "EngineId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Users_ModelId",
                 table: "Users",
                 column: "ModelId");
@@ -179,10 +189,10 @@ namespace API.Data.Migrations
                 name: "Photos");
 
             migrationBuilder.DropTable(
-                name: "Engines");
+                name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Engines");
 
             migrationBuilder.DropTable(
                 name: "Models");

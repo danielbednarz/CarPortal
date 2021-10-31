@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Brand } from '../models/brand';
 import { Engine } from '../models/engine';
@@ -15,14 +16,14 @@ import { CarPropertiesService } from '../services/carProperties.service';
 })
 export class RegisterComponent implements OnInit {
   @Output() cancelRegister = new EventEmitter();
-  model: any = {};
   registerForm: FormGroup;
   brands: Brand[];
   models: Model[];
-  engines: EnginesForModel[];
+  engines: Engine[];
+  validationErrors: string[] = [];
 
   constructor(private accountService: AccountService, private toastr: ToastrService,
-    private formBuilder: FormBuilder, private carPropertiesService: CarPropertiesService) { }
+    private formBuilder: FormBuilder, private carPropertiesService: CarPropertiesService, private router: Router) { }
 
   ngOnInit(): void {
     this.loadBrands();
@@ -32,9 +33,9 @@ export class RegisterComponent implements OnInit {
   initializeForm() {
     this.registerForm = this.formBuilder.group({
       username: ['', Validators.required],
-      brand: ['', Validators.required],
-      model: ['', Validators.required],
-      engineCapacity: ['', Validators.required],
+      brandId: ['', Validators.required],
+      modelId: ['', Validators.required],
+      engineId: ['', Validators.required],
       enginePower: ['', Validators.required],
       mileage: ['', Validators.required],
       productionDate: ['', Validators.required],
@@ -54,13 +55,11 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    console.log(this.registerForm.value);
-    // this.accountService.register(this.model).subscribe(response => {
-    //   this.cancel();
-    // }, error => {
-    //   console.log(error);
-    //   this.toastr.error(error.error);
-    // })
+    this.accountService.register(this.registerForm.value).subscribe(response => {
+      this.router.navigateByUrl('/members');
+    }, error => {
+      this.validationErrors = error;
+    })
   }
 
   cancel() {
@@ -80,22 +79,29 @@ export class RegisterComponent implements OnInit {
   }
 
   loadEngines(modelId: number) {
-    this.carPropertiesService.getEnginesForModel(modelId).subscribe(engines => {
+    this.carPropertiesService.getEngines(modelId).subscribe(engines => {
       this.engines = engines;
     })
   }
 
   onBrandChange(e) {
-    this.registerForm.controls.model.setValue("");
-    this.registerForm.controls.engineCapacity.setValue("");
-    const brandName: number = parseInt(e.target['value']);
-    this.loadModels(brandName);
+    this.registerForm.controls.modelId.setValue("");
+    this.registerForm.controls.engineId.setValue("");
+    const brandId: number = parseInt(e.target['value']);
+    this.loadModels(brandId);
   }
 
-  onModelChange(e) {
-    this.registerForm.controls.engineCapacity.setValue("");
-    const modelName: number = parseInt(e.target['value']);
-    this.loadEngines(modelName);
+  onModelChange(e: any) {
+    this.registerForm.controls.engineId.setValue("");
+    const modelId = parseInt(e.split(':')[1]);
+    //const modelId = parseInt(e);
+    debugger;
+    this.loadEngines(modelId);
   }
+
+  // onEngineChange(e) {
+  //   this.registerForm.controls.enginePower.setValue(e.target);
+  //   const modelName: number = parseInt(e.target['value']);
+  // }
 
 }

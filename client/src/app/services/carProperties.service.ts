@@ -23,9 +23,8 @@ export class CarPropertiesService {
     return this.http.get<Model[]>(this.baseUrl + '/getModels/' + id);
   }
 
-  getEnginesForModel(modelId: number) {
-    debugger;
-    return this.http.get<EnginesForModel[]>(this.baseUrl + '/getEnginesForModel/' + modelId);
+  getEngines(modelId: number) {
+    return this.http.get<Engine[]>(this.baseUrl + '/getEngines/' + modelId);
   }
 
 }

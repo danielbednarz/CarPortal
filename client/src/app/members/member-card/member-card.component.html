@@ -3,7 +3,7 @@
     <img
       src="{{ member.photoUrl || './assets/img/nophoto.png' }}"
       class="card-img-top"
-      alt="{{ member.name }}"
+      alt="{{ member.username }}"
       routerLink="/members/{{ member.username }}"
     />
     <!-- <ul class="list-inline member-icons animate text-center">
@@ -25,7 +25,7 @@
   <div class="card-body p-1">
     <h5 class="card-title text-center mb-1">
       <i class="fa fa-user mr-2"></i>
-      {{ member.name }}
+      {{ member.username }}
     </h5>
     <p class="card-text text-muted text-center">
       {{ member.brand.name }} {{ member.model.name }}

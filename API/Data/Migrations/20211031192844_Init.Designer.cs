@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Data.Migrations
 {
     [DbContext(typeof(MainDatabaseContext))]
-    [Migration("20211030145944_Init")]
+    [Migration("20211031192844_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -138,8 +138,8 @@ namespace API.Data.Migrations
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("EngineCapacity")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("EngineId")
+                        .HasColumnType("int");
 
                     b.Property<int>("EnginePower")
                         .HasColumnType("int");
@@ -152,9 +152,6 @@ namespace API.Data.Migrations
 
                     b.Property<int>("ModelId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("PasswordHash")
                         .HasColumnType("varbinary(max)");
@@ -171,6 +168,8 @@ namespace API.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("BrandId");
+
+                    b.HasIndex("EngineId");
 
                     b.HasIndex("ModelId");
 
@@ -226,6 +225,12 @@ namespace API.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("API.Entities.Engine", "Engine")
+                        .WithMany()
+                        .HasForeignKey("EngineId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("API.Entities.Model", "Model")
                         .WithMany()
                         .HasForeignKey("ModelId")
@@ -233,6 +238,8 @@ namespace API.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Brand");
+
+                    b.Navigation("Engine");
 
                     b.Navigation("Model");
                 });

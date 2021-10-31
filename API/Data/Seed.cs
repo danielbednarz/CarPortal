@@ -16,7 +16,7 @@ namespace API.Data
         {
             AddBrands(context);
             AddModels(context);
-            AddUsers(context);
+            //AddUsers(context);
             AddEngines(context);
             AddEnginesForModels(context);
 
@@ -120,47 +120,47 @@ namespace API.Data
             context.SaveChanges();
         }
 
-        private static void AddUsers(MainDatabaseContext context)
-        {
-            if (context.Users.Any())
-            {
-                return;
-            }
+        //private static void AddUsers(MainDatabaseContext context)
+        //{
+        //    if (context.Users.Any())
+        //    {
+        //        return;
+        //    }
 
-            var photos = new List<Photo>()
-            {
-                new Photo()
-                {
-                    IsMain = true,
-                    Url = "https://8.allegroimg.com/s1024/0cf8af/41505e654bd1af47b98a6ddc5da8",
-                    PublicId = ""
-                }
-            };
+        //    var photos = new List<Photo>()
+        //    {
+        //        new Photo()
+        //        {
+        //            IsMain = true,
+        //            Url = "https://8.allegroimg.com/s1024/0cf8af/41505e654bd1af47b98a6ddc5da8",
+        //            PublicId = ""
+        //        }
+        //    };
 
-            var user = new User
-            {
-                UserName = "Admin",
-                Name = "Daniel",
-                BrandId = context.Brands.FirstOrDefault(x => x.Name == "Renault").Id,
-                ModelId = context.Models.FirstOrDefault(x => x.Name == "Scenic").Id,
-                EngineCapacity = "1.6",
-                EnginePower = 82,
-                Mileage = 356000,
-                ProductionDate = new DateTime(1999, 10, 10),
-                Photos = photos
-            };
+        //    var user = new User
+        //    {
+        //        UserName = "Admin",
+        //        Name = "Daniel",
+        //        BrandId = context.Brands.FirstOrDefault(x => x.Name == "Renault").Id,
+        //        ModelId = context.Models.FirstOrDefault(x => x.Name == "Scenic").Id,
+        //        EngineCapacity = "1.6",
+        //        EnginePower = 82,
+        //        Mileage = 356000,
+        //        ProductionDate = new DateTime(1999, 10, 10),
+        //        Photos = photos
+        //    };
 
-            using var hmac = new HMACSHA512();
+        //    using var hmac = new HMACSHA512();
 
-            user.UserName = user.UserName.ToLower();
+        //    user.UserName = user.UserName.ToLower();
 
-            user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("Start.123"));
-            user.PasswordSalt = hmac.Key;
+        //    user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("Start.123"));
+        //    user.PasswordSalt = hmac.Key;
 
-            context.Users.Add(user);
+        //    context.Users.Add(user);
 
-            context.SaveChanges();
-        }
+        //    context.SaveChanges();
+        //}
 
         private static void AddEngines(MainDatabaseContext context)
         {

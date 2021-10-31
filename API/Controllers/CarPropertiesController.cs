@@ -35,8 +35,8 @@ namespace API.Controllers
             return Ok(data);
         }
 
-        [HttpGet("getEnginesForModel/{modelId}")]
-        public async Task<ActionResult<List<EnginesForModel>>> GetEnginesForModel(int modelId)
+        [HttpGet("getEngines/{modelId}")]
+        public async Task<ActionResult<List<Engine>>> GetEnginesForModel(int modelId)
         {
             var enginesForModel = await _carPropertiesRepository.GetEnginesForModel(modelId);
 

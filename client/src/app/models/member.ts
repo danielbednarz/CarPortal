@@ -1,4 +1,5 @@
 import { Brand } from "./brand";
+import { Engine } from "./engine";
 import { Model } from "./model";
 import { Photo } from "./photo";
 
@@ -6,14 +7,14 @@ export interface Member {
     id: number;
     username: string;
     photoUrl: string;
-    name: string;
     createDate: Date;
     lastActive: Date;
-    brand: Brand;
     brandId: number;
-    model: Model;
+    brand: Brand;
     modelId: number;
-    engineCapacity: string;
+    model: Model;
+    engineId: number;
+    engine: Engine;
     enginePower: number;
     mileage: number;
     productionDate: Date;
