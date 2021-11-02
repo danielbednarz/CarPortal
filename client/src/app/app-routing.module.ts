@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { MemberListComponent } from './members/member-list/member-list.component';
+import { MemberStatisticsComponent } from './members/member-statistics/member-statistics.component';
 import { MessagesComponent } from './messages/messages.component';
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { RegisterComponent } from './register/register.component';
@@ -28,7 +29,7 @@ const routes: Routes = [
       {path: 'myProfile', component: MyProfileComponent},
       {path: 'messages', component: MessagesComponent},
       {path: 'register', component: RegisterComponent},
-      
+      {path: 'member/edit/statistics', component: MemberStatisticsComponent},
     ]
   },
   {path: 'errors', component: TestErrorsComponent},

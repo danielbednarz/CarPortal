@@ -1,0 +1,14 @@
+<h2>Statystyki</h2>
+
+<h4>Raport spalania</h4>
+<dx-chart
+    id="chart"
+    [dataSource]="dataSource">
+    <dxi-series
+        argumentField="day"
+        valueField="oranges"
+        name="Spalanie"
+        type="bar"
+        color="#ffaa66">
+    </dxi-series>
+</dx-chart>

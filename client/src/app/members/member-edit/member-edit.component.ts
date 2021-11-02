@@ -12,6 +12,7 @@ import { MembersService } from 'src/app/services/members.service';
 import { CarPropertiesService } from 'src/app/services/carProperties.service';
 import { Model } from 'src/app/models/model';
 import value from 'globalize';
+import { Engine } from 'src/app/models/engine';
 
 
 @Component({
@@ -25,6 +26,7 @@ export class MemberEditComponent implements OnInit {
   user: User;
   brands: Brand[];
   models: Model[];
+  engines: Engine[];
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
   @HostListener("window:beforeunload", ['$event']) unloadNotification($event: any) {
@@ -64,11 +66,18 @@ export class MemberEditComponent implements OnInit {
     })
   }
 
+  loadEngines(id: number) {
+    this.carPropertiesService.getEngines(id).subscribe(engines => {
+      this.engines = engines;
+    })
+  }
+
   loadMember() {
     this.memberService.getMember(this.user.username).subscribe(member => {
       this.member = member;
       this.galleryImages = this.getImages();
       this.loadModels(member.brandId);
+      this.loadEngines(member.engineId);
     })
   }
 

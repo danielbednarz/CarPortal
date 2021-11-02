@@ -49,7 +49,7 @@
           <h6 class="card-text text-muted">
             Średni koszt przejechania 100km: 49.88zł
           </h6>
-          <div class="details-btn btn btn-primary">Szczegóły</div>
+          <div class="details-btn btn btn-primary" routerLink="/member/edit/statistics">Szczegóły</div>
         </div>
       </div>
     </div>
@@ -70,6 +70,7 @@
               name="brand"
               class="form-select"
               (change)="onChange($event)"
+              disabled
             >
               <option
                 *ngFor="let brand of brands"
@@ -85,7 +86,7 @@
               id="modelSelect"
               name="model"
               class="form-select"
-              required
+              disabled
             >
               <option value="" selected hidden></option>
               <option
@@ -98,12 +99,31 @@
 
           <div class="card-body">
             <h5 class="card-subtitle text-muted mb-1">Silnik:</h5>
-            <input
-              [(ngModel)]="member.engineCapacity"
+            <!-- <input
+              [(ngModel)]="member.engine.engineCapacity"
               type="text"
-              name="engineCapacity"
+              name="engineId"
               class="form-control"
-            />
+            /> -->
+            <div class="form-group">
+              <select
+              [(ngModel)]="member.engineId"
+              name="engine"
+              class="form-select"
+              required
+            >
+              <option
+                label="Pojemność silnika"
+                selected
+                hidden
+              ></option>
+              <option
+                *ngFor="let engine of engines"
+                [ngValue]="engine.id"
+                [label]="engine.engineCapacity"
+              ></option>
+              </select>
+            </div>
             <h5 class="card-subtitle text-muted mt-1 mb-1">Moc:</h5>
             <input
               [(ngModel)]="member.enginePower"

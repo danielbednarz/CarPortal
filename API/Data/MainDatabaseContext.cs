@@ -21,6 +21,7 @@ namespace API.Data
         public DbSet<Model> Models { get; set; }
         public DbSet<Engine> Engines { get; set; }
         public DbSet<EnginesForModel> EnginesForModels { get; set; }
+        //public DbSet<FuelReport> FuelReports { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

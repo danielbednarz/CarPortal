@@ -2,7 +2,7 @@
   <div class="row">
     <h2>Lista użytkowników </h2>
   </div>
-  <div class="row">
+  <div class="row mt-2">
     <div *ngFor="let member of members$ | async" class="col-3 mb-2 align-items-stretch">
       <app-member-card [member]="member"></app-member-card>
     </div>

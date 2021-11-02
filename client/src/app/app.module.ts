@@ -23,8 +23,9 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { LoadingInterceptor } from './interceptors/loading.interceptor';
 import { FindOutMoreComponent } from './find-out-more/find-out-more.component';
-import { DxSelectBoxModule } from 'devextreme-angular';
+import { DxChartModule, DxSelectBoxModule } from 'devextreme-angular';
 import { PhotoAddComponent } from './members/photo-add/photo-add.component';
+import { MemberStatisticsComponent } from './members/member-statistics/member-statistics.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { PhotoAddComponent } from './members/photo-add/photo-add.component';
     MemberCardComponent,
     MemberEditComponent,
     FindOutMoreComponent,
-    PhotoAddComponent
+    PhotoAddComponent,
+    MemberStatisticsComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +55,8 @@ import { PhotoAddComponent } from './members/photo-add/photo-add.component';
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
-    DxSelectBoxModule
+    DxSelectBoxModule,
+    DxChartModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},

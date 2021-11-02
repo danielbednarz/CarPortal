@@ -22,8 +22,7 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAppServices(_config);
-            services.AddControllers().AddJsonOptions(x =>
-                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
+            services.AddControllers();
             services.AddCors();
             services.AddIdentityServices(_config);
         }
