@@ -1,4 +1,6 @@
-﻿using API.Entities;
+﻿using API.Data;
+using API.Entities;
+using API.Interfaces.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -7,32 +9,34 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class StatisticsController : ControllerBase
+    public class StatisticsController : AppController
     {
-        //[HttpGet]
-        //public async Task<ActionResult<List<FuelReport>>> GetFuelReport()
-        //{
+        private readonly MainDatabaseContext _context;
+        private readonly IStatisticsRepository _statisticsRepository;
 
-        //}
-
-        // POST api/<StatisticsController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        public StatisticsController(MainDatabaseContext context, IStatisticsRepository statisticsRepository)
         {
+            _context = context;
+            _statisticsRepository = statisticsRepository;
         }
 
-        // PUT api/<StatisticsController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpGet("getFuelReport/{userId}")]
+        public async Task<ActionResult<List<FuelReport>>> GetFuelReport(int userId)
         {
+            var data = await _statisticsRepository.GetFuelReportToList(userId);
+
+            return Ok(data);
         }
 
-        // DELETE api/<StatisticsController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpPost("add-fuel-report")]
+        public async Task<ActionResult<FuelReport>> AddFuelReport(FuelReport fuelReport)
         {
+            _context.FuelReports.Add(fuelReport);
+
+            await _context.SaveChangesAsync();
+
+            return Ok();
         }
+
     }
 }

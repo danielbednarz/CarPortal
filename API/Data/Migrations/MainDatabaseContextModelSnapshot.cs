@@ -77,6 +77,34 @@ namespace API.Data.Migrations
                     b.ToTable("EnginesForModels");
                 });
 
+            modelBuilder.Entity("API.Entities.FuelReport", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("Cost")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("FuelAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("RefuelDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("TraveledDistance")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("FuelReports");
+                });
+
             modelBuilder.Entity("API.Entities.Model", b =>
                 {
                     b.Property<int>("Id")
@@ -191,6 +219,17 @@ namespace API.Data.Migrations
                     b.Navigation("Engine");
 
                     b.Navigation("Model");
+                });
+
+            modelBuilder.Entity("API.Entities.FuelReport", b =>
+                {
+                    b.HasOne("API.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("API.Entities.Model", b =>

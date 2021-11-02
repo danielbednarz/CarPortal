@@ -21,7 +21,7 @@ namespace API.Data
         public DbSet<Model> Models { get; set; }
         public DbSet<Engine> Engines { get; set; }
         public DbSet<EnginesForModel> EnginesForModels { get; set; }
-        //public DbSet<FuelReport> FuelReports { get; set; }
+        public DbSet<FuelReport> FuelReports { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -34,6 +34,10 @@ namespace API.Data
                 fk.DeleteBehavior = DeleteBehavior.Restrict;
             }
 
+            //modelBuilder.Entity<FuelReport>(entity =>
+            //{
+            //    entity.Property(e => e.Id).HasDefaultValueSql("NEWID()");
+            //});
         }
     }
 }

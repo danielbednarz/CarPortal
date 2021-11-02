@@ -123,6 +123,28 @@ namespace API.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "FuelReports",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Cost = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    FuelAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    TraveledDistance = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    RefuelDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FuelReports", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FuelReports_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Photos",
                 columns: table => new
                 {
@@ -155,6 +177,11 @@ namespace API.Data.Migrations
                 column: "ModelId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_FuelReports_UserId",
+                table: "FuelReports",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Models_BrandId",
                 table: "Models",
                 column: "BrandId");
@@ -184,6 +211,9 @@ namespace API.Data.Migrations
         {
             migrationBuilder.DropTable(
                 name: "EnginesForModels");
+
+            migrationBuilder.DropTable(
+                name: "FuelReports");
 
             migrationBuilder.DropTable(
                 name: "Photos");

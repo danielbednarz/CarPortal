@@ -9,6 +9,6 @@ namespace API.Interfaces.Repositories
 {
     public interface IStatisticsRepository
     {
-        Task<IEnumerable<FuelReport>> GetFuelReportToList();
+        Task<List<FuelReport>> GetFuelReportToList(int userId);
     }
 }
