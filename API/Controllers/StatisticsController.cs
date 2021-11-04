@@ -28,6 +28,14 @@ namespace API.Controllers
             return Ok(data);
         }
 
+        [HttpGet("getFuelReportView/{userId}")]
+        public async Task<ActionResult<List<FuelReport>>> GetFuelReportView(int userId)
+        {
+            var data = await _statisticsRepository.GetFuelReportViewToList(userId);
+
+            return Ok(data);
+        }
+
         [HttpPost("add-fuel-report")]
         public async Task<ActionResult<FuelReport>> AddFuelReport(FuelReport fuelReport)
         {

@@ -30,7 +30,6 @@ export class AccountService {
   }
 
   register(model: any) {
-    debugger;
     return this.http.post(this.baseUrl + 'register', model).pipe(
       map((user: User) => {
         if(user) {

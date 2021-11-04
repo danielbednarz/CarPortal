@@ -5,8 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
+using API.Data.SQL;
 
 namespace API.Data
 {
@@ -18,6 +17,7 @@ namespace API.Data
             AddModels(context);
             AddEngines(context);
             AddEnginesForModels(context);
+            AddViews(context);
 
             AddUsers(context);
 
@@ -269,6 +269,11 @@ namespace API.Data
                 volvoEnginesForModels.Add(engine4);
             }
             context.EnginesForModels.AddRange(volvoEnginesForModels);
+        }
+
+        private static void AddViews(MainDatabaseContext context)
+        {
+            context.Database.ExecuteSqlRaw(FuelReportView.createSql);
         }
 
         private static void AddAudiEnginesForModels(MainDatabaseContext context)

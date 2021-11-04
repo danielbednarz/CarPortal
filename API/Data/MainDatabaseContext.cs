@@ -1,4 +1,5 @@
-﻿using API.Entities;
+﻿using API.Entities.Views;
+using API.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer;
 using System.Linq;
@@ -22,6 +23,7 @@ namespace API.Data
         public DbSet<Engine> Engines { get; set; }
         public DbSet<EnginesForModel> EnginesForModels { get; set; }
         public DbSet<FuelReport> FuelReports { get; set; }
+        public DbSet<FuelReportView> FuelReportView { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -34,10 +36,8 @@ namespace API.Data
                 fk.DeleteBehavior = DeleteBehavior.Restrict;
             }
 
-            //modelBuilder.Entity<FuelReport>(entity =>
-            //{
-            //    entity.Property(e => e.Id).HasDefaultValueSql("NEWID()");
-            //});
+            modelBuilder.Entity<FuelReportView>().HasNoKey().ToView("FuelReportView");
+
         }
     }
 }
