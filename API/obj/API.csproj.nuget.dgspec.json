@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\NAUKA\\Programowanie\\C Sharp\\SocialApp\\SocialApp\\API\\API.csproj": {}
+    "E:\\NAUKA\\Programowanie\\C Sharp\\SocialApp\\CarPortal\\API\\API.csproj": {}
   },
   "projects": {
-    "E:\\NAUKA\\Programowanie\\C Sharp\\SocialApp\\SocialApp\\API\\API.csproj": {
+    "E:\\NAUKA\\Programowanie\\C Sharp\\SocialApp\\CarPortal\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\NAUKA\\Programowanie\\C Sharp\\SocialApp\\SocialApp\\API\\API.csproj",
+        "projectUniqueName": "E:\\NAUKA\\Programowanie\\C Sharp\\SocialApp\\CarPortal\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "E:\\NAUKA\\Programowanie\\C Sharp\\SocialApp\\SocialApp\\API\\API.csproj",
+        "projectPath": "E:\\NAUKA\\Programowanie\\C Sharp\\SocialApp\\CarPortal\\API\\API.csproj",
         "packagesPath": "C:\\Users\\danio\\.nuget\\packages\\",
-        "outputPath": "E:\\NAUKA\\Programowanie\\C Sharp\\SocialApp\\SocialApp\\API\\obj\\",
+        "outputPath": "E:\\NAUKA\\Programowanie\\C Sharp\\SocialApp\\CarPortal\\API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\danio\\AppData\\Roaming\\NuGet\\NuGet.Config",

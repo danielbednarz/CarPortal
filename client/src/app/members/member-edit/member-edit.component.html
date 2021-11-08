@@ -32,7 +32,7 @@
           <strong>Dane o właścicielu</strong>
         </h5>
         <div class="card-body">
-          <h6 class="card-text text-muted">Użytkownik: {{ member.name }}</h6>
+          <h6 class="card-text text-muted">Użytkownik: {{ member.username }}</h6>
           <h6 class="card-text text-muted">
             Jest z nami od: {{ member.createDate }}
           </h6>
@@ -49,7 +49,7 @@
           <h6 class="card-text text-muted">
             Średni koszt przejechania 100km: 49.88zł
           </h6>
-          <div class="details-btn btn btn-primary" routerLink="/member/edit/statistics">Szczegóły</div>
+          <div class="details-btn btn btn-primary" routerLink="/members/{{member.username}}/statistics">Szczegóły</div>
         </div>
       </div>
     </div>

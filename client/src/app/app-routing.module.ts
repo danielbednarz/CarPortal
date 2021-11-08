@@ -29,7 +29,7 @@ const routes: Routes = [
       {path: 'myProfile', component: MyProfileComponent},
       {path: 'messages', component: MessagesComponent},
       {path: 'register', component: RegisterComponent},
-      {path: 'member/edit/statistics', component: MemberStatisticsComponent},
+      {path: 'members/:username/statistics', component: MemberStatisticsComponent},
     ]
   },
   {path: 'errors', component: TestErrorsComponent},

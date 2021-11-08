@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "A/OsbDCrj1rl0kqg5CkKXhVzBM0nw7gFkcFgWmNbIf5WIUObuRvPgScInll+1TDBdFJUWFl4EJmp8Py+MpVI3A==",
+  "dgSpecHash": "TRV9KaAf43OcvkAt3tx+/ZAiiEFjDZyKP7Dxk/zyWko8dP3w1dxAKNZH62T+W+eIrIfAd1LzwX1zmYm6LSLoSA==",
   "success": true,
-  "projectFilePath": "E:\\NAUKA\\Programowanie\\C Sharp\\SocialApp\\SocialApp\\API\\API.csproj",
+  "projectFilePath": "E:\\NAUKA\\Programowanie\\C Sharp\\SocialApp\\CarPortal\\API\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\danio\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\danio\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",

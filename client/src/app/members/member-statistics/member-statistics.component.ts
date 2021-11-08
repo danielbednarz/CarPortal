@@ -1,6 +1,6 @@
-import { Component, Injectable, OnInit, ViewChild } from '@angular/core';
+import { Component, Injectable, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs/operators';
 import { FuelReport } from 'src/app/models/fuelReport';
@@ -20,20 +20,20 @@ export class MemberStatisticsComponent implements OnInit {
   dataSource: Data[];
   fuelReport: FuelReport[];
   fuelReportView: FuelReportView[];
-  user: User;
   member: Member;
+  username: string;
   popupVisible = false;
   fuelReportForm: FormGroup;
   validationErrors: string[] = [];
 
-  constructor(private statisticsService: StatisticsService, private accountService: AccountService,
+  constructor(private statisticsService: StatisticsService, public accountService: AccountService,
     private memberService: MembersService, private formBuilder: FormBuilder, private router: Router,
-    private toastr: ToastrService) { 
+    private toastr: ToastrService, private route: ActivatedRoute) { 
     this.dataSource = data;
-    this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
   }
 
   ngOnInit(): void {
+    this.username = this.route.snapshot.paramMap.get('username');
     this.loadMember();
     this.initializeForm();
   }
@@ -61,7 +61,7 @@ export class MemberStatisticsComponent implements OnInit {
   }
 
   loadMember() {
-    this.memberService.getMember(this.user.username).subscribe(member => {
+    this.memberService.getMember(this.username).subscribe(member => {
       this.member = member;
       this.loadFuelReport(member.id);
       this.loadFuelReportView(member.id);
