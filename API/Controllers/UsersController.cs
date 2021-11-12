@@ -34,8 +34,11 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<List<MemberDto>>> GetUsers([FromQuery]UserParameters userParams)
         {
+            var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            userParams.CurrentUsername = username;
+
             var users = await _userRepository.GetMembersAsync(userParams);
-           // var data = _mapper.Map<List<MemberDto>>(users);
 
             Response.AddPaginationHeader(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);
 
