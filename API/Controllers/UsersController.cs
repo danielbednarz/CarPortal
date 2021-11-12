@@ -12,6 +12,8 @@ using AutoMapper;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using API.Interfaces.Services;
+using API.Helpers;
+using API.Extensions;
 
 namespace API.Controllers
 {
@@ -30,12 +32,14 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<MemberDto>>> GetUsers()
+        public async Task<ActionResult<List<MemberDto>>> GetUsers([FromQuery]UserParameters userParams)
         {
-            var users = await _userRepository.GetMembersAsync();
-            var data = _mapper.Map<List<MemberDto>>(users);
+            var users = await _userRepository.GetMembersAsync(userParams);
+           // var data = _mapper.Map<List<MemberDto>>(users);
 
-            return Ok(data);
+            Response.AddPaginationHeader(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);
+
+            return Ok(users);
         }
 
         [HttpGet("{username}", Name = "GetUser")]

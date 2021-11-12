@@ -24,7 +24,10 @@ export class MemberDetailComponent implements OnInit {
         width: '622px',
         height: '482px',
         thumbnailsColumns: 5,
-        imageAnimation: NgxGalleryAnimation.Slide
+        imageAnimation: NgxGalleryAnimation.Slide,
+        imageSwipe: true,
+        imageInfinityMove: true,
+        preview: false
       }
     ]
   }

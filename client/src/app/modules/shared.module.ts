@@ -5,6 +5,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FileUploadModule } from 'ng2-file-upload';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 import {
   DxDataGridModule
 } from 'devextreme-angular';
@@ -23,7 +24,8 @@ import { DxPopupModule, DxButtonModule, DxTemplateModule } from 'devextreme-angu
     FileUploadModule,
     DxDataGridModule,
     DxButtonModule,
-    DxPopupModule
+    DxPopupModule,
+    PaginationModule
   ],
   exports: [
     BsDropdownModule,
@@ -33,7 +35,8 @@ import { DxPopupModule, DxButtonModule, DxTemplateModule } from 'devextreme-angu
     FileUploadModule,
     DxDataGridModule,
     DxButtonModule,
-    DxPopupModule
+    DxPopupModule,
+    PaginationModule
   ]
 })
 export class SharedModule { }

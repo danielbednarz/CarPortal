@@ -134,38 +134,134 @@ namespace API.Data
                 new Photo()
                 {
                     IsMain = true,
-                    Url = "https://lh3.googleusercontent.com/proxy/tH20pPJl44f-qOWuFqjao_cg-JFhTonvxS3EYtoYo_L1CZXKF-5Ym3LfxSt6GD1K3nC1eiDkeHcs13vZinCojnhnb4dyYBVS",
+                    Url = "https://res.cloudinary.com/dxyycgxlh/image/upload/v1635756939/w0jcggwqtbntgu6jsqxk.jpg",
                     PublicId = ""
                 }
             };
 
-            var user = new User
+            var users = new List<User>
             {
-                UserName = "Admin",
-                BrandId = context.Brands.FirstOrDefault(x => x.Name == "Volvo").Id,
-                ModelId = context.Models.FirstOrDefault(x => x.Name == "S40").Id,
-                EngineId = context.Engines.FirstOrDefault(x => x.EngineCapacity == "2.4i").Id,
-                EnginePower = 170,
-                Mileage = 252000,
-                ProductionDate = new DateTime(2005, 03, 31),
-                Photos = photos
-            };
+                new User
+                {
+                    UserName = "Admin",
+                    BrandId = context.Brands.FirstOrDefault(x => x.Name == "Volvo").Id,
+                    ModelId = context.Models.FirstOrDefault(x => x.Name == "S40").Id,
+                    EngineId = context.Engines.FirstOrDefault(x => x.EngineCapacity == "2.4i").Id,
+                    EnginePower = 170,
+                    Mileage = 252000,
+                    ProductionDate = new DateTime(2005, 03, 31),
+                    Photos = photos
+                },
+                new User
+                {
+                    UserName = "Danio",
+                    BrandId = context.Brands.FirstOrDefault(x => x.Name == "Volvo").Id,
+                    ModelId = context.Models.FirstOrDefault(x => x.Name == "S60").Id,
+                    EngineId = context.Engines.FirstOrDefault(x => x.EngineCapacity == "2.4i").Id,
+                    EnginePower = 170,
+                    Mileage = 252000,
+                    ProductionDate = new DateTime(2005, 03, 31),
+                    Photos = null
+                },
+                new User
+                {
+                    UserName = "Test",
+                    BrandId = context.Brands.FirstOrDefault(x => x.Name == "Volvo").Id,
+                    ModelId = context.Models.FirstOrDefault(x => x.Name == "S60").Id,
+                    EngineId = context.Engines.FirstOrDefault(x => x.EngineCapacity == "2.4i").Id,
+                    EnginePower = 170,
+                    Mileage = 252000,
+                    ProductionDate = new DateTime(2005, 03, 31),
+                    Photos = null
+                },
+                new User
+                {
+                    UserName = "Rafal",
+                    BrandId = context.Brands.FirstOrDefault(x => x.Name == "Volvo").Id,
+                    ModelId = context.Models.FirstOrDefault(x => x.Name == "S80").Id,
+                    EngineId = context.Engines.FirstOrDefault(x => x.EngineCapacity == "2.4i").Id,
+                    EnginePower = 170,
+                    Mileage = 252000,
+                    ProductionDate = new DateTime(2005, 03, 31),
+                    Photos = null
+                },
+                new User
+                {
+                    UserName = "Witold",
+                    BrandId = context.Brands.FirstOrDefault(x => x.Name == "Volvo").Id,
+                    ModelId = context.Models.FirstOrDefault(x => x.Name == "S60").Id,
+                    EngineId = context.Engines.FirstOrDefault(x => x.EngineCapacity == "2.4i").Id,
+                    EnginePower = 170,
+                    Mileage = 252000,
+                    ProductionDate = new DateTime(2005, 03, 31),
+                    Photos = null
+                },
+                new User
+                {
+                    UserName = "Admin2",
+                    BrandId = context.Brands.FirstOrDefault(x => x.Name == "Volvo").Id,
+                    ModelId = context.Models.FirstOrDefault(x => x.Name == "V50").Id,
+                    EngineId = context.Engines.FirstOrDefault(x => x.EngineCapacity == "2.4i").Id,
+                    EnginePower = 170,
+                    Mileage = 252000,
+                    ProductionDate = new DateTime(2005, 03, 31),
+                    Photos = null
+                },
+                new User
+                {
+                    UserName = "Maciek",
+                    BrandId = context.Brands.FirstOrDefault(x => x.Name == "BMW").Id,
+                    ModelId = context.Models.FirstOrDefault(x => x.Name == "E46").Id,
+                    EngineId = context.Engines.FirstOrDefault(x => x.EngineCapacity == "2.5 R6").Id,
+                    EnginePower = 192,
+                    Mileage = 252000,
+                    ProductionDate = new DateTime(2001, 03, 31),
+                    Photos = null
+                },
+                new User
+                {
+                    UserName = "Sruba",
+                    BrandId = context.Brands.FirstOrDefault(x => x.Name == "Volvo").Id,
+                    ModelId = context.Models.FirstOrDefault(x => x.Name == "S70").Id,
+                    EngineId = context.Engines.FirstOrDefault(x => x.EngineCapacity == "2.4i").Id,
+                    EnginePower = 170,
+                    Mileage = 252000,
+                    ProductionDate = new DateTime(2005, 03, 31),
+                    Photos = null
+                },
+        };
+
+            //var user = new User
+            //{
+            //    UserName = "Fot",
+            //    BrandId = context.Brands.FirstOrDefault(x => x.Name == "Volvo").Id,
+            //    ModelId = context.Models.FirstOrDefault(x => x.Name == "S40").Id,
+            //    EngineId = context.Engines.FirstOrDefault(x => x.EngineCapacity == "2.4").Id,
+            //    EnginePower = 140,
+            //    Mileage = 223000,
+            //    ProductionDate = new DateTime(2004, 03, 31),
+            //    Photos = photos
+            //};
 
             using var hmac = new HMACSHA512();
 
-            user.UserName = user.UserName.ToLower();
 
-            user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("Start.123"));
-            user.PasswordSalt = hmac.Key;
+            foreach(var user in users)
+            {
+                user.UserName = user.UserName.ToLower();
 
-            context.Users.Add(user);
+                user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("Start.123"));
+                user.PasswordSalt = hmac.Key;
+
+                context.Users.Add(user);
+            }
 
             context.SaveChanges();
         }
 
         private static void AddEngines(MainDatabaseContext context)
         {
-            if(context.Engines.Any())
+            if (context.Engines.Any())
             {
                 return;
             }
