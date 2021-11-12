@@ -6,6 +6,7 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FileUploadModule } from 'ng2-file-upload';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 import {
   DxDataGridModule
 } from 'devextreme-angular';
@@ -25,7 +26,8 @@ import { DxPopupModule, DxButtonModule, DxTemplateModule } from 'devextreme-angu
     DxDataGridModule,
     DxButtonModule,
     DxPopupModule,
-    PaginationModule
+    PaginationModule,
+    CollapseModule
   ],
   exports: [
     BsDropdownModule,
@@ -36,7 +38,8 @@ import { DxPopupModule, DxButtonModule, DxTemplateModule } from 'devextreme-angu
     DxDataGridModule,
     DxButtonModule,
     DxPopupModule,
-    PaginationModule
+    PaginationModule,
+    CollapseModule
   ]
 })
 export class SharedModule { }

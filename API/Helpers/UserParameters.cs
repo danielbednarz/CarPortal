@@ -17,6 +17,9 @@ namespace API.Helpers
         }
 
         public string CurrentUsername { get; set; }
-        public string Brand { get; set; }
+        public int BrandId { get; set; }
+        public int ModelId { get; set; }
+        public int MinEnginePower { get; set; } = 0;
+        public int MaxEnginePower { get; set; } = 1500;
     }
 }

@@ -1,13 +1,95 @@
 <div class="container">
+  <div class="row text-center-mb-2">
+    <h2>Lista użytkowników ({{ pagination?.totalItems }})</h2>
+  </div>
   <div class="row">
-    <h2>Lista użytkowników</h2>
+    <div class="col-6">
+      <button
+        type="button"
+        class="btn btn-dark mb-2"
+        (click)="isCollapsed = !isCollapsed"
+        [attr.aria-expanded]="!isCollapsed"
+        aria-controls="formCollapse"
+      >
+        Filtry
+      </button>
+    </div>
+    <div class="col-12">
+    <div
+      class="form-collapse well well-lg card card-block"
+      id="formCollapse"
+      [collapse]="isCollapsed"
+      [isAnimated]="true"
+    >
+      <form [formGroup]="filterForm" class="form-inline mb-2" autocomplete="off">
+        <div class="form-group col-3 mt-2">
+          Marka
+          <select
+            [(ngModel)]="userParams.brandId"
+            formControlName="brand"
+            name="brandId"
+            class="form-select"
+            type="number"
+            (change)="brandChanged($event)"
+          >
+            <option
+              *ngFor="let brand of brands"
+              [value]="brand.id"
+              [label]="brand.name"
+            ></option>
+          </select>
+        </div>
+        <div class="col-3">
+          Model
+          <select
+            [(ngModel)]="userParams.modelId"
+            formControlName="model"
+            name="modelId"
+            id="modelId"
+            class="form-select"
+            (change)="modelChanged($event)"
+          >
+          <option selected [value] = "0"></option>
+            <option
+              *ngFor="let model of models"
+              [value]="model.id"
+              [label]="model.name"
+            ></option>
+          </select>
+        </div>
+        <div class="col-3">
+          Min KM
+          <input
+            [(ngModel)]="userParams.minEnginePower"
+            formControlName="minPower"
+            name="minEnginePower"
+            class="form-control"
+            type="number"
+            (change)="loadMembers()"
+          />
+        </div>
+        <div class="col-3">
+          Max KM
+          <input
+            [(ngModel)]="userParams.maxEnginePower"
+            formControlName="maxPower"
+            name="maxEnginePower"
+            class="form-control"
+            type="number"
+            max="1500"
+            (change)="loadMembers()"
+          />
+        </div>
+      </form>
+    </div>
+  </div>
   </div>
   <div class="row mt-2">
     <div *ngFor="let member of members" class="col-3 mb-2 align-items-stretch">
       <app-member-card [member]="member"></app-member-card>
     </div>
   </div>
-  <div class="d-flex justify-content-center mt-2">
+  <div class="d-flex justify-content-center mt-2" *ngIf="pagination">
     <pagination
       [boundaryLinks]="false"
       [totalItems]="pagination.totalItems"

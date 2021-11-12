@@ -34,10 +34,17 @@ namespace API.Data.Repositories
         {
             var query = _context.Users.Where(x => x.UserName != userParams.CurrentUsername).AsQueryable();
 
-            if(userParams.Brand != null)
+            if(userParams?.BrandId != 0)
             {
-                query = query.Where(x => x.Brand == _context.Brands.FirstOrDefault(n => n.Name == userParams.Brand));
+                query = query.Where(x => x.BrandId == userParams.BrandId);
             }
+
+            if(userParams?.ModelId != 0)
+            {
+                query = query.Where(x => x.ModelId == userParams.ModelId);
+            }
+
+            query = query.Where(x => x.EnginePower >= userParams.MinEnginePower && x.EnginePower <= userParams.MaxEnginePower);
 
             return await PagedList<MemberDto>.CreateAsync(query.ProjectTo<MemberDto>(_mapper.ConfigurationProvider).AsNoTracking(), userParams.PageNumber, userParams.PageSize);
         }
