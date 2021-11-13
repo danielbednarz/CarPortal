@@ -10,8 +10,17 @@
         (click)="isCollapsed = !isCollapsed"
         [attr.aria-expanded]="!isCollapsed"
         aria-controls="formCollapse"
+        data-toggle="tooltip" data-placement="bottom" title="Rozwiń filtry"
       >
-        Filtry
+      <i class="fas fa-filter"></i>
+      </button>
+      <button
+        type="button"
+        class="btn btn-light ml-2 mb-2"
+        (click)="resetFilters()"
+        data-toggle="tooltip" data-placement="bottom" title="Usuń filtry"
+      >
+      <i class="fas fa-times-circle"></i>
       </button>
     </div>
     <div class="col-12">
@@ -32,6 +41,7 @@
             type="number"
             (change)="brandChanged($event)"
           >
+          <option selected [value] = "0"></option>
             <option
               *ngFor="let brand of brands"
               [value]="brand.id"
@@ -39,7 +49,7 @@
             ></option>
           </select>
         </div>
-        <div class="col-3">
+        <div class="form-group col-3 mt-2">
           Model
           <select
             [(ngModel)]="userParams.modelId"
@@ -57,8 +67,8 @@
             ></option>
           </select>
         </div>
-        <div class="col-3">
-          Min KM
+        <div class="form-group col-3 mt-2">
+          Minimalna moc silnika [KM]
           <input
             [(ngModel)]="userParams.minEnginePower"
             formControlName="minPower"
@@ -68,8 +78,8 @@
             (change)="loadMembers()"
           />
         </div>
-        <div class="col-3">
-          Max KM
+        <div class="form-group col-3 mt-2">
+          Maksymalna moc silnika [KM]
           <input
             [(ngModel)]="userParams.maxEnginePower"
             formControlName="maxPower"
