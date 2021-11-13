@@ -21,5 +21,6 @@ namespace API.DTOs
         public long Mileage { get; set; }
         public DateTime ProductionDate { get; set; }
         public ICollection<PhotoDto> Photos { get; set; }
+        public ICollection<Note> Notes { get; set; }
     }
 }

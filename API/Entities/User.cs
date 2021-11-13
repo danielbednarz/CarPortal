@@ -22,5 +22,6 @@ namespace API.Entities
         public long Mileage { get; set; }
         public DateTime ProductionDate { get; set; }
         public ICollection<Photo> Photos { get; set; }
+        public ICollection<Note> Notes { get; set; }
     }
 }

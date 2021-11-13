@@ -125,6 +125,28 @@ namespace API.Data.Migrations
                     b.ToTable("Models");
                 });
 
+            modelBuilder.Entity("API.Entities.Note", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Notes");
+                });
+
             modelBuilder.Entity("API.Entities.Photo", b =>
                 {
                     b.Property<int>("Id")
@@ -202,6 +224,17 @@ namespace API.Data.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("API.Entities.Views.FuelReportView", b =>
+                {
+                    b.Property<decimal>("AverageConsumption")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Month")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.ToView("FuelReportView");
+                });
+
             modelBuilder.Entity("API.Entities.EnginesForModel", b =>
                 {
                     b.HasOne("API.Entities.Engine", "Engine")
@@ -241,6 +274,17 @@ namespace API.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Brand");
+                });
+
+            modelBuilder.Entity("API.Entities.Note", b =>
+                {
+                    b.HasOne("API.Entities.User", "User")
+                        .WithMany("Notes")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("API.Entities.Photo", b =>
@@ -293,6 +337,8 @@ namespace API.Data.Migrations
 
             modelBuilder.Entity("API.Entities.User", b =>
                 {
+                    b.Navigation("Notes");
+
                     b.Navigation("Photos");
                 });
 #pragma warning restore 612, 618
