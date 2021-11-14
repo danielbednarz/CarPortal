@@ -19,7 +19,7 @@ namespace API.Data.Repositories
 
         public async Task<List<Note>> GetNotesToList(int userId)
         {
-            return await _context.Notes.Where(u => u.UserId == userId).OrderBy(x => x.CreatedDate).ToListAsync();
+            return await _context.Notes.Where(u => u.UserId == userId).OrderByDescending(x => x.CreatedDate).ToListAsync();
         }
     }
 }

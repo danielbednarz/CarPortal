@@ -17,23 +17,21 @@ import { StatisticsService } from 'src/app/services/statistics.service';
   styleUrls: ['./member-statistics.component.css']
 })
 export class MemberStatisticsComponent implements OnInit {
-  dataSource: Data[];
   fuelReport: FuelReport[];
   fuelReportView: FuelReportView[];
   member: Member;
-  username: string;
+  user: User;
   popupVisible = false;
   fuelReportForm: FormGroup;
   validationErrors: string[] = [];
 
   constructor(private statisticsService: StatisticsService, public accountService: AccountService,
     private memberService: MembersService, private formBuilder: FormBuilder, private router: Router,
-    private toastr: ToastrService, private route: ActivatedRoute) { 
-    this.dataSource = data;
+    private toastr: ToastrService) { 
+    this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
   }
 
   ngOnInit(): void {
-    this.username = this.route.snapshot.paramMap.get('username');
     this.loadMember();
     this.initializeForm();
   }
@@ -61,7 +59,7 @@ export class MemberStatisticsComponent implements OnInit {
   }
 
   loadMember() {
-    this.memberService.getMember(this.username).subscribe(member => {
+    this.memberService.getMember(this.user.username).subscribe(member => {
       this.member = member;
       this.loadFuelReport(member.id);
       this.loadFuelReportView(member.id);
@@ -92,32 +90,5 @@ export class MemberStatisticsComponent implements OnInit {
 
 }
 
-export class Data {
-  day: string;
-  oranges: number;
-}
-
-let data: Data[] = [{
-  day: "Monday",
-  oranges: 3
-}, {
-  day: "Tuesday",
-  oranges: 2
-}, {
-  day: "Wednesday",
-  oranges: 3
-}, {
-  day: "Thursday",
-  oranges: 4
-}, {
-  day: "Friday",
-  oranges: 6
-}, {
-  day: "Saturday",
-  oranges: 11
-}, {
-  day: "Sunday",
-  oranges: 4
-}];
 
     

@@ -1,6 +1,7 @@
 import { Brand } from "./brand";
 import { Engine } from "./engine";
 import { Model } from "./model";
+import { Note } from "./note";
 import { Photo } from "./photo";
 
 export interface Member {
@@ -19,4 +20,5 @@ export interface Member {
     mileage: number;
     productionDate: Date;
     photos: Photo[];
+    notes: Note[];
 }

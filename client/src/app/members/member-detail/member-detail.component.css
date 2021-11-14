@@ -6,3 +6,17 @@
     display: inline-block; 
     margin-bottom: 20px; 
 }
+
+.notes-pagination /deep/ .ngx-pagination .current {
+    background: #444;
+}
+
+.notes-pagination {
+    float: right;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+    font-size: 17px;
+}

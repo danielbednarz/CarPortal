@@ -15,6 +15,30 @@
     background-color: rgb(190, 190, 190);
 } 
 
-/* .form-control {
-    background-color: rgb(190, 190, 190);
-} */
+.notes-pagination /deep/ .ngx-pagination .current {
+    background: #444;
+}
+
+.notes-pagination {
+    float:right
+}
+
+.add-note-popup-button {
+    position: absolute;
+    bottom: 0;
+}
+
+.add-note-button {
+    margin: 0 auto;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+}
+
+form {
+    margin: 0;
+    padding: 0;
+}

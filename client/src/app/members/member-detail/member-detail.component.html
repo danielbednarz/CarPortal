@@ -16,7 +16,7 @@
                 <h5 class="card-header text-muted"><strong>Dane o właścicielu</strong></h5>
                 <div class="card-body">
                     <h6 class="card-text text-muted">Użytkownik: {{member.username}}</h6>
-                    <h6 class="card-text text-muted">Jest z nami od: {{member.createDate}}</h6>
+                    <h6 class="card-text text-muted">Jest z nami od: {{member.createDate | date:'dd.MM.yyyy'}}</h6>
                 </div>
             </div>
         </div>
@@ -42,6 +42,28 @@
                 </div>
             </div>
         </div>
+        <div class="col-6">
+            <div class="card mb-1">
+              <h5 class="card-header text-muted"><strong>Notatki</strong></h5>
+            </div>
+            <div *ngIf="notes.length === 0" class="card card-content py-2 px-3 text-muted">
+                <p>Brak notatek</p> 
+            </div>
+            <div
+              class="row my-1"
+              *ngFor="
+                let note of notes | paginate: { itemsPerPage: 5, currentPage: page }
+              "
+            >
+              <app-notes [note]="note"></app-notes>
+            </div>
+            <pagination-controls
+              *ngIf="notes.length > 0"
+              class="notes-pagination"
+              (pageChange)="page = $event"
+              directionLinks="false"
+            ></pagination-controls>
+          </div>
     </div>
 </div>
 

@@ -25,13 +25,10 @@ namespace API.Controllers
             _userRepository = userRepository;
         }
 
-        [HttpGet("getNotes")]
-        public async Task<ActionResult<List<FuelReport>>> GetNotes()
+        [HttpGet("getNotes/{userId}")]
+        public async Task<ActionResult<List<FuelReport>>> GetNotes(int userId)
         {
-            var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var user = await _userRepository.GetUserByUsernameAsync(username);
-
-            var data = await _notesRepository.GetNotesToList(user.Id);
+            var data = await _notesRepository.GetNotesToList(userId);
 
             return Ok(data);
         }
@@ -47,6 +44,25 @@ namespace API.Controllers
             _context.Notes.Add(note);
 
             await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        [HttpDelete("delete-note/{noteId}")]
+        public async Task<ActionResult> DeleteNote(string noteId)
+        {
+            var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = await _userRepository.GetUserByUsernameAsync(username);
+
+            var note = _context.Notes.FirstOrDefault(x => x.Id == Guid.Parse(noteId));
+
+            if(note == null)
+            {
+                return NotFound();
+            }
+
+            _context.Notes.Remove(note);
+            await _userRepository.SaveAllAsync();
 
             return Ok();
         }

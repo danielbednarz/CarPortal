@@ -32,12 +32,45 @@
           <strong>Dane o właścicielu</strong>
         </h5>
         <div class="card-body">
-          <h6 class="card-text text-muted">Użytkownik: {{ member.username }}</h6>
           <h6 class="card-text text-muted">
-            Jest z nami od: {{ member.createDate }}
+            Użytkownik: {{ member.username }}
+          </h6>
+          <h6 class="card-text text-muted">
+            Jest z nami od: {{ member.createDate | date: "dd.MM.yyyy" }}
           </h6>
         </div>
       </div>
+      <div class="add-note-popup-button btn btn-primary col-6" (click)="turnOnAddNotePopup()">
+        Dodaj notatkę
+      </div>
+      <div class="container">
+      <dx-popup
+        [width]="600"
+        [height]="460"
+        [showTitle]="true"
+        title="Dodaj nową notatkę"
+        [dragEnabled]="false"
+        [closeOnOutsideClick]="true"
+        [showCloseButton]="true"
+        [(visible)]="popupVisible"
+      >
+      <div class="row px-2">
+        <form
+              [formGroup]="noteForm"
+              autocomplete="off"
+              (ngSubmit)="addNote()"
+        >
+      <p class="text-muted mb-1">*Możesz utworzyć notatkę o maksymalnej długości 1024 znaków.</p>
+      <dx-text-area formControlName="content" [height]="300" [maxLength]="1025" [(value)]="content">
+      </dx-text-area>
+      </form>
+    </div>
+      <div class="row px-2">
+        <div class="add-note-button btn btn-primary mt-2 col-4" (click)="addNote()">Dodaj</div>
+      </div>
+    
+      </dx-popup>
+    </div>
     </div>
     <div class="col-3">
       <div class="card">
@@ -49,7 +82,12 @@
           <h6 class="card-text text-muted">
             Średni koszt przejechania 100km: 49.88zł
           </h6>
-          <div class="details-btn btn btn-primary" routerLink="/members/{{member.username}}/statistics">Szczegóły</div>
+          <div
+            class="details-btn btn btn-primary col-6"
+            routerLink="/member/edit/statistics"
+          >
+            Szczegóły
+          </div>
         </div>
       </div>
     </div>
@@ -107,21 +145,17 @@
             /> -->
             <div class="form-group">
               <select
-              [(ngModel)]="member.engineId"
-              name="engine"
-              class="form-select"
-              required
-            >
-              <option
-                label="Pojemność silnika"
-                selected
-                hidden
-              ></option>
-              <option
-                *ngFor="let engine of engines"
-                [ngValue]="engine.id"
-                [label]="engine.engineCapacity"
-              ></option>
+                [(ngModel)]="member.engineId"
+                name="engine"
+                class="form-select"
+                required
+              >
+                <option label="Pojemność silnika" selected hidden></option>
+                <option
+                  *ngFor="let engine of engines"
+                  [ngValue]="engine.id"
+                  [label]="engine.engineCapacity"
+                ></option>
               </select>
             </div>
             <h5 class="card-subtitle text-muted mt-1 mb-1">Moc:</h5>
@@ -143,9 +177,23 @@
       </div>
     </div>
     <div class="col-6">
-      <div class="card">
+      <div class="card mb-1">
         <h5 class="card-header text-muted"><strong>Notatki</strong></h5>
       </div>
+      <div
+        class="row my-1"
+        *ngFor="
+          let note of notes | paginate: { itemsPerPage: 5, currentPage: page }
+        "
+      >
+        <app-notes [note]="note"></app-notes>
+      </div>
+      <pagination-controls
+        *ngIf="notes.length > 0"
+        class="notes-pagination"
+        (pageChange)="page = $event"
+        directionLinks="false"
+      ></pagination-controls>
     </div>
   </div>
 </div>

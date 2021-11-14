@@ -8,9 +8,13 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import {
-  DxDataGridModule
+  DxDataGridModule,
+  DxListModule,
+  DxTextAreaModule,
+  DxPopupModule, 
+  DxButtonModule
 } from 'devextreme-angular';
-import { DxPopupModule, DxButtonModule, DxTemplateModule } from 'devextreme-angular';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [],
@@ -27,7 +31,10 @@ import { DxPopupModule, DxButtonModule, DxTemplateModule } from 'devextreme-angu
     DxButtonModule,
     DxPopupModule,
     PaginationModule,
-    CollapseModule
+    CollapseModule,
+    DxListModule,
+    NgxPaginationModule,
+    DxTextAreaModule
   ],
   exports: [
     BsDropdownModule,
@@ -39,7 +46,10 @@ import { DxPopupModule, DxButtonModule, DxTemplateModule } from 'devextreme-angu
     DxButtonModule,
     DxPopupModule,
     PaginationModule,
-    CollapseModule
+    CollapseModule,
+    DxListModule,
+    NgxPaginationModule,
+    DxTextAreaModule
   ]
 })
 export class SharedModule { }

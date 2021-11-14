@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { ToastrService } from 'ngx-toastr';
@@ -13,7 +13,8 @@ import { CarPropertiesService } from 'src/app/services/carProperties.service';
 import { Model } from 'src/app/models/model';
 import value from 'globalize';
 import { Engine } from 'src/app/models/engine';
-
+import { NotesService } from 'src/app/services/notes.service';
+import { Note } from 'src/app/models/note';
 
 @Component({
   selector: 'app-member-edit',
@@ -27,6 +28,10 @@ export class MemberEditComponent implements OnInit {
   brands: Brand[];
   models: Model[];
   engines: Engine[];
+  notes: Note[];
+  popupVisible = false;
+  content: string;
+  noteForm: FormGroup;
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
   @HostListener("window:beforeunload", ['$event']) unloadNotification($event: any) {
@@ -36,7 +41,8 @@ export class MemberEditComponent implements OnInit {
   }
 
   constructor(private accountService: AccountService, private memberService: MembersService, 
-    private toastrService: ToastrService, private router: Router, private carPropertiesService: CarPropertiesService) { 
+    private toastrService: ToastrService, private router: Router, private carPropertiesService: CarPropertiesService,
+    private notesService: NotesService, private formBuilder: FormBuilder) { 
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
   }
 
@@ -51,7 +57,14 @@ export class MemberEditComponent implements OnInit {
         thumbnailsColumns: 4,
         imageAnimation: NgxGalleryAnimation.Slide
       }
-    ]
+    ];
+    this.initializeNoteForm();
+  }
+
+  initializeNoteForm() {
+    this.noteForm = this.formBuilder.group({
+      content: ''
+    });
   }
 
   loadBrands() {
@@ -72,12 +85,19 @@ export class MemberEditComponent implements OnInit {
     })
   }
 
+  loadNotes(id: number) {
+    this.notesService.getNotes(id).subscribe(notes => {
+      this.notes = notes;
+    })
+  }
+
   loadMember() {
     this.memberService.getMember(this.user.username).subscribe(member => {
       this.member = member;
       this.galleryImages = this.getImages();
       this.loadModels(member.brandId);
       this.loadEngines(member.engineId);
+      this.loadNotes(member.id);
     })
   }
 
@@ -110,6 +130,25 @@ export class MemberEditComponent implements OnInit {
     const brandName: number = parseInt(e.target['value']);
     this.loadModels(brandName);
   }
+
+  turnOnAddNotePopup() {
+    this.popupVisible = true;
+  }
+
+  addNote() {
+    this.notesService.addNote(this.noteForm.value).subscribe(() => {
+      this.toastrService.success('Notatka została dodana');
+      this.reloadComponent();
+    })
+  }
+
+  reloadComponent() {
+    let currentUrl = this.router.url;
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate([currentUrl]);
+ }
+
 }
 
 

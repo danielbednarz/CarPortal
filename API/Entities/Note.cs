@@ -14,7 +14,7 @@ namespace API.Entities
         [Key]
         public Guid Id { get; set; }
         public string Content { get; set; }
-        public DateTime CreatedDate { get; set; }
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
         public int UserId { get; set; }
         [JsonIgnore]
         public virtual User User { get; set; }

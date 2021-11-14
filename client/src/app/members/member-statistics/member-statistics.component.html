@@ -2,16 +2,17 @@
   <div class="row">
     <h2>Statystyki</h2>
   </div>
-  <div class="row my-2" >
-    <div class="col-12">
-      <h4>Raport spalania</h4>
-      <dx-button
-        class="button-info mb-2 px-3"
-        text="Dodaj"
-        (onClick)="addReport()"
-      ></dx-button>
+  <div class="card p-2">
+    <div class="row mt-2">
+      <div class="col-12">
+        <h4>Raport średniego spalania</h4>
+        <dx-button
+          class="button-info mb-2 px-3"
+          text="Dodaj"
+          (onClick)="addReport()"
+        ></dx-button>
+      </div>
     </div>
-  </div>
     <dx-popup
       [width]="400"
       [height]="320"
@@ -125,24 +126,25 @@
       </div>
     </div>
 
-  <div class="row my-4">
-    <dx-chart id="chart" [dataSource]="fuelReportView">
-      <dxi-series
-        argumentField="month"
-        valueField="averageConsumption"
-        name="Średnie spalanie<br/>(na 100km)"
-        type="bar"
-        color="#ffaa66"
-      >
-        <dxo-label
-          [visible]="true"
-          [format]="{
-            type: 'fixedPoint',
-            precision: '2'
-          }"
+    <div class="row mt-3">
+      <dx-chart id="chart" [dataSource]="fuelReportView">
+        <dxi-series
+          argumentField="month"
+          valueField="averageConsumption"
+          name="Średnie spalanie<br/>(na 100km)"
+          type="bar"
+          color="#ffaa66"
         >
-        </dxo-label>
-      </dxi-series>
-    </dx-chart>
+          <dxo-label
+            [visible]="true"
+            [format]="{
+              type: 'fixedPoint',
+              precision: '2'
+            }"
+          >
+          </dxo-label>
+        </dxi-series>
+      </dx-chart>
+    </div>
   </div>
 </div>

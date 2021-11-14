@@ -26,6 +26,8 @@ import { FindOutMoreComponent } from './find-out-more/find-out-more.component';
 import { DxChartModule, DxSelectBoxModule } from 'devextreme-angular';
 import { PhotoAddComponent } from './members/photo-add/photo-add.component';
 import { MemberStatisticsComponent } from './members/member-statistics/member-statistics.component';
+import { MemberStatisticsDetailComponent } from './members/member-statistics-detail/member-statistics-detail.component';
+import { NotesComponent } from './notes/notes.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { MemberStatisticsComponent } from './members/member-statistics/member-st
     MemberEditComponent,
     FindOutMoreComponent,
     PhotoAddComponent,
-    MemberStatisticsComponent
+    MemberStatisticsComponent,
+    MemberStatisticsDetailComponent,
+    NotesComponent
   ],
   imports: [
     BrowserModule,

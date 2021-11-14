@@ -1,0 +1,71 @@
+<div class="container">
+    <div class="row">
+      <h2>Statystyki</h2>
+    </div>
+    <div class="card p-2">
+      <div class="row mt-2">
+        <div class="col-12">
+          <h4>Raport średniego spalania</h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <dx-data-grid
+            id="fuelReport"
+            [dataSource]="fuelReport"
+            keyExpr="id"
+            [remoteOperations]="false"
+            [allowColumnResizing]="true"
+          >
+            <dxo-paging [pageSize]="5"></dxo-paging>
+            <dxo-pager
+              [showPageSizeSelector]="true"
+              [allowedPageSizes]="[5, 10, 15]"
+            ></dxo-pager>
+            <dxi-column
+              dataField="cost"
+              dataType="number"
+              caption="Koszt tankowania [PLN]"
+            ></dxi-column>
+            <dxi-column
+              dataField="fuelAmount"
+              dataType="number"
+              caption="Ilość zatankowanego paliwa [dm3]"
+            ></dxi-column>
+            <dxi-column
+              dataField="traveledDistance"
+              dataType="number"
+              caption="Przejechany dystans [km]"
+            ></dxi-column>
+            <dxi-column
+              dataField="refuelDate"
+              dataType="date"
+              caption="Data zatankowania"
+            ></dxi-column>
+          </dx-data-grid>
+        </div>
+      </div>
+  
+      <div class="row mt-3">
+        <dx-chart id="chart" [dataSource]="fuelReportView">
+          <dxi-series
+            argumentField="month"
+            valueField="averageConsumption"
+            name="Średnie spalanie<br/>(na 100km)"
+            type="bar"
+            color="#ffaa66"
+          >
+            <dxo-label
+              [visible]="true"
+              [format]="{
+                type: 'fixedPoint',
+                precision: '2'
+              }"
+            >
+            </dxo-label>
+          </dxi-series>
+        </dx-chart>
+      </div>
+    </div>
+  </div>
+  
