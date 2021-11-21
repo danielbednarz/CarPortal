@@ -21,5 +21,6 @@ namespace API.Helpers
         public int ModelId { get; set; }
         public int MinEnginePower { get; set; } = 0;
         public int MaxEnginePower { get; set; } = 1500;
+        public string OrderBy { get; set; } = "CreateDateDesc";
     }
 }

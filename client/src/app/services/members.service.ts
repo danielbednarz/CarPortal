@@ -39,6 +39,10 @@ export class MembersService {
       'maxEnginePower',
       userParams.maxEnginePower.toString()
     );
+    params = params.append(
+      'orderBy',
+      userParams.orderBy.toString()
+    );
 
     return this.getPaginatedResult<Member[]>(this.baseUrl + 'users', params);
   }

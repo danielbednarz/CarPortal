@@ -1,3 +1,15 @@
 .form-control {
     width: -webkit-fill-available;
 }
+
+.sort-select {
+    display: inline;
+    width: 28%;
+}
+
+.test {
+    margin-right: 0;
+    margin-left: auto;
+    width: 96%;
+    text-align: right;
+}

@@ -46,6 +46,16 @@ namespace API.Data.Repositories
 
             query = query.Where(x => x.EnginePower >= userParams.MinEnginePower && x.EnginePower <= userParams.MaxEnginePower);
 
+            query = userParams.OrderBy switch
+            {
+                "EnginePowerDesc" => query.OrderByDescending(x => x.EnginePower),
+                "EnginePowerAsc" => query.OrderBy(x => x.EnginePower),
+                "ProductionDateDesc" => query.OrderByDescending(x => x.ProductionDate),
+                "ProductionDateAsc" => query.OrderBy(x => x.ProductionDate),
+                "CreateDateAsc" => query.OrderBy(x => x.CreateDate),
+                _ => query.OrderByDescending(x => x.CreateDate)
+            };
+
             return await PagedList<MemberDto>.CreateAsync(query.ProjectTo<MemberDto>(_mapper.ConfigurationProvider).AsNoTracking(), userParams.PageNumber, userParams.PageSize);
         }
 

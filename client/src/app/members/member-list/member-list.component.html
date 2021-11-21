@@ -3,12 +3,12 @@
     <h2>Lista użytkowników ({{ pagination?.totalItems }})</h2>
   </div>
   <div class="row">
-    <div class="col-6">
+    <div class="btn-group">
       <button
         type="button"
-        class="btn btn-dark mb-2"
-        (click)="isCollapsed = !isCollapsed"
-        [attr.aria-expanded]="!isCollapsed"
+        class="btn btn-dark mb-2 col-1"
+        (click)="isFilteringCollapsed = !isFilteringCollapsed"
+        [attr.aria-expanded]="!isFilteringCollapsed"
         aria-controls="formCollapse"
         data-toggle="tooltip" data-placement="bottom" title="Rozwiń filtry"
       >
@@ -16,21 +16,36 @@
       </button>
       <button
         type="button"
-        class="btn btn-light ml-2 mb-2"
+        class="btn btn-light ml-2 mb-2 col-1"
         (click)="resetFilters()"
         data-toggle="tooltip" data-placement="bottom" title="Usuń filtry"
       >
       <i class="fas fa-times-circle"></i>
       </button>
+      <div class="test">
+        <select
+        [(ngModel)]="userParams.orderBy"
+              name="orderBy"
+              class="form-select sort-select ml-2 mb-2"
+              (change)="loadMembers()">
+              <option selected hidden value = "CreateDateDesc" label="Sortuj po"></option>
+              <option value = "CreateDateDesc" label="Data utworzenia profilu (od najnowszych)"></option>
+              <option value = "CreateDateAsc" label="Data utworzenia (od najstarszych)"></option>
+              <option value = "EnginePowerAsc" label="Moc silnika (rosnąco)"></option>
+              <option value = "EnginePowerDesc" label="Moc silnika (malejąco)"></option>
+              <option value = "ProductionDateDesc" label="Rok produkcji (od najnowszych)"></option>
+              <option value = "ProductionDateAsc" label="Rok produkcji (od najstarszych)"></option>
+        </select>
+      </div>
     </div>
     <div class="col-12">
     <div
       class="form-collapse well well-lg card card-block"
       id="formCollapse"
-      [collapse]="isCollapsed"
+      [collapse]="isFilteringCollapsed"
       [isAnimated]="true"
     >
-      <form [formGroup]="filterForm" class="form-inline mb-2" autocomplete="off">
+    <form [formGroup]="filterForm" class="form-inline mb-2" autocomplete="off">
         <div class="form-group col-3 mt-2">
           Marka
           <select

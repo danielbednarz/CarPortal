@@ -23,7 +23,7 @@ export class MemberListComponent implements OnInit {
   userParams: UserParameters;
   brands: Brand[];
   models: Model[];
-  isCollapsed = true;
+  isFilteringCollapsed = true;
   filterForm: FormGroup;
 
   constructor(private memberService: MembersService, private carPropertiesService: CarPropertiesService, private formBuilder: FormBuilder) { 
