@@ -25,9 +25,18 @@ namespace API.Data
         public DbSet<FuelReport> FuelReports { get; set; }
         public DbSet<FuelReportView> FuelReportView { get; set; }
         public DbSet<Note> Notes { get; set; }
+        public DbSet<Message> Messages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Message>()
+            .HasOne(x => x.Recipient)
+            .WithMany(m => m.MessagesReceived);
+
+            modelBuilder.Entity<Message>()
+            .HasOne(x => x.Sender)
+            .WithMany(m => m.MessagesSent);
+
             var cascadeFKs = modelBuilder.Model.GetEntityTypes()
             .SelectMany(t => t.GetForeignKeys())
             .Where(fk => !fk.IsOwnership && fk.DeleteBehavior == DeleteBehavior.Cascade);
@@ -36,6 +45,8 @@ namespace API.Data
             {
                 fk.DeleteBehavior = DeleteBehavior.Restrict;
             }
+
+
 
             modelBuilder.Entity<FuelReportView>().HasNoKey().ToView("FuelReportView");
 

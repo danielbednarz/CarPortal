@@ -23,5 +23,8 @@ namespace API.Entities
         public DateTime ProductionDate { get; set; }
         public ICollection<Photo> Photos { get; set; }
         public ICollection<Note> Notes { get; set; }
+        public ICollection<Message> MessagesSent { get; set; }
+        public ICollection<Message> MessagesReceived { get; set; }
+
     }
 }
