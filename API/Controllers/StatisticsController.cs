@@ -36,6 +36,14 @@ namespace API.Controllers
             return Ok(data);
         }
 
+        [HttpGet("getAverageConsumption/{userId}")]
+        public async Task<ActionResult> GetAverageConsumption(int userId)
+        {
+            var data = await _statisticsRepository.GetAverageConsumption(userId);
+
+            return Ok(data);
+        }
+
         [HttpPost("add-fuel-report")]
         public async Task<ActionResult<FuelReport>> AddFuelReport(FuelReport fuelReport)
         {

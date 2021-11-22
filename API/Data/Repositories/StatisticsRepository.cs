@@ -44,5 +44,15 @@ namespace API.Data.Repositories
                                             WHERE fuelReport.userId = {userId}
 											GROUP BY FORMAT(fuelReport.RefuelDate, 'MM')").ToListAsync();
         }
+
+        public async Task<List<FuelReportView>> GetAverageConsumption(int userId)
+        {
+            return await _context.FuelReportView.FromSqlInterpolated(@$"SELECT
+                                                '' as [Month],
+												CAST(ISNULL(AVG(((fuelReport.FuelAmount * 100)/fuelReport.TraveledDistance)), 0) as decimal(18,2)) as AverageConsumption
+											FROM FuelReports fuelReport
+                                            WHERE fuelReport.userId = {userId}").ToListAsync(); 
+
+		}
     }
 }

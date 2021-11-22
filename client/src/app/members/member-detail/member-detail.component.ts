@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
+import { FuelReportView } from 'src/app/models/fuelReportView';
 import { Member } from 'src/app/models/member';
 import { Note } from 'src/app/models/note';
 import { MembersService } from 'src/app/services/members.service';
 import { NotesService } from 'src/app/services/notes.service';
+import { StatisticsService } from 'src/app/services/statistics.service';
 
 @Component({
   selector: 'app-member-detail',
@@ -16,8 +18,10 @@ export class MemberDetailComponent implements OnInit {
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
   notes: Note[];
+  fuelReport: FuelReportView[];
 
-  constructor(private memberService: MembersService, private route: ActivatedRoute, private notesService: NotesService) { }
+  constructor(private memberService: MembersService, private route: ActivatedRoute, private notesService: NotesService,
+    private statisticsService: StatisticsService) { }
 
   ngOnInit(): void {
     this.loadMember();
@@ -34,6 +38,7 @@ export class MemberDetailComponent implements OnInit {
       }
     ]
   }
+
 
   getImages(): NgxGalleryImage[] {
     const imageUrls = [];
@@ -54,7 +59,16 @@ export class MemberDetailComponent implements OnInit {
       this.member = member;
       this.galleryImages = this.getImages();
       this.loadNotes(member.id);
+      this.loadAverageConsumption(member.id);
     })
+  }
+
+  loadAverageConsumption(id: number) {
+    
+    this.statisticsService.getAverageConsumption(id).subscribe(x => {
+      debugger;
+      this.fuelReport = x;
+    });
   }
 
   loadNotes(id: number) {

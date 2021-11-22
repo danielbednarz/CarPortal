@@ -12,5 +12,6 @@ namespace API.Interfaces.Repositories
     {
         Task<List<FuelReport>> GetFuelReportToList(int userId);
         Task<List<FuelReportView>> GetFuelReportViewToList(int userId);
+        Task<List<FuelReportView>> GetAverageConsumption(int userId);
     }
 }

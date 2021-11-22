@@ -25,6 +25,10 @@ export class StatisticsService {
     return this.http.get<FuelReportView[]>(this.baseUrl + '/getFuelReportView/' + userId);
   }
 
+  getAverageConsumption(userId: number) {
+    return this.http.get<FuelReportView[]>(this.baseUrl + '/getAverageConsumption/' + userId);
+  }
+
   addNewFuelReport(model: any) {
     debugger;
     return this.http.post(this.baseUrl + '/add-fuel-report', model).pipe(
