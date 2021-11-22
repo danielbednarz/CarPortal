@@ -71,9 +71,9 @@ namespace API.Data.Repositories
 
             query = messageParameters.Container switch
             {
-                "Inbox" => query.Where(x => x.Recipient.UserName == messageParameters.Username),
-                "Outbox" => query.Where(x => x.Sender.UserName == messageParameters.Username),
-                _ => query.Where(x => x.Recipient.UserName == messageParameters.Username && x.MessageReadDate == null)
+                "Inbox" => query.Where(x => x.RecipientUsername == messageParameters.Username),
+                "Outbox" => query.Where(x => x.SenderUsername == messageParameters.Username),
+                _ => query.Where(x => x.RecipientUsername == messageParameters.Username && x.MessageReadDate == null)
             };
 
             var messages = query.ProjectTo<MessageDto>(_mapper.ConfigurationProvider);
