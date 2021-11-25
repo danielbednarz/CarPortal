@@ -1,41 +1,53 @@
 <div class="container">
-    <div class="d-flex mb-4">
-        <div class="btn-group" name="container">
-          <button
-            class="btn btn-primary"
-            btnRadio="Unread"
-            [(ngModel)]="container"
-            (click)="loadUnreadMessages()"
-          >
-            <i class="far fa-envelope fa-2x"></i>
-          </button>
-          <button
-            class="btn btn-primary"
-            btnRadio="Inbox"
-            [(ngModel)]="container"
-            (click)="loadInboxMessages()"
-          >
-            <i class="far fa-envelope-open fa-2x"></i>
-          </button>
-          <button
-            class="btn btn-primary"
-            btnRadio="Outbox"
-            [(ngModel)]="container"
-            (click)="loadMessages()"
-          >
-            <i class="far fa-paper-plane fa-2x"></i>
-          </button>
-        </div>
-      </div>
-  <div class="row" *ngIf="messages?.length === 0">
+  <div class="d-flex mb-3">
+    <div class="btn-group" name="container">
+      <button
+        class="btn btn-primary"
+        btnRadio="Unread"
+        [(ngModel)]="container"
+        (click)="loadUnreadMessages()"
+      >
+        <i class="far fa-envelope fa-2x"></i>
+      </button>
+      <button
+        class="btn btn-primary"
+        btnRadio="Inbox"
+        [(ngModel)]="container"
+        (click)="loadInboxMessages()"
+      >
+        <i class="far fa-envelope-open fa-2x"></i>
+      </button>
+      <button
+        class="btn btn-primary"
+        btnRadio="Outbox"
+        [(ngModel)]="container"
+        (click)="loadOutboxMessages()"
+      >
+        <i class="far fa-paper-plane fa-2x"></i>
+      </button>
+    </div>
+  </div>
+  <div class="row mb-2" *ngIf="messages?.length === 0">
     <h2>Brak wiadomości</h2>
+  </div>
+
+  <div class="row mb-2" *ngIf="container === 'Inbox'">
+    <h2>Skrzynka odbiorcza</h2>
+  </div>
+
+  <div class="row mb-2" *ngIf="container === 'Outbox'">
+    <h2>Skrzynka nadawcza</h2>
+  </div>
+
+  <div class="row mb-2" *ngIf="container === 'Unread'">
+    <h2>Nieodczytane</h2>
   </div>
 
   <div class="row" *ngIf="messages?.length > 0">
     <table class="table table-hover" style="cursor: pointer">
       <tr>
-        <th style="width: 20%">Od</th>
-        <th style="width: 50%">Wiadomość</th>
+        <th style="width: 30%">Od / do</th>
+        <th style="width: 40%">Wiadomość</th>
         <th style="width: 20%">Wysłano / odebrano</th>
         <th style="width: 10%"></th>
       </tr>
@@ -43,12 +55,12 @@
         *ngFor="let message of messages"
         routerLink="{{
           container === 'Outbox'
-            ? '/members/' + message.recipientUsername
-            : '/members/' + message.senderUsername
+            ? '/members/' + message.recipientUsername + '/messages'
+            : '/members/' + message.senderUsername + '/messages'
         }}"
       >
         <td>
-          <strong>{{ message.senderUsername }}</strong>
+          <strong>{{message.senderUsername }}</strong> / <strong>{{message.recipientUsername}}</strong>
         </td>
         <td>{{ message.content }}</td>
         <td>

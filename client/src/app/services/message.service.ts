@@ -20,6 +20,10 @@ export class MessageService {
     return this.getPaginatedResult<Message[]>(this.baseUrl + 'messages', params);
   }
 
+  getMessageThread(username: string) {
+    return this.http.get<Message[]>(this.baseUrl + 'messages/thread/' + username);
+  }
+
   private getPaginatedResult<T>(url, params) {
     const paginatedResult: PaginationResult<T> = new PaginationResult<T>();
 

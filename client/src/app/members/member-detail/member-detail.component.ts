@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
+import { take } from 'rxjs/operators';
 import { FuelReportView } from 'src/app/models/fuelReportView';
 import { Member } from 'src/app/models/member';
 import { Note } from 'src/app/models/note';
+import { User } from 'src/app/models/user';
+import { AccountService } from 'src/app/services/account.service';
 import { MembersService } from 'src/app/services/members.service';
 import { NotesService } from 'src/app/services/notes.service';
 import { StatisticsService } from 'src/app/services/statistics.service';
@@ -15,13 +18,17 @@ import { StatisticsService } from 'src/app/services/statistics.service';
 })
 export class MemberDetailComponent implements OnInit {
   member: Member;
+  user: User;
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
   notes: Note[];
   fuelReport: FuelReportView[];
 
   constructor(private memberService: MembersService, private route: ActivatedRoute, private notesService: NotesService,
-    private statisticsService: StatisticsService) { }
+    private statisticsService: StatisticsService, private accountService: AccountService) { 
+      this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
+    }
+
 
   ngOnInit(): void {
     this.loadMember();

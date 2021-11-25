@@ -2,8 +2,7 @@
   <div class="row ml-1">
     <p>{{ note.createdDate | date: "dd.MM.yyyy" }}</p>
     <button
-    
-    *ngIf="router.url.includes('edit')"
+      *ngIf="router.url.includes('edit')"
       class="btn btn-sm btn-danger ml-2"
       data-toggle="tooltip"
       data-placement="bottom"

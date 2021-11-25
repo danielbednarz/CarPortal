@@ -6,8 +6,10 @@
     </div>
   </div>
   <div class="row mb-3">
-    <div class="col-9">
-      <h2>Edytuj profil</h2>
+    <div class="col-12">
+      <div class="card card-header title">
+        <h2 class="">Edytuj profil</h2>
+      </div>
     </div>
     <div class="col-3">
       <button
@@ -22,72 +24,84 @@
   </div>
   <div class="row mb-3">
     <div class="col-6">
-      <div class="card">
+      <div class="card photo-add-card">
         <app-photo-add [member]="member"></app-photo-add>
       </div>
     </div>
-    <div class="col-3">
-      <div class="card">
-        <h5 class="card-header text-muted">
-          <strong>Dane o właścicielu</strong>
-        </h5>
-        <div class="card-body">
-          <h6 class="card-text text-muted">
-            Użytkownik: {{ member.username }}
-          </h6>
-          <h6 class="card-text text-muted">
-            Jest z nami od: {{ member.createDate | date: "dd.MM.yyyy" }}
-          </h6>
-        </div>
-      </div>
-      <div class="add-note-popup-button btn btn-primary col-6" (click)="turnOnAddNotePopup()">
-        Dodaj notatkę
-      </div>
-      <div class="container">
-      <dx-popup
-        [width]="600"
-        [height]="460"
-        [showTitle]="true"
-        title="Dodaj nową notatkę"
-        [dragEnabled]="false"
-        [closeOnOutsideClick]="true"
-        [showCloseButton]="true"
-        [(visible)]="popupVisible"
-      >
-      <div class="row px-2">
-        <form
-              [formGroup]="noteForm"
-              autocomplete="off"
-              (ngSubmit)="addNote()"
-        >
-      <p class="text-muted mb-1">*Możesz utworzyć notatkę o maksymalnej długości 1024 znaków.</p>
-      <dx-text-area formControlName="content" [height]="300" [maxLength]="1025" [(value)]="content">
-      </dx-text-area>
-      </form>
-    </div>
-      <div class="row px-2">
-        <div class="add-note-button btn btn-primary mt-2 col-4" (click)="addNote()">Dodaj</div>
-      </div>
-    
-      </dx-popup>
-    </div>
-    </div>
-    <div class="col-3">
-      <div class="card">
-        <h5 class="card-header text-muted">
-          <strong>Dziennik kosztów</strong>
-        </h5>
-        <div class="card-body">
-          <h6 class="card-text text-muted">Spalanie: 10.5l/100km</h6>
-          <h6 class="card-text text-muted">
-            Średni koszt przejechania 100km: 49.88zł
-          </h6>
-          <div
-            class="details-btn btn btn-primary col-6"
-            routerLink="/member/edit/statistics"
-          >
-            Szczegóły
+    <div class="col-sm-6">
+      <div class="row">
+        <div class="col-sm-12 mb-3">
+          <div class="card">
+            <h5 class="card-header text-muted">
+              <strong>Dane o właścicielu</strong>
+            </h5>
+            <div class="card-body">
+              <h5 class="card-text text-muted">
+                Użytkownik: {{ member.username }}
+              </h5>
+              <h5 class="card-text text-muted">
+                Jest z nami od: {{ member.createDate | date: "dd.MM.yyyy" }}
+              </h5>
+            </div>
           </div>
+        </div>
+        <div class="col-sm-12">
+          <div class="card">
+            <h5 class="card-header text-muted">
+              <strong>Dziennik kosztów</strong>
+            </h5>
+            <div class="card-body">
+              <h5 class="card-text text-muted">Spalanie: 10.5l/100km</h5>
+              <h5 class="card-text text-muted">
+                Średni koszt przejechania 100km: 49.88zł
+              </h5>
+              <div
+                class="details-btn btn btn-primary"
+                routerLink="/member/edit/statistics"
+              >
+                Szczegóły
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <dx-popup
+            [width]="600"
+            [height]="460"
+            [showTitle]="true"
+            title="Dodaj nową notatkę"
+            [dragEnabled]="false"
+            [closeOnOutsideClick]="true"
+            [showCloseButton]="true"
+            [(visible)]="popupVisible"
+          >
+            <div class="row px-2">
+              <form
+                [formGroup]="noteForm"
+                autocomplete="off"
+                (ngSubmit)="addNote()"
+              >
+                <p class="text-muted mb-1">
+                  *Możesz utworzyć notatkę o maksymalnej długości 1024 znaków.
+                </p>
+                <dx-text-area
+                  formControlName="content"
+                  [height]="300"
+                  [maxLength]="1025"
+                  [(value)]="content"
+                >
+                </dx-text-area>
+              </form>
+            </div>
+            <div class="row px-2">
+              <div
+                class="add-note-button btn btn-primary mt-2 col-4"
+                (click)="addNote()"
+              >
+                Dodaj
+              </div>
+            </div>
+          </dx-popup>
         </div>
       </div>
     </div>
@@ -137,12 +151,6 @@
 
           <div class="card-body">
             <h5 class="card-subtitle text-muted mb-1">Silnik:</h5>
-            <!-- <input
-              [(ngModel)]="member.engine.engineCapacity"
-              type="text"
-              name="engineId"
-              class="form-control"
-            /> -->
             <div class="form-group">
               <select
                 [(ngModel)]="member.engineId"
@@ -178,7 +186,13 @@
     </div>
     <div class="col-6">
       <div class="card mb-1">
-        <h5 class="card-header text-muted"><strong>Notatki</strong></h5>
+        <h5 class="card-header text-muted">
+          <strong>Notatki</strong>
+          <i
+            class="fas fa-pen add-note-popup-button"
+            (click)="turnOnAddNotePopup()"
+          ></i>
+        </h5>
       </div>
       <div
         class="row my-1"

@@ -1,76 +1,130 @@
 <div class="container" *ngIf="member">
-    <div class="row mb-3">
-        <div class="col-12">
-            <div class="card card-header title">
-            <h2>Szczegóły</h2>
-        </div>
-        </div>
+  <div class="row mb-3">
+    <div class="col-12 col-xs-12">
+      <div class="card card-header title">
+        <h2 class="">Szczegóły</h2>
+      </div>
     </div>
-    <div class="row mb-3">
-        
-        <div class="col-6">
-            <div class="card" >
-                <ngx-gallery *ngIf="member.photos.length > 0" [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery p-1"></ngx-gallery>
-                <div *ngIf="member.photos.length === 0" class="card card-content py-2 px-3 text-muted no-photos">
-                    <img src="./assets/img/nophoto.png" alt="Brak zdjęć" height="482px"> 
-                </div>
-            </div>
+  </div>
+  <div class="row mb-2">
+    <div class="col-sm-6 col-xs-12">
+      <div class="card">
+        <ngx-gallery
+          *ngIf="member.photos.length > 0"
+          [options]="galleryOptions"
+          [images]="galleryImages"
+          class="ngx-gallery p-1"
+        ></ngx-gallery>
+        <div
+          *ngIf="member.photos.length === 0"
+          class="card card-content py-2 px-3 text-muted no-photos"
+        >
+          <img src="./assets/img/nophoto.png" alt="Brak zdjęć" height="482px" />
         </div>
-        <div class="col-3">
-            <div class="card">
-                <h5 class="card-header text-muted"><strong>Dane o właścicielu</strong></h5>
-                <div class="card-body">
-                    <h5 class="card-text text-muted">Użytkownik: {{member.username}}</h5>
-                    <h5 class="card-text text-muted">Jest z nami od: {{member.createDate | date:'dd.MM.yyyy'}}</h5>
-                </div>
-            </div>
-        </div>
-        <div class="col-3">
-            <div class="card">
-                <h5 class="card-header text-muted"><strong>Dziennik kosztów</strong></h5>
-                <div class="card-body" *ngIf="fuelReport">
-                    <h5 class="card-text text-muted" *ngIf="fuelReport[0].averageConsumption !== 0">Spalanie: {{fuelReport[0].averageConsumption}} l/100km</h5>
-                    <h5 class="card-text text-muted" *ngIf="fuelReport[0].averageConsumption === 0">Spalanie: brak danych</h5>
-                    <h5 class="card-text text-muted">Średni koszt przejechania 100km: 49.88zł</h5>
-                    <div class="details-btn btn btn-primary" routerLink="/members/{{member.username}}/statistics">Szczegóły</div>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
-    <div class="row">
-        <div class="col-6">
-            <div class="card">
-                <h4 class="card-header"><strong>{{member.brand.name}} {{member.model.name}}</strong></h4>
-                <div class="card-body">
-                    <h5 class="card-subtitle text-muted mb-3">Silnik: {{member.engine.engineCapacity}}</h5>
-                    <h5 class="card-subtitle text-muted mb-3">Moc: {{member.enginePower}}KM</h5>
-                    <h5 class="card-subtitle text-muted mb-3">Rok produkcji: {{member.productionDate | date:'dd.MM.yyyy'}}</h5>
-                    <h5 class="card-subtitle text-muted">Przebieg: {{member.mileage}}km</h5>
-                </div>
+    <div class="col-sm-6 col-xs-12">
+      <div class="row">
+        <div class="col-12 mb-2">
+          <div class="card">
+            <h5 class="card-header text-muted">
+              <strong>Dane o właścicielu</strong>
+            </h5>
+            <div class="card-body">
+              <h5 class="card-text text-muted">
+                Użytkownik: {{ member.username }}
+              </h5>
+              <h5 class="card-text text-muted">
+                Jest z nami od: {{ member.createDate | date: "dd.MM.yyyy" }}
+              </h5>
+              <div
+                class="details-btn btn btn-primary"
+                routerLink="messages"
+                *ngIf="member.username !== user.username"
+              >
+                Wiadomość
+              </div>
             </div>
-        </div>
-        <div class="col-6" *ngIf="notes">
-            <div class="card mb-1">
-              <h5 class="card-header text-muted"><strong>Notatki</strong></h5>
-            </div>
-            <div *ngIf="notes.length === 0" class="card card-content py-2 px-3 text-muted">
-                <p>Brak notatek</p> 
-            </div>
-            <div
-              class="row my-1"
-              *ngFor="
-                let note of notes | paginate: { itemsPerPage: 5, currentPage: page }
-              "
-            >
-              <app-notes [note]="note"></app-notes>
-            </div>
-            <pagination-controls
-              *ngIf="notes.length > 0"
-              class="notes-pagination"
-              (pageChange)="page = $event"
-              directionLinks="false"
-            ></pagination-controls>
           </div>
-    </div>
-</div>
+        </div>
 
+        <div class="col-12">
+          <div class="card">
+            <h5 class="card-header text-muted">
+              <strong>Dziennik kosztów</strong>
+            </h5>
+            <div class="card-body" *ngIf="fuelReport">
+              <h5
+                class="card-text text-muted"
+                *ngIf="fuelReport[0].averageConsumption !== 0"
+              >
+                Spalanie: {{ fuelReport[0].averageConsumption }} l/100km
+              </h5>
+              <h5
+                class="card-text text-muted"
+                *ngIf="fuelReport[0].averageConsumption === 0"
+              >
+                Spalanie: brak danych
+              </h5>
+              <h5 class="card-text text-muted">Średni koszt 100km: 49.88zł</h5>
+              <div
+                class="details-btn btn btn-primary"
+                routerLink="/members/{{ member.username }}/statistics"
+              >
+                Szczegóły
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="card">
+        <h4 class="card-header">
+          <strong>{{ member.brand.name }} {{ member.model.name }}</strong>
+        </h4>
+        <div class="card-body">
+          <h5 class="card-subtitle text-muted mb-3">
+            Silnik: {{ member.engine.engineCapacity }}
+          </h5>
+          <h5 class="card-subtitle text-muted mb-3">
+            Moc: {{ member.enginePower }}KM
+          </h5>
+          <h5 class="card-subtitle text-muted mb-3">
+            Rok produkcji: {{ member.productionDate | date: "dd.MM.yyyy" }}
+          </h5>
+          <h5 class="card-subtitle text-muted">
+            Przebieg: {{ member.mileage }}km
+          </h5>
+        </div>
+      </div>
+    </div>
+    <div class="col-6" *ngIf="notes">
+      <div class="card mb-1">
+        <h5 class="card-header text-muted"><strong>Notatki</strong></h5>
+      </div>
+      <div
+        *ngIf="notes.length === 0"
+        class="card card-content py-2 px-3 text-muted"
+      >
+        <p>Brak notatek</p>
+      </div>
+      <div
+        class="row my-1"
+        *ngFor="
+          let note of notes | paginate: { itemsPerPage: 5, currentPage: page }
+        "
+      >
+        <app-notes [note]="note"></app-notes>
+      </div>
+      <pagination-controls
+        *ngIf="notes.length > 0"
+        class="notes-pagination"
+        (pageChange)="page = $event"
+        directionLinks="false"
+      ></pagination-controls>
+    </div>
+  </div>
+</div>

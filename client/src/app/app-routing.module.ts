@@ -7,6 +7,7 @@ import { FindOutMoreComponent } from './find-out-more/find-out-more.component';
 import { AuthGuard } from './guards/auth.guard';
 import { UnsavedChangesBlockGuard } from './guards/unsaved-changes-block.guard';
 import { HomeComponent } from './home/home.component';
+import { MemberMessagesComponent } from './member-messages/member-messages.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { MemberListComponent } from './members/member-list/member-list.component';
@@ -29,6 +30,7 @@ const routes: Routes = [
       {path: 'member/edit', component: MemberEditComponent, canDeactivate: [UnsavedChangesBlockGuard]},
       {path: 'myProfile', component: MyProfileComponent},
       {path: 'messages', component: MessagesComponent},
+      {path: 'members/:username/messages', component: MemberMessagesComponent},
       {path: 'register', component: RegisterComponent},
       {path: 'member/edit/statistics', component: MemberStatisticsComponent},
       {path: 'members/:username/statistics', component: MemberStatisticsDetailComponent}

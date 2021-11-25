@@ -5,3 +5,15 @@
     transition-timing-function: ease-in;
     opacity: 0.7;
 }
+
+/* .upload-container {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+} */
+
+input[type="file"] {
+    display: none;
+}

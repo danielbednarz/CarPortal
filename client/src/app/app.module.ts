@@ -28,6 +28,7 @@ import { PhotoAddComponent } from './members/photo-add/photo-add.component';
 import { MemberStatisticsComponent } from './members/member-statistics/member-statistics.component';
 import { MemberStatisticsDetailComponent } from './members/member-statistics-detail/member-statistics-detail.component';
 import { NotesComponent } from './notes/notes.component';
+import { MemberMessagesComponent } from './member-messages/member-messages.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { NotesComponent } from './notes/notes.component';
     PhotoAddComponent,
     MemberStatisticsComponent,
     MemberStatisticsDetailComponent,
-    NotesComponent
+    NotesComponent,
+    MemberMessagesComponent
   ],
   imports: [
     BrowserModule,

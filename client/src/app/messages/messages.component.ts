@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Brand } from '../models/brand';
 import { Message } from '../models/message';
+import { Model } from '../models/model';
 import { Pagination } from '../models/paginaton';
 import { UserParameters } from '../models/userParameters';
+import { CarPropertiesService } from '../services/carProperties.service';
 import { MessageService } from '../services/message.service';
 
 @Component({
@@ -11,14 +14,17 @@ import { MessageService } from '../services/message.service';
 })
 export class MessagesComponent implements OnInit {
   messages: Message[] = [];
+  brands: Brand[];
+  models: Model[]; 
   pagination: Pagination;
   container = 'Inbox';
   pageNumber = 1;
   pageSize = 10;
 
-  constructor(private messageService: MessageService) { }
+  constructor(private messageService: MessageService, private carPropertiesService: CarPropertiesService) { }
 
   ngOnInit(): void {
+    this.loadBrands();
     this.loadMessages();
   }
 
@@ -49,6 +55,18 @@ export class MessagesComponent implements OnInit {
       this.pageNumber = event.page;
       this.loadMessages();
     }
+  }
+
+  loadBrands() {
+    this.carPropertiesService.getBrands().subscribe(brands => {
+      this.brands = brands;
+    })
+  }
+
+  loadModels(id: number) {
+    this.carPropertiesService.getModels(id).subscribe(models => {
+      this.models = models;
+    })
   }
 
 }
