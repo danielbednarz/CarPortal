@@ -1,47 +1,61 @@
 <div class="container">
-  <div class="row">
+  <div class="row mb-3">
     <div class="col-12 col-xs-12">
       <div class="card-header title">
         <h2 class="">Wiadomości z {{ username }}</h2>
       </div>
     </div>
   </div>
-  <div class="container" >
+  <div class="row">
+        <form #messageForm="ngForm" (ngSubmit)="sendMessage()" autocomplete="off">
+            <div class="col-11">
+              <dx-text-area
+                class="mb-2"
+                [height]="75"
+                [maxLength]="257"
+                [(value)]="messageContent"
+                placeholder="Napisz wiadomość"
+              >
+              </dx-text-area>
+            </div>
+            <div class="col-1 mt-3">
+                <button ><i class="fas fa-arrow-right fa-3x" type="submit"></i></button>
+              </div>
+          </form>
+      
+  </div>
+
+  <div class="container">
     <div class="row message-row" *ngFor="let message of messages">
       <div class="row sender-row col-12 my-2">
-        <div
-          class="card"
-          *ngIf="message.senderUsername === username"
-        >
-        <div class="card-title">
+        <div class="card" *ngIf="message.senderUsername === username">
+          <div class="card-title">
             <p class="username mt-2 mr-2">
-                <strong>{{ message.senderUsername }}</strong>
-              </p>
-        </div>
+              <strong>{{ message.senderUsername }}</strong>
+            </p>
+          </div>
 
           <p class="mt-2 mr-2">{{ message.content }}</p>
-          <p class="my-2 mr-2">{{ message.messageSentDate | date: "dd.MM.yy HH:mm" }}</p>
+          <p class="my-2 mr-2">
+            {{ message.messageSentDate | date: "dd.MM.yy HH:mm" }}
+          </p>
         </div>
       </div>
 
       <div class="row recipient-row col-12 my-2">
-        <div
-          class="card"
-          *ngIf="message.senderUsername !== username"
-          
-        >
-        <div class="card-title">
+        <div class="card-header" *ngIf="message.senderUsername !== username">
+          <div class="card-title">
             <p class="username mt-2 mr-2">
-                <strong>{{ message.senderUsername }}</strong>
+              <strong>{{ message.senderUsername }}</strong>
             </p>
-        </div>
-          
+          </div>
+
           <p class="mt-2 mr-2">{{ message.content }}</p>
-          <p class="my-2 mr-2">{{ message.messageSentDate | date: "dd.MM.yy HH:mm" }}</p>
+          <p class="my-2 mr-2">
+            {{ message.messageSentDate | date: "dd.MM.yy HH:mm" }}
+          </p>
         </div>
       </div>
-
-
     </div>
   </div>
 </div>

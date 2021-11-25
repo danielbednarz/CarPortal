@@ -48,7 +48,7 @@ namespace API.Data.Repositories
                 .Include(x => x.Recipient).ThenInclude(y => y.Brand)
                 .Include(x => x.Recipient).ThenInclude(y => y.Model)
                 .Where(x => x.Recipient.UserName == recipientUsername && x.Sender.UserName == currentUsername || x.Recipient.UserName == currentUsername && x.Sender.UserName == recipientUsername)
-                .OrderBy(m => m.MessageSentDate)
+                .OrderByDescending(m => m.MessageSentDate)
                 .ToListAsync();
 
             var unreadMessages = messages.Where(x => x.MessageReadDate == null && x.Recipient.UserName == currentUsername).ToList();

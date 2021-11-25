@@ -47,7 +47,7 @@
     <table class="table table-hover" style="cursor: pointer">
       <tr>
         <th style="width: 30%">Od / do</th>
-        <th style="width: 40%">Wiadomość</th>
+        <th style="width: 40%; max-width: 40%;">Wiadomość</th>
         <th style="width: 20%">Wysłano / odebrano</th>
         <th style="width: 10%"></th>
       </tr>
@@ -62,9 +62,9 @@
         <td>
           <strong>{{message.senderUsername }}</strong> / <strong>{{message.recipientUsername}}</strong>
         </td>
-        <td>{{ message.content }}</td>
+        <td class="word-wrap">{{ message.content }}</td>
         <td>
-          {{ message.messageSentDate | date: "dd.MM.yyyy HH:mm" }} /
+          {{ message.messageSentDate | date: "dd.MM.yyyy HH:mm" }} /<br/>
           {{
             message.messageReadDate === null
               ? "-"

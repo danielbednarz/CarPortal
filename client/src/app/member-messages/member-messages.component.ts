@@ -1,5 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DxTextAreaComponent } from 'devextreme-angular';
+import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs/operators';
 import { Message } from '../models/message';
 import { User } from '../models/user';
@@ -12,10 +15,13 @@ import { MessageService } from '../services/message.service';
   styleUrls: ['./member-messages.component.css']
 })
 export class MemberMessagesComponent implements OnInit {
+  @ViewChild('messageForm') messageForm: NgForm;
+  @ViewChild(DxTextAreaComponent, {static: false}) textArea: DxTextAreaComponent;
   messages: Message[];
   username: string;
+  messageContent: string;
 
-  constructor(private messageService: MessageService, private route: ActivatedRoute) { 
+  constructor(private messageService: MessageService, private route: ActivatedRoute, private router: Router, private toastr: ToastrService) { 
   }
 
   ngOnInit(): void {
@@ -28,5 +34,21 @@ export class MemberMessagesComponent implements OnInit {
       this.messages = messages;
     })
   }
+
+  sendMessage() {
+    this.messageService.sendMessage(this.username, this.messageContent).subscribe(message => {
+      this.messages.push(message);
+      this.textArea.instance.reset();
+      this.toastr.success('Wiadomość wysłana pomyślnie');
+      this.reloadComponent();
+    })
+  }
+
+  reloadComponent() {
+    let currentUrl = this.router.url;
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate([currentUrl]);
+ }
 
 }

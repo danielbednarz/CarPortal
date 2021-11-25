@@ -6,6 +6,15 @@
     margin: 10px 0;
   }
 
+dx-text-area {
+    font-size: 18px;
+}
+
+.fa-arrow-right:hover {
+    color: lightgray;
+    cursor: pointer;
+}
+
   .sender-row {
       width: 50%;
       float: left;
@@ -35,8 +44,15 @@
   }
   
 
-  p {
+ p {
     margin: 0;
     padding: 0;
     font-size: 17px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+form {
+    margin: 0;
+    padding: 0;
 }
