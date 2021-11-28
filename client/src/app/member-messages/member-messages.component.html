@@ -26,7 +26,7 @@
   </div>
 
   <div class="container">
-    <div class="row message-row" *ngFor="let message of messages">
+    <div class="row message-row" *ngFor="let message of messages | paginate: { itemsPerPage: 20, currentPage: page }">
       <div class="row sender-row col-12 my-2">
         <div class="card" *ngIf="message.senderUsername === username">
           <div class="card-title">
@@ -57,5 +57,16 @@
         </div>
       </div>
     </div>
+    <div class="row" *ngIf="messages">
+      <div class="col-12 pagination-row" *ngIf="messages.length > 20">
+        <pagination-controls
+        class="notes-pagination"
+        (pageChange)="page = $event"
+        directionLinks="false"
+      ></pagination-controls>
+      </div>
+    </div>
+
   </div>
+  
 </div>

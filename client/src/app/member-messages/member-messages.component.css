@@ -43,6 +43,9 @@ dx-text-area {
     display: table;
   }
   
+  .title {
+    border-radius: 5px;
+  }
 
  p {
     margin: 0;
@@ -60,4 +63,8 @@ form {
 .btn {
   margin: 0;
     padding: 0;
+}
+
+.pagination-row {
+  text-align: right;
 }

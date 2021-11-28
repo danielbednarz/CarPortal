@@ -37,7 +37,10 @@ namespace API.Data.Repositories
 
         public async Task<Message> GetMessage(Guid id)
         {
-            return await _context.Messages.FindAsync(id);
+            return await _context.Messages
+                .Include(x => x.Sender)
+                .Include(x => x.Recipient)
+                .SingleOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<IEnumerable<MessageDto>> GetMessageThread(string currentUsername, string recipientUsername)
@@ -47,7 +50,9 @@ namespace API.Data.Repositories
                 .Include(x => x.Sender).ThenInclude(y => y.Model)
                 .Include(x => x.Recipient).ThenInclude(y => y.Brand)
                 .Include(x => x.Recipient).ThenInclude(y => y.Model)
-                .Where(x => x.Recipient.UserName == recipientUsername && x.Sender.UserName == currentUsername || x.Recipient.UserName == currentUsername && x.Sender.UserName == recipientUsername)
+                .Where(x => x.Recipient.UserName == recipientUsername && x.IsSenderDeleted == false && x.Sender.UserName == currentUsername
+                    || x.Recipient.UserName == currentUsername && x.IsRecipientDeleted == false && x.Sender.UserName == recipientUsername
+                    )
                 .OrderByDescending(m => m.MessageSentDate)
                 .ToListAsync();
 
@@ -71,9 +76,9 @@ namespace API.Data.Repositories
 
             query = messageParameters.Container switch
             {
-                "Inbox" => query.Where(x => x.RecipientUsername == messageParameters.Username),
-                "Outbox" => query.Where(x => x.SenderUsername == messageParameters.Username),
-                _ => query.Where(x => x.RecipientUsername == messageParameters.Username && x.MessageReadDate == null)
+                "Inbox" => query.Where(x => x.RecipientUsername == messageParameters.Username && x.IsRecipientDeleted == false),
+                "Outbox" => query.Where(x => x.SenderUsername == messageParameters.Username && x.IsSenderDeleted == false),
+                _ => query.Where(x => x.RecipientUsername == messageParameters.Username && x.MessageReadDate == null && x.IsRecipientDeleted == false)
             };
 
             var messages = query.ProjectTo<MessageDto>(_mapper.ConfigurationProvider);

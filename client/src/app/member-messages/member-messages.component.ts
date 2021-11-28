@@ -20,6 +20,7 @@ export class MemberMessagesComponent implements OnInit {
   messages: Message[];
   username: string;
   messageContent: string;
+  page: number = 1;
 
   constructor(private messageService: MessageService, private route: ActivatedRoute, private router: Router, private toastr: ToastrService) { 
   }

@@ -1,4 +1,5 @@
-﻿using API.DTOs;
+﻿using API.Data;
+using API.DTOs;
 using API.Entities;
 using API.Extensions;
 using API.Helpers;
@@ -17,12 +18,14 @@ namespace API.Controllers
     [Authorize]
     public class MessagesController : AppController
     {
+        private readonly MainDatabaseContext _context;
         private readonly IUserRepository _userRepository;
         private readonly IMessageRepository _messageRepository;
         private readonly IMapper _mapper;
 
-        public MessagesController(IUserRepository userRepository, IMessageRepository messageRepository, IMapper mapper)
+        public MessagesController(MainDatabaseContext context, IUserRepository userRepository, IMessageRepository messageRepository, IMapper mapper)
         {
+            _context = context;
             _userRepository = userRepository;
             _messageRepository = messageRepository;
             _mapper = mapper;
@@ -81,7 +84,7 @@ namespace API.Controllers
             return Ok(data);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{messageId}")]
         public async Task<ActionResult> DeleteMessage(string messageId)
         {
             var currentUsername = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -94,10 +97,28 @@ namespace API.Controllers
 
             if(message.Sender.UserName == currentUsername)
             {
+                message.IsSenderDeleted = true;
+            }
+
+            if(message.Recipient.UserName == currentUsername)
+            {
+                message.IsRecipientDeleted = true;
+            }
+
+            if(message.IsSenderDeleted && message.IsRecipientDeleted)
+            {
                 _messageRepository.DeleteMessage(message);
             }
 
-            return Ok();
+            if(await _context.SaveChangesAsync() > 0)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("Błąd przy próbie usunięcia zdjęcia");
+            }
+
         }
     }
 }

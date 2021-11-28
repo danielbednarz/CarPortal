@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Data.Migrations
 {
     [DbContext(typeof(MainDatabaseContext))]
-    [Migration("20211122133825_Init")]
+    [Migration("20211128113241_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -115,6 +115,12 @@ namespace API.Data.Migrations
 
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsRecipientDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsSenderDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime?>("MessageReadDate")
                         .HasColumnType("datetime2");

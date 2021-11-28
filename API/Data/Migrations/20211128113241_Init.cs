@@ -155,7 +155,9 @@ namespace API.Data.Migrations
                     RecipientUsername = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     MessageReadDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    MessageSentDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    MessageSentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsSenderDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    IsRecipientDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {

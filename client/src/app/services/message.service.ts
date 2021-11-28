@@ -28,6 +28,10 @@ export class MessageService {
     return this.http.post<Message>(this.baseUrl + 'messages', {recipientUsername: username, content})
   }
 
+  deleteMessage(messageId: string) {
+    return this.http.delete(this.baseUrl + 'messages/' + messageId);
+  }
+
   private getPaginatedResult<T>(url, params) {
     const paginatedResult: PaginationResult<T> = new PaginationResult<T>();
 

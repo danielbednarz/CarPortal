@@ -19,5 +19,7 @@ namespace API.DTOs
         public string Content { get; set; }
         public DateTime? MessageReadDate { get; set; }
         public DateTime MessageSentDate { get; set; }
+        public bool IsSenderDeleted { get; set; }
+        public bool IsRecipientDeleted { get; set; }
     }
 }

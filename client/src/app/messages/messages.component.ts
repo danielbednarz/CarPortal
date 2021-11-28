@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Brand } from '../models/brand';
 import { Message } from '../models/message';
 import { Model } from '../models/model';
@@ -21,7 +23,7 @@ export class MessagesComponent implements OnInit {
   pageNumber = 1;
   pageSize = 10;
 
-  constructor(private messageService: MessageService, private carPropertiesService: CarPropertiesService) { }
+  constructor(private messageService: MessageService, private carPropertiesService: CarPropertiesService, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.loadBrands();
@@ -49,6 +51,22 @@ export class MessagesComponent implements OnInit {
       this.pagination = response.pagination;
     })
   }
+
+  deleteMessage(messageId: string) {
+    debugger;
+    this.messageService.deleteMessage(messageId).subscribe(() => {
+      this.messages.splice(this.messages.findIndex(x => x.id === messageId), 1);
+      this.toastr.success("Wiadomość usunięta pomyślnie");
+      this.reloadComponent();
+    })
+  }
+
+  reloadComponent() {
+    let currentUrl = this.router.url;
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate([currentUrl]);
+ }
 
   pageChanged(event: any) {
     if(this.pageNumber !== event.page) {

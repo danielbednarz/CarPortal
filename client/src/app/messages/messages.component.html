@@ -49,7 +49,7 @@
   <div class="row mb-2" *ngIf="messages?.length === 0">
     <h2>Brak wiadomości</h2>
   </div>
-  
+
   <div class="row" *ngIf="messages?.length > 0">
     <table class="table table-hover" style="cursor: pointer">
       <tr>
@@ -84,6 +84,8 @@
             data-toggle="tooltip"
             data-placement="bottom"
             title="Usuń wiadomość"
+            (click)="$event.stopPropagation()"
+            (click)="deleteMessage(message.id)"
           >
             <i class="fas fa-trash"></i>
           </button>

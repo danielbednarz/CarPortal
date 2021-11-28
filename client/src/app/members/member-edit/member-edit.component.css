@@ -48,7 +48,8 @@ form {
 }
 
 .title {
-    color:honeydew;
+    color: honeydew;
+    border-radius: 5px;
 }
 
 .photo-add-card {

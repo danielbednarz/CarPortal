@@ -114,6 +114,12 @@ namespace API.Data.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsRecipientDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsSenderDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime?>("MessageReadDate")
                         .HasColumnType("datetime2");
 
