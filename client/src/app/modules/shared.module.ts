@@ -12,7 +12,8 @@ import {
   DxListModule,
   DxTextAreaModule,
   DxPopupModule, 
-  DxButtonModule
+  DxButtonModule,
+  DxValidatorModule
 } from 'devextreme-angular';
 import {NgxPaginationModule} from 'ngx-pagination';
 
@@ -34,7 +35,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
     CollapseModule,
     DxListModule,
     NgxPaginationModule,
-    DxTextAreaModule
+    DxTextAreaModule,
+    DxValidatorModule
   ],
   exports: [
     BsDropdownModule,
@@ -49,7 +51,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
     CollapseModule,
     DxListModule,
     NgxPaginationModule,
-    DxTextAreaModule
+    DxTextAreaModule,
+    DxValidatorModule
   ]
 })
 export class SharedModule { }

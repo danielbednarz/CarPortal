@@ -80,5 +80,24 @@ namespace API.Controllers
 
             return Ok(data);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteMessage(string messageId)
+        {
+            var currentUsername = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var message = await _messageRepository.GetMessage(Guid.Parse(messageId));
+
+            if(message.Sender.UserName != currentUsername && message.Recipient.UserName != currentUsername)
+            {
+                return Unauthorized();
+            }
+
+            if(message.Sender.UserName == currentUsername)
+            {
+                _messageRepository.DeleteMessage(message);
+            }
+
+            return Ok();
+        }
     }
 }

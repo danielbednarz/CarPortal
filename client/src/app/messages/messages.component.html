@@ -2,6 +2,8 @@
   <div class="d-flex mb-3">
     <div class="btn-group" name="container">
       <button
+        ngDefaultControl
+        name="container"
         class="btn btn-primary"
         btnRadio="Unread"
         [(ngModel)]="container"
@@ -10,6 +12,8 @@
         <i class="far fa-envelope fa-2x"></i>
       </button>
       <button
+      ngDefaultControl
+        name="container"
         class="btn btn-primary"
         btnRadio="Inbox"
         [(ngModel)]="container"
@@ -18,6 +22,8 @@
         <i class="far fa-envelope-open fa-2x"></i>
       </button>
       <button
+      ngDefaultControl
+        name="container"
         class="btn btn-primary"
         btnRadio="Outbox"
         [(ngModel)]="container"
@@ -27,22 +33,23 @@
       </button>
     </div>
   </div>
-  <div class="row mb-2" *ngIf="messages?.length === 0">
-    <h2>Brak wiadomości</h2>
-  </div>
-
+  
   <div class="row mb-2" *ngIf="container === 'Inbox'">
     <h2>Skrzynka odbiorcza</h2>
   </div>
-
+  
   <div class="row mb-2" *ngIf="container === 'Outbox'">
     <h2>Skrzynka nadawcza</h2>
   </div>
-
+  
   <div class="row mb-2" *ngIf="container === 'Unread'">
     <h2>Nieodczytane</h2>
   </div>
-
+  
+  <div class="row mb-2" *ngIf="messages?.length === 0">
+    <h2>Brak wiadomości</h2>
+  </div>
+  
   <div class="row" *ngIf="messages?.length > 0">
     <table class="table table-hover" style="cursor: pointer">
       <tr>

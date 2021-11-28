@@ -36,12 +36,16 @@ export class MemberMessagesComponent implements OnInit {
   }
 
   sendMessage() {
-    this.messageService.sendMessage(this.username, this.messageContent).subscribe(message => {
-      this.messages.push(message);
-      this.textArea.instance.reset();
-      this.toastr.success('Wiadomość wysłana pomyślnie');
-      this.reloadComponent();
-    })
+    if(this.messageContent) {
+      this.messageService.sendMessage(this.username, this.messageContent).subscribe(message => {
+          this.messages.push(message);
+          this.textArea.instance.reset();
+          this.toastr.success('Wiadomość wysłana pomyślnie');
+          this.reloadComponent();
+      })
+    } else {
+      this.toastr.error("Wiadomość nie może być pusta");
+    }
   }
 
   reloadComponent() {

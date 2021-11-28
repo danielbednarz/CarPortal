@@ -2,27 +2,27 @@
   <div class="row mb-3">
     <div class="col-12 col-xs-12">
       <div class="card-header title">
-        <h2 class="">Wiadomości z {{ username }}</h2>
+        <h2 class="">Wiadomości z użytkownikiem {{ username }}</h2>
       </div>
     </div>
   </div>
   <div class="row">
-        <form #messageForm="ngForm" (ngSubmit)="sendMessage()" autocomplete="off">
-            <div class="col-11">
-              <dx-text-area
-                class="mb-2"
-                [height]="75"
-                [maxLength]="257"
-                [(value)]="messageContent"
-                placeholder="Napisz wiadomość"
-              >
-              </dx-text-area>
-            </div>
-            <div class="col-1 mt-3">
-                <button ><i class="fas fa-arrow-right fa-3x" type="submit"></i></button>
-              </div>
-          </form>
-      
+    <div class="col-11">
+      <dx-text-area
+        class="mb-2"
+        [height]="75"
+        [maxLength]="257"
+        [(value)]="messageContent"
+        placeholder="Napisz wiadomość"
+        [(ngModel)]="messageContent"
+      >
+      </dx-text-area>
+    </div>
+    <div class="col-1 mt-3">
+      <button class="btn btn-dark">
+        <i class="fas fa-arrow-right fa-3x" (click)="sendMessage()"></i>
+      </button>
+    </div>
   </div>
 
   <div class="container">
