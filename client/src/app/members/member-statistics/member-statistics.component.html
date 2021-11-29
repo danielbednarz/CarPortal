@@ -9,7 +9,7 @@
         <dx-button
           class="button-info mb-2 px-3"
           text="Dodaj"
-          (onClick)="addReport()"
+          (onClick)="addFuelReportPopup()"
         ></dx-button>
       </div>
     </div>
@@ -21,7 +21,7 @@
       [dragEnabled]="false"
       [closeOnOutsideClick]="true"
       [showCloseButton]="false"
-      [(visible)]="popupVisible"
+      [(visible)]="fuelReportPopupVisible"
     >
       <div class="container">
         <div class="row">
@@ -29,7 +29,7 @@
             <form
               [formGroup]="fuelReportForm"
               autocomplete="off"
-              (ngSubmit)="onSubmit()"
+              (ngSubmit)="onFuelReportSubmit()"
             >
               <input
                 [class.is-invalid]="
@@ -102,6 +102,13 @@
             [showPageSizeSelector]="true"
             [allowedPageSizes]="[5, 10, 15]"
           ></dxo-pager>
+          <!-- <dxo-editing
+            mode="form"
+            [allowUpdating]="true"
+            [allowDeleting]="true"
+            [allowAdding]="false"
+          >
+  </dxo-editing> -->
           <dxi-column
             dataField="cost"
             dataType="number"
@@ -132,6 +139,137 @@
           argumentField="month"
           valueField="averageConsumption"
           name="Średnie spalanie<br/>(na 100km)"
+          type="bar"
+          color="#ffaa66"
+        >
+          <dxo-label
+            [visible]="true"
+            [format]="{
+              type: 'fixedPoint',
+              precision: '2'
+            }"
+          >
+          </dxo-label>
+        </dxi-series>
+      </dx-chart>
+    </div>
+  </div>
+
+  <div class="card p-2 mt-3">
+    <div class="row mt-2">
+      <div class="col-12">
+        <h4>Raport napraw i kosztów eksploatacyjnych</h4>
+        <dx-button
+          class="button-info mb-2 px-3"
+          text="Dodaj"
+          (onClick)="addRepairReportPopup()"
+        ></dx-button>
+      </div>
+    </div>
+    <dx-popup
+      [width]="400"
+      [height]="320"
+      [showTitle]="true"
+      title="Dodaj nowy raport spalania"
+      [dragEnabled]="false"
+      [closeOnOutsideClick]="true"
+      [showCloseButton]="true"
+      [(visible)]="repairReportPopupVisible"
+    >
+      <div class="container">
+        <div class="row">
+          <div class="form-group col-12">
+            <form
+              [formGroup]="repairReportForm"
+              autocomplete="off"
+              (ngSubmit)="onRepairReportSubmit()"
+            >
+                <input
+                [class.is-invalid]="
+                  repairReportForm.get('description').errors &&
+                  repairReportForm.get('description').touched
+                "
+                formControlName="description"
+                type="string"
+                class="form-control my-2"
+                placeholder="Opis naprawy"
+              />
+
+              <input
+                [class.is-invalid]="
+                  repairReportForm.get('cost').errors &&
+                  repairReportForm.get('cost').touched
+                "
+                formControlName="cost"
+                type="number"
+                class="form-control my-2"
+                placeholder="Koszt naprawy"
+              />
+
+              <input
+                [class.is-invalid]="
+                repairReportForm.get('repairDate').errors &&
+                repairReportForm.get('repairDate').touched
+                "
+                formControlName="repairDate"
+                type="date"
+                class="form-control my-2"
+                placeholder="Data naprawy"
+              />
+              <div class="row form-group">
+                <button
+                  class="btn btn-success mt-2"
+                  [disabled]="!repairReportForm.valid"
+                  type="submit"
+                >
+                  Dodaj
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </dx-popup>
+    <div class="row">
+      <div class="col-12">
+        <dx-data-grid
+          id="repairReport"
+          [dataSource]="repairReport"
+          keyExpr="id"
+          [remoteOperations]="false"
+          [allowColumnResizing]="true"
+        >
+        <dxo-filter-row [visible]="true"></dxo-filter-row>
+          <dxo-paging [pageSize]="5"></dxo-paging>
+          <dxo-pager
+            [showPageSizeSelector]="true"
+            [allowedPageSizes]="[5, 10, 15]"
+          ></dxo-pager>
+          <dxi-column
+            dataField="description"
+            dataType="string"
+            caption="Opis naprawy"
+          ></dxi-column>
+          <dxi-column
+            dataField="cost"
+            dataType="number"
+            caption="Koszt naprawy [PLN]"
+          ></dxi-column>
+          <dxi-column
+            dataField="repairDate"
+            dataType="date"
+            caption="Data naprawy"
+          ></dxi-column>
+        </dx-data-grid>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <dx-chart id="chart" [dataSource]="repairReportView">
+        <dxi-series
+          argumentField="month"
+          valueField="costPerMonth"
+          name="Suma wydatków"
           type="bar"
           color="#ffaa66"
         >

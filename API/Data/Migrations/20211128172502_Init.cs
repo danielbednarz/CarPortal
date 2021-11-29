@@ -218,6 +218,27 @@ namespace API.Data.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "RepairReports",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Cost = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    RepairDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RepairReports", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RepairReports_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_EnginesForModels_EngineId",
                 table: "EnginesForModels",
@@ -259,6 +280,11 @@ namespace API.Data.Migrations
                 column: "AppUserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_RepairReports_UserId",
+                table: "RepairReports",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Users_BrandId",
                 table: "Users",
                 column: "BrandId");
@@ -290,6 +316,9 @@ namespace API.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Photos");
+
+            migrationBuilder.DropTable(
+                name: "RepairReports");
 
             migrationBuilder.DropTable(
                 name: "Users");

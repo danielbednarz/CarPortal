@@ -1,7 +1,6 @@
-﻿using API.Entities.Views;
-using API.Entities;
+﻿using API.Entities;
+using API.Entities.Views;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.SqlServer;
 using System.Linq;
 
 namespace API.Data
@@ -23,7 +22,9 @@ namespace API.Data
         public DbSet<Engine> Engines { get; set; }
         public DbSet<EnginesForModel> EnginesForModels { get; set; }
         public DbSet<FuelReport> FuelReports { get; set; }
+        public DbSet<RepairReport> RepairReports { get; set; }
         public DbSet<FuelReportView> FuelReportView { get; set; }
+        public DbSet<RepairReportView> RepairReportView { get; set; }
         public DbSet<Note> Notes { get; set; }
         public DbSet<Message> Messages { get; set; }
 
@@ -46,9 +47,8 @@ namespace API.Data
                 fk.DeleteBehavior = DeleteBehavior.Restrict;
             }
 
-
-
             modelBuilder.Entity<FuelReportView>().HasNoKey().ToView("FuelReportView");
+            modelBuilder.Entity<RepairReportView>().HasNoKey().ToView("RepairReportView");
 
         }
     }

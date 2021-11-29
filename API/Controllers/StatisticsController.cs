@@ -54,5 +54,31 @@ namespace API.Controllers
             return Ok();
         }
 
+        [HttpGet("getRepairReport/{userId}")]
+        public async Task<ActionResult<List<RepairReport>>> GetRepairReport(int userId)
+        {
+            var data = await _statisticsRepository.GetRepairReport(userId);
+
+            return Ok(data);
+        }
+
+        [HttpGet("getRepairReportView/{userId}")]
+        public async Task<ActionResult<List<FuelReport>>> GetRepairReportView(int userId)
+        {
+            var data = await _statisticsRepository.GetRepairReportView(userId);
+
+            return Ok(data);
+        }
+
+        [HttpPost("addRepairReport")]
+        public async Task<ActionResult> AddRepairReport(RepairReport repairReport)
+        {
+            _context.RepairReports.Add(repairReport);
+
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
     }
 }

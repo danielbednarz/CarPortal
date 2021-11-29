@@ -5,6 +5,8 @@ import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { FuelReport } from '../models/fuelReport';
 import { FuelReportView } from '../models/fuelReportView';
+import { RepairReport } from '../models/repairReport';
+import { RepairReportView } from '../models/repairReportView';
 import { User } from '../models/user';
 
 @Injectable({
@@ -30,7 +32,6 @@ export class StatisticsService {
   }
 
   addNewFuelReport(model: any) {
-    debugger;
     return this.http.post(this.baseUrl + '/add-fuel-report', model).pipe(
       map((user: User) => {
         if(user) {
@@ -41,5 +42,23 @@ export class StatisticsService {
     );
   }
 
+  getRepairReport(userId: number) {
+    return this.http.get<RepairReport[]>(this.baseUrl + '/getRepairReport/' + userId);
+  }
+
+  getRepairReportView(userId: number) {
+    return this.http.get<RepairReportView[]>(this.baseUrl + '/getRepairReportView/' + userId);
+  }
+
+  addRepairReport(model: any) {
+    return this.http.post(this.baseUrl + '/addRepairReport', model).pipe(
+      map((user: User) => {
+        if(user) {
+          localStorage.setItem('user', JSON.stringify(user));
+          this.currentUserSource.next(user);
+        }
+      })
+    );
+  }
 
 }

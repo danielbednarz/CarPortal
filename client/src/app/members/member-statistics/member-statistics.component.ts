@@ -6,6 +6,8 @@ import { take } from 'rxjs/operators';
 import { FuelReport } from 'src/app/models/fuelReport';
 import { FuelReportView } from 'src/app/models/fuelReportView';
 import { Member } from 'src/app/models/member';
+import { RepairReport } from 'src/app/models/repairReport';
+import { RepairReportView } from 'src/app/models/repairReportView';
 import { User } from 'src/app/models/user';
 import { AccountService } from 'src/app/services/account.service';
 import { MembersService } from 'src/app/services/members.service';
@@ -17,13 +19,19 @@ import { StatisticsService } from 'src/app/services/statistics.service';
   styleUrls: ['./member-statistics.component.css']
 })
 export class MemberStatisticsComponent implements OnInit {
-  fuelReport: FuelReport[];
-  fuelReportView: FuelReportView[];
   member: Member;
   user: User;
-  popupVisible = false;
-  fuelReportForm: FormGroup;
   validationErrors: string[] = [];
+  
+  fuelReport: FuelReport[];
+  fuelReportView: FuelReportView[];
+  fuelReportForm: FormGroup;
+  fuelReportPopupVisible = false;
+
+  repairReport: RepairReport[];
+  repairReportView: RepairReportView[];
+  repairReportForm: FormGroup;
+  repairReportPopupVisible = false;
 
   constructor(private statisticsService: StatisticsService, public accountService: AccountService,
     private memberService: MembersService, private formBuilder: FormBuilder, private router: Router,
@@ -33,15 +41,25 @@ export class MemberStatisticsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadMember();
-    this.initializeForm();
+    this.initializeFuelReportForm();
+    this.initializeRepairReportForm();
   }
 
-  initializeForm() {
+  initializeFuelReportForm() {
     this.fuelReportForm = this.formBuilder.group({
       cost: ['', Validators.required],
       fuelAmount: ['', Validators.required],
       traveledDistance: ['', Validators.required],
       refuelDate: ['', Validators.required],
+      userId: ''
+    })
+  }
+
+  initializeRepairReportForm() {
+    this.repairReportForm = this.formBuilder.group({
+      description: ['', Validators.required],
+      cost: ['', Validators.required],
+      repairDate: ['', Validators.required],
       userId: ''
     })
   }
@@ -58,19 +76,15 @@ export class MemberStatisticsComponent implements OnInit {
     })
   }
 
-  loadMember() {
-    this.memberService.getMember(this.user.username).subscribe(member => {
-      this.member = member;
-      this.loadFuelReport(member.id);
-      this.loadFuelReportView(member.id);
-    })
+  addFuelReportPopup() {
+    this.fuelReportPopupVisible = true;
   }
 
-  addReport() {
-    this.popupVisible = true;
+  addRepairReportPopup() {
+    this.repairReportPopupVisible = true;
   }
 
-  onSubmit() {
+  onFuelReportSubmit() {
     this.fuelReportForm.controls.userId.setValue(this.member.id);
     this.statisticsService.addNewFuelReport(this.fuelReportForm.value).subscribe(() => {
       this.fuelReportForm.reset();
@@ -79,6 +93,39 @@ export class MemberStatisticsComponent implements OnInit {
     }, error => {
       this.validationErrors = error;
     });
+  }
+
+  onRepairReportSubmit() {
+    this.repairReportForm.controls.userId.setValue(this.member.id);
+    this.statisticsService.addRepairReport(this.repairReportForm.value).subscribe(() => {
+      this.repairReportForm.reset();
+      this.toastr.success('Wpis do raportu napraw został dodany');
+      this.reloadComponent();
+    }, error => {
+      this.validationErrors = error;
+    });
+  }
+
+  loadRepairReport(userId: number) {
+    this.statisticsService.getRepairReport(userId).subscribe(repairReport => {
+      this.repairReport = repairReport;
+    })
+  }
+
+  loadRepairReportView(userId: number) {
+    this.statisticsService.getRepairReportView(userId).subscribe(repairReportView => {
+      this.repairReportView = repairReportView;
+    })
+  }
+
+  loadMember() {
+    this.memberService.getMember(this.user.username).subscribe(member => {
+      this.member = member;
+      this.loadFuelReport(member.id);
+      this.loadFuelReportView(member.id);
+      this.loadRepairReport(member.id);
+      this.loadRepairReportView(member.id);
+    })
   }
 
   reloadComponent() {

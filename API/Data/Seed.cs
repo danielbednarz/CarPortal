@@ -370,6 +370,7 @@ namespace API.Data
         private static void AddViews(MainDatabaseContext context)
         {
             context.Database.ExecuteSqlRaw(FuelReportView.createSql);
+            context.Database.ExecuteSqlRaw(RepairReportView.createSql);
         }
 
         private static void AddAudiEnginesForModels(MainDatabaseContext context)

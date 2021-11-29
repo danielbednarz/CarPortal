@@ -54,5 +54,15 @@ namespace API.Data.Repositories
                                             WHERE fuelReport.userId = {userId}").ToListAsync(); 
 
 		}
+
+        public async Task<List<RepairReport>> GetRepairReport(int userId)
+        {
+            return await _context.RepairReports.Where(x => x.UserId == userId).ToListAsync();
+        }
+
+        public async Task<List<RepairReportView>> GetRepairReportView(int userId)
+        {
+            return await _context.RepairReportView.Where(x => x.UserId == userId).ToListAsync();
+        }
     }
 }
