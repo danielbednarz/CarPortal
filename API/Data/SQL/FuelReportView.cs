@@ -7,7 +7,7 @@ namespace API.Data.SQL
 {
     public class FuelReportView
     {
-        public const string createSql = @"  CREATE OR ALTER VIEW FuelReportView
+        public const string createSql = @"CREATE OR ALTER VIEW FuelReportView
 											AS
 											SELECT 
 												CASE WHEN FORMAT(fuelReport.RefuelDate, 'MM') = 1 THEN 'Styczeń'
@@ -23,8 +23,10 @@ namespace API.Data.SQL
 													 WHEN FORMAT(fuelReport.RefuelDate, 'MM') = 11 THEN 'Listopad'
 													 WHEN FORMAT(fuelReport.RefuelDate, 'MM') = 12 THEN 'Grudzień'
 												END as [Month],
-												CAST(AVG((fuelReport.FuelAmount * 100)/fuelReport.TraveledDistance) as decimal(18,2)) as AverageConsumption
+												CAST(AVG((fuelReport.FuelAmount * 100) / fuelReport.TraveledDistance) as decimal(18,2)) as [AverageConsumption],
+												CAST(AVG((fuelReport.Cost * 100) / fuelReport.TraveledDistance) as decimal(18,2)) as [AverageCost],
+												fuelReport.UserId as [UserId]
 											FROM FuelReports fuelReport
-											GROUP BY FORMAT(fuelReport.RefuelDate, 'MM')";
+											GROUP BY FORMAT(fuelReport.RefuelDate, 'MM'), fuelReport.UserId";
     }
 }

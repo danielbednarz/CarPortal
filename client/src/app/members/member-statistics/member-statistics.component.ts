@@ -8,6 +8,7 @@ import { FuelReportView } from 'src/app/models/fuelReportView';
 import { Member } from 'src/app/models/member';
 import { RepairReport } from 'src/app/models/repairReport';
 import { RepairReportView } from 'src/app/models/repairReportView';
+import { TotalCostsReportView } from 'src/app/models/totalCostsReportView';
 import { User } from 'src/app/models/user';
 import { AccountService } from 'src/app/services/account.service';
 import { MembersService } from 'src/app/services/members.service';
@@ -32,6 +33,8 @@ export class MemberStatisticsComponent implements OnInit {
   repairReportView: RepairReportView[];
   repairReportForm: FormGroup;
   repairReportPopupVisible = false;
+
+  totalCostsReportView: TotalCostsReportView[];
 
   constructor(private statisticsService: StatisticsService, public accountService: AccountService,
     private memberService: MembersService, private formBuilder: FormBuilder, private router: Router,
@@ -118,6 +121,12 @@ export class MemberStatisticsComponent implements OnInit {
     })
   }
 
+  loadTotalCostsReportView(userId: number) {
+    this.statisticsService.getTotalCostsReportView(userId).subscribe(totalCostsReportView => {
+      this.totalCostsReportView = totalCostsReportView;
+    })
+  }
+
   loadMember() {
     this.memberService.getMember(this.user.username).subscribe(member => {
       this.member = member;
@@ -125,6 +134,7 @@ export class MemberStatisticsComponent implements OnInit {
       this.loadFuelReportView(member.id);
       this.loadRepairReport(member.id);
       this.loadRepairReportView(member.id);
+      this.loadTotalCostsReportView(member.id);
     })
   }
 

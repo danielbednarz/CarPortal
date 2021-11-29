@@ -25,6 +25,7 @@ namespace API.Data
         public DbSet<RepairReport> RepairReports { get; set; }
         public DbSet<FuelReportView> FuelReportView { get; set; }
         public DbSet<RepairReportView> RepairReportView { get; set; }
+        public DbSet<TotalCostsReportView> TotalCostsReportView { get; set; }
         public DbSet<Note> Notes { get; set; }
         public DbSet<Message> Messages { get; set; }
 
@@ -49,6 +50,7 @@ namespace API.Data
 
             modelBuilder.Entity<FuelReportView>().HasNoKey().ToView("FuelReportView");
             modelBuilder.Entity<RepairReportView>().HasNoKey().ToView("RepairReportView");
+            modelBuilder.Entity<TotalCostsReportView>().HasNoKey().ToView("TotalCostsReportView");
 
         }
     }

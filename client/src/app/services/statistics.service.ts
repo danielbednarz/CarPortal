@@ -7,6 +7,7 @@ import { FuelReport } from '../models/fuelReport';
 import { FuelReportView } from '../models/fuelReportView';
 import { RepairReport } from '../models/repairReport';
 import { RepairReportView } from '../models/repairReportView';
+import { TotalCostsReportView } from '../models/totalCostsReportView';
 import { User } from '../models/user';
 
 @Injectable({
@@ -59,6 +60,10 @@ export class StatisticsService {
         }
       })
     );
+  }
+
+  getTotalCostsReportView(userId: number) {
+    return this.http.get<TotalCostsReportView[]>(this.baseUrl + '/getTotalCostsReportView/' + userId);
   }
 
 }

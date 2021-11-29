@@ -6,6 +6,9 @@ import { take } from 'rxjs/operators';
 import { FuelReport } from 'src/app/models/fuelReport';
 import { FuelReportView } from 'src/app/models/fuelReportView';
 import { Member } from 'src/app/models/member';
+import { RepairReport } from 'src/app/models/repairReport';
+import { RepairReportView } from 'src/app/models/repairReportView';
+import { TotalCostsReportView } from 'src/app/models/totalCostsReportView';
 import { User } from 'src/app/models/user';
 import { AccountService } from 'src/app/services/account.service';
 import { MembersService } from 'src/app/services/members.service';
@@ -21,6 +24,13 @@ export class MemberStatisticsDetailComponent implements OnInit {
   fuelReportView: FuelReportView[];
   member: Member;
   username: string;
+  
+  repairReport: RepairReport[];
+  repairReportView: RepairReportView[];
+  repairReportForm: FormGroup;
+  repairReportPopupVisible = false;
+
+  totalCostsReportView: TotalCostsReportView[];
 
   constructor(private route: ActivatedRoute, private statisticsService: StatisticsService, private memberService: MembersService) { }
 
@@ -41,11 +51,32 @@ export class MemberStatisticsDetailComponent implements OnInit {
     })
   }
 
+  loadRepairReport(userId: number) {
+    this.statisticsService.getRepairReport(userId).subscribe(repairReport => {
+      this.repairReport = repairReport;
+    })
+  }
+
+  loadRepairReportView(userId: number) {
+    this.statisticsService.getRepairReportView(userId).subscribe(repairReportView => {
+      this.repairReportView = repairReportView;
+    })
+  }
+
+  loadTotalCostsReportView(userId: number) {
+    this.statisticsService.getTotalCostsReportView(userId).subscribe(totalCostsReportView => {
+      this.totalCostsReportView = totalCostsReportView;
+    })
+  }
+
   loadMember() {
     this.memberService.getMember(this.username).subscribe(member => {
       this.member = member;
       this.loadFuelReport(member.id);
       this.loadFuelReportView(member.id);
+      this.loadRepairReport(member.id);
+      this.loadRepairReportView(member.id);
+      this.loadTotalCostsReportView(member.id);
     })
   }
 

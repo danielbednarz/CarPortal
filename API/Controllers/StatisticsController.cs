@@ -80,5 +80,13 @@ namespace API.Controllers
             return Ok();
         }
 
+        [HttpGet("getTotalCostsReportView/{userId}")]
+        public async Task<ActionResult<List<FuelReport>>> GetTotalCostsReportView(int userId)
+        {
+            var data = await _statisticsRepository.GetTotalCostsReportView(userId);
+
+            return Ok(data);
+        }
+
     }
 }

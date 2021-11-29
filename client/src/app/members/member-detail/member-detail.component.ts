@@ -71,9 +71,7 @@ export class MemberDetailComponent implements OnInit {
   }
 
   loadAverageConsumption(id: number) {
-    
     this.statisticsService.getAverageConsumption(id).subscribe(x => {
-      debugger;
       this.fuelReport = x;
     });
   }

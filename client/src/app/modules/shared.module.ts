@@ -13,7 +13,11 @@ import {
   DxTextAreaModule,
   DxPopupModule, 
   DxButtonModule,
-  DxValidatorModule
+  DxValidatorModule,
+  DxFormModule,
+  DxNumberBoxModule,
+  DxDateBoxModule,
+  DxPieChartModule
 } from 'devextreme-angular';
 import {NgxPaginationModule} from 'ngx-pagination';
 
@@ -36,7 +40,11 @@ import {NgxPaginationModule} from 'ngx-pagination';
     DxListModule,
     NgxPaginationModule,
     DxTextAreaModule,
-    DxValidatorModule
+    DxValidatorModule,
+    DxFormModule,
+    DxNumberBoxModule,
+    DxDateBoxModule,
+    DxPieChartModule
   ],
   exports: [
     BsDropdownModule,
@@ -52,7 +60,11 @@ import {NgxPaginationModule} from 'ngx-pagination';
     DxListModule,
     NgxPaginationModule,
     DxTextAreaModule,
-    DxValidatorModule
+    DxValidatorModule,
+    DxFormModule,
+    DxNumberBoxModule,
+    DxDateBoxModule,
+    DxPieChartModule
   ]
 })
 export class SharedModule { }

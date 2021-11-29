@@ -1,4 +1,6 @@
 export interface FuelReportView {
     month: string,
-    averageConsumption: number
+    averageConsumption: number,
+    averageCost: number,
+    userId: number
 }
