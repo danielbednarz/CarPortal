@@ -28,6 +28,10 @@ export class StatisticsService {
     return this.http.get<FuelReportView[]>(this.baseUrl + '/getFuelReportView/' + userId);
   }
 
+  deleteFuelReport(fuelReportId: string) {
+    return this.http.delete(this.baseUrl + '/deleteFuelReport/' + fuelReportId);
+  }
+
   getAverageConsumption(userId: number) {
     return this.http.get<FuelReportView[]>(this.baseUrl + '/getAverageConsumption/' + userId);
   }
@@ -60,6 +64,10 @@ export class StatisticsService {
         }
       })
     );
+  }
+
+  deleteRepairReport(repairReportId: string) {
+    return this.http.delete(this.baseUrl + '/deleteRepairReport/' + repairReportId);
   }
 
   getTotalCostsReportView(userId: number) {

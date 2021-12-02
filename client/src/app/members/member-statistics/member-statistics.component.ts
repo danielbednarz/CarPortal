@@ -25,11 +25,13 @@ export class MemberStatisticsComponent implements OnInit {
   validationErrors: string[] = [];
   
   fuelReport: FuelReport[];
+  fuelReportId: string;
   fuelReportView: FuelReportView[];
   fuelReportForm: FormGroup;
   fuelReportPopupVisible = false;
 
   repairReport: RepairReport[];
+  repairReportId: string;
   repairReportView: RepairReportView[];
   repairReportForm: FormGroup;
   repairReportPopupVisible = false;
@@ -79,6 +81,14 @@ export class MemberStatisticsComponent implements OnInit {
     })
   }
 
+  deleteFuelReport(e: any) {
+    this.fuelReportId = e.key;
+    this.statisticsService.deleteFuelReport(this.fuelReportId).subscribe(() => {
+      this.toastr.success("Wpis z raportu paliwowego został usunięty");
+      this.reloadComponent();
+    });
+  }
+
   addFuelReportPopup() {
     this.fuelReportPopupVisible = true;
   }
@@ -121,10 +131,22 @@ export class MemberStatisticsComponent implements OnInit {
     })
   }
 
+  deleteRepairReport(e: any) {
+    this.repairReportId = e.key;
+    this.statisticsService.deleteRepairReport(this.repairReportId).subscribe(() => {
+      this.toastr.success("Wpis z raportu napraw i kosztów eksploatacyjnych został usunięty");
+      this.reloadComponent();
+    });
+  }
+
   loadTotalCostsReportView(userId: number) {
     this.statisticsService.getTotalCostsReportView(userId).subscribe(totalCostsReportView => {
       this.totalCostsReportView = totalCostsReportView;
     })
+  }
+
+  customPieChartLabel(arg) {
+    return `${arg.valueText} zł (${arg.percentText} wydatków)`;
   }
 
   loadMember() {

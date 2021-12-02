@@ -13,11 +13,13 @@ namespace API.Controllers
     {
         private readonly MainDatabaseContext _context;
         private readonly IStatisticsRepository _statisticsRepository;
+        private readonly IUserRepository _userRepository;
 
-        public StatisticsController(MainDatabaseContext context, IStatisticsRepository statisticsRepository)
+        public StatisticsController(MainDatabaseContext context, IStatisticsRepository statisticsRepository, IUserRepository userRepository)
         {
             _context = context;
             _statisticsRepository = statisticsRepository;
+            _userRepository = userRepository;
         }
 
         [HttpGet("getFuelReport/{userId}")]
@@ -54,6 +56,22 @@ namespace API.Controllers
             return Ok();
         }
 
+        [HttpDelete("deleteFuelReport/{fuelReportId}")]
+        public async Task<ActionResult> DeleteFuelReport(string fuelReportId)
+        {
+            var fuelReport = _context.FuelReports.FirstOrDefault(x => x.Id == Guid.Parse(fuelReportId));
+
+            if (fuelReport == null)
+            {
+                return NotFound();
+            }
+
+            _context.FuelReports.Remove(fuelReport);
+            await _userRepository.SaveAllAsync();
+
+            return Ok();
+        }
+
         [HttpGet("getRepairReport/{userId}")]
         public async Task<ActionResult<List<RepairReport>>> GetRepairReport(int userId)
         {
@@ -76,6 +94,22 @@ namespace API.Controllers
             _context.RepairReports.Add(repairReport);
 
             await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        [HttpDelete("deleteRepairReport/{repairReportId}")]
+        public async Task<ActionResult> DeleteRepairReport(string repairReportId)
+        {
+            var repairReport = _context.RepairReports.FirstOrDefault(x => x.Id == Guid.Parse(repairReportId));
+
+            if (repairReport == null)
+            {
+                return NotFound();
+            }
+
+            _context.RepairReports.Remove(repairReport);
+            await _userRepository.SaveAllAsync();
 
             return Ok();
         }

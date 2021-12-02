@@ -2,83 +2,253 @@
   <div class="row">
     <h2>Statystyki</h2>
   </div>
-  <div class="card p-2">
-    <div class="row mt-2">
-      <div class="col-12">
-        <h4>Raport średniego spalania</h4>
-        <button
-          class="btn btn-primary mb-2 px-4"
-          (click)="addFuelReportPopup()"
-        >
-          Dodaj
-        </button>
-      </div>
-    </div>
-    <dx-popup
-      [width]="400"
-      [height]="320"
-      [showTitle]="true"
-      title="Dodaj nowy raport spalania"
-      [dragEnabled]="false"
-      [closeOnOutsideClick]="true"
-      [showCloseButton]="false"
-      [(visible)]="fuelReportPopupVisible"
-    >
-      <div class="container">
-        <div class="row">
-          <div class="form-group col-12">
-            <form
-              [formGroup]="fuelReportForm"
-              autocomplete="off"
-              (ngSubmit)="onFuelReportSubmit()"
+
+  <dx-tab-panel #tabPanel>
+    <dxi-item title="Raport średniego spalania">
+      <div class="card p-2 mt-3">
+        <div class="row mt-2">
+          <div class="col-12">
+            <h4>Raport średniego spalania</h4>
+            <button
+              class="btn btn-primary mb-2 px-4"
+              (click)="addFuelReportPopup()"
             >
-              <input
-                [class.is-invalid]="
-                  fuelReportForm.get('cost').errors &&
-                  fuelReportForm.get('cost').touched
-                "
-                formControlName="cost"
-                type="number"
-                class="form-control my-2"
-                placeholder="Koszt paliwa"
-              />
+              Dodaj
+            </button>
+          </div>
+        </div>
+        <dx-popup
+          [width]="400"
+          [height]="320"
+          [showTitle]="true"
+          title="Dodaj nowy raport spalania"
+          [dragEnabled]="false"
+          [closeOnOutsideClick]="true"
+          [showCloseButton]="false"
+          [(visible)]="fuelReportPopupVisible"
+        >
+          <div class="container">
+            <div class="row">
+              <div class="form-group col-12">
+                <form
+                  [formGroup]="fuelReportForm"
+                  autocomplete="off"
+                  (ngSubmit)="onFuelReportSubmit()"
+                >
+                  <input
+                    [class.is-invalid]="
+                      fuelReportForm.get('cost').errors &&
+                      fuelReportForm.get('cost').touched
+                    "
+                    formControlName="cost"
+                    type="number"
+                    class="form-control my-2"
+                    placeholder="Koszt paliwa"
+                  />
 
-              <input
-                [class.is-invalid]="
-                  fuelReportForm.get('fuelAmount').errors &&
-                  fuelReportForm.get('fuelAmount').touched
-                "
-                formControlName="fuelAmount"
-                type="number"
-                class="form-control my-2"
-                placeholder="Ilość zatankowanego paliwa [dm3]"
-              />
+                  <input
+                    [class.is-invalid]="
+                      fuelReportForm.get('fuelAmount').errors &&
+                      fuelReportForm.get('fuelAmount').touched
+                    "
+                    formControlName="fuelAmount"
+                    type="number"
+                    class="form-control my-2"
+                    placeholder="Ilość zatankowanego paliwa [dm3]"
+                  />
 
-              <input
-                [class.is-invalid]="
-                  fuelReportForm.get('traveledDistance').errors &&
-                  fuelReportForm.get('traveledDistance').touched
-                "
-                formControlName="traveledDistance"
-                type="number"
-                class="form-control my-2"
-                placeholder="Przejechany dystans"
-              />
+                  <input
+                    [class.is-invalid]="
+                      fuelReportForm.get('traveledDistance').errors &&
+                      fuelReportForm.get('traveledDistance').touched
+                    "
+                    formControlName="traveledDistance"
+                    type="number"
+                    class="form-control my-2"
+                    placeholder="Przejechany dystans"
+                  />
 
-              <input
-                [class.is-invalid]="
-                  fuelReportForm.get('refuelDate').errors &&
-                  fuelReportForm.get('refuelDate').touched
-                "
-                formControlName="refuelDate"
-                type="date"
-                class="form-control my-2"
-                placeholder="Data tankowania"
-              />
-              <div class="row form-group">
+                  <input
+                    [class.is-invalid]="
+                      fuelReportForm.get('refuelDate').errors &&
+                      fuelReportForm.get('refuelDate').touched
+                    "
+                    formControlName="refuelDate"
+                    type="date"
+                    class="form-control my-2"
+                    placeholder="Data tankowania"
+                  />
+                  <div class="row form-group">
+                    <button
+                      class="btn btn-success mt-2"
+                      [disabled]="!fuelReportForm.valid"
+                      type="submit"
+                    >
+                      Dodaj
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </dx-popup>
+        <div class="row">
+          <div class="col-12">
+            <dx-data-grid
+              id="fuelReport"
+              [dataSource]="fuelReport"
+              keyExpr="id"
+              [remoteOperations]="false"
+              [allowColumnResizing]="true"
+              (onRowRemoving)="deleteFuelReport($event)"
+            >
+              <dxo-filter-row [visible]="true"></dxo-filter-row>
+              <dxo-paging [pageSize]="5"></dxo-paging>
+              <dxo-pager
+                [showPageSizeSelector]="true"
+                [allowedPageSizes]="[5, 10, 15]"
+              ></dxo-pager>
+              <dxo-editing
+              mode="row"
+              [allowUpdating]="false"
+              [allowDeleting]="true"
+              [allowAdding]="false"
+              [useIcons]="true"
+              [confirmDelete]="false"
+            >
+            <dxo-texts
+            deleteRow="Usuń">
+
+            </dxo-texts>
+              </dxo-editing>
+              <dxi-column
+                dataField="cost"
+                dataType="number"
+                caption="Koszt tankowania [PLN]"
+              ></dxi-column>
+              <dxi-column
+                dataField="fuelAmount"
+                dataType="number"
+                caption="Ilość zatankowanego paliwa [dm3]"
+              ></dxi-column>
+              <dxi-column
+                dataField="traveledDistance"
+                dataType="number"
+                caption="Przejechany dystans [km]"
+              ></dxi-column>
+              <dxi-column
+                dataField="refuelDate"
+                dataType="date"
+                caption="Data zatankowania"
+              ></dxi-column>
+            </dx-data-grid>
+          </div>
+        </div>
+
+        <div class="row mt-3">
+          <dx-chart id="chart" [dataSource]="fuelReportView">
+            <dxi-series
+              argumentField="month"
+              valueField="averageConsumption"
+              name="Średnie spalanie<br/>(na 100km)"
+              type="bar"
+              color="#ffaa66"
+            >
+              <dxo-label
+                [visible]="true"
+                [format]="{
+                  type: 'fixedPoint',
+                  precision: '2'
+                }"
+              >
+              </dxo-label>
+            </dxi-series>
+          </dx-chart>
+        </div>
+      </div>
+    </dxi-item>
+    <dxi-item title="Raport napraw i kosztów eksploatacyjnych">
+      <div class="card p-2 mt-3">
+        <div class="row my-2">
+          <div class="col-12">
+            <h4>Raport napraw i kosztów eksploatacyjnych</h4>
+            <button
+              class="btn btn-primary mb-2 px-4"
+              (click)="addRepairReportPopup()"
+            >
+              Dodaj
+            </button>
+          </div>
+        </div>
+        <dx-popup
+          [width]="600"
+          [height]="360"
+          [showTitle]="true"
+          title="Dodaj nowy raport spalania"
+          [dragEnabled]="false"
+          [closeOnOutsideClick]="true"
+          [showCloseButton]="true"
+          [(visible)]="repairReportPopupVisible"
+        >
+          <div class="container">
+            <form
+              class="row"
+              [formGroup]="repairReportForm"
+              autocomplete="off"
+              (ngSubmit)="onRepairReportSubmit()"
+            >
+              <div class="col-12">
+                <label for="description">Opis naprawy</label>
+                <dx-text-area
+                  id="description"
+                  [class.is-invalid]="
+                    repairReportForm.get('description').errors &&
+                    repairReportForm.get('description').touched
+                  "
+                  [maxLength]="128"
+                  formControlName="description"
+                  class="form-control my-2"
+                  placeholder="Opis naprawy"
+                >
+                </dx-text-area>
+              </div>
+              <div class="col-6">
+                <label for="cost">Koszy naprawy</label>
+                <dx-number-box
+                  id="cost"
+                  [class.is-invalid]="
+                    repairReportForm.get('cost').errors &&
+                    repairReportForm.get('cost').touched
+                  "
+                  formControlName="cost"
+                  class="form-control my-2"
+                  placeholder="Koszt naprawy"
+                  [showSpinButtons]="true"
+                  [min]="0"
+                  [max]="1000000"
+                >
+                </dx-number-box>
+              </div>
+              <div class="col-6">
+                <label for="repairDate">Data naprawy</label>
+                <dx-date-box
+                  id="repairDate"
+                  [class.is-invalid]="
+                    repairReportForm.get('repairDate').errors &&
+                    repairReportForm.get('repairDate').touched
+                  "
+                  formControlName="repairDate"
+                  type="date"
+                  class="form-control my-2"
+                  placeholder="Data naprawy"
+                >
+                </dx-date-box>
+              </div>
+
+              <div class="col-12 mt-3">
                 <button
-                  class="btn btn-success mt-2"
-                  [disabled]="!fuelReportForm.valid"
+                  class="btn btn-success submit-repair-report-button"
+                  [disabled]="!repairReportForm.valid"
                   type="submit"
                 >
                   Dodaj
@@ -86,240 +256,98 @@
               </div>
             </form>
           </div>
-        </div>
-      </div>
-    </dx-popup>
-    <div class="row">
-      <div class="col-12">
-        <dx-data-grid
-          id="fuelReport"
-          [dataSource]="fuelReport"
-          keyExpr="id"
-          [remoteOperations]="false"
-          [allowColumnResizing]="true"
-        >
-        <dxo-filter-row [visible]="true"></dxo-filter-row>
-          <dxo-paging [pageSize]="5"></dxo-paging>
-          <dxo-pager
-            [showPageSizeSelector]="true"
-            [allowedPageSizes]="[5, 10, 15]"
-          ></dxo-pager>
-          <!-- <dxo-editing
-            mode="form"
-            [allowUpdating]="true"
+        </dx-popup>
+        <div class="row">
+          <div class="col-12">
+            <dx-data-grid
+              id="repairReport"
+              [dataSource]="repairReport"
+              keyExpr="id"
+              [remoteOperations]="false"
+              [allowColumnResizing]="true"
+              (onRowRemoving)="deleteRepairReport($event)"
+            >
+            <dxo-editing
+            mode="row"
+            [allowUpdating]="false"
             [allowDeleting]="true"
             [allowAdding]="false"
+            [useIcons]="true"
+            [confirmDelete]="false"
           >
-  </dxo-editing> -->
-          <dxi-column
-            dataField="cost"
-            dataType="number"
-            caption="Koszt tankowania [PLN]"
-          ></dxi-column>
-          <dxi-column
-            dataField="fuelAmount"
-            dataType="number"
-            caption="Ilość zatankowanego paliwa [dm3]"
-          ></dxi-column>
-          <dxi-column
-            dataField="traveledDistance"
-            dataType="number"
-            caption="Przejechany dystans [km]"
-          ></dxi-column>
-          <dxi-column
-            dataField="refuelDate"
-            dataType="date"
-            caption="Data zatankowania"
-          ></dxi-column>
-        </dx-data-grid>
-      </div>
-    </div>
+          <dxo-texts
+          deleteRow="Usuń">
 
-    <div class="row mt-3">
-      <dx-chart id="chart" [dataSource]="fuelReportView">
-        <dxi-series
-          argumentField="month"
-          valueField="averageConsumption"
-          name="Średnie spalanie<br/>(na 100km)"
-          type="bar"
-          color="#ffaa66"
-        >
-          <dxo-label
-            [visible]="true"
-            [format]="{
-              type: 'fixedPoint',
-              precision: '2'
-            }"
-          >
-          </dxo-label>
-        </dxi-series>
-      </dx-chart>
-    </div>
-  </div>
+          </dxo-texts>
+            </dxo-editing>
+              <dxo-filter-row [visible]="true"></dxo-filter-row>
+              <dxo-paging [pageSize]="5"></dxo-paging>
+              <dxo-pager
+                [showPageSizeSelector]="true"
+                [allowedPageSizes]="[5, 10, 15]"
+              ></dxo-pager>
+              <dxi-column
+                dataField="description"
+                dataType="string"
+                caption="Opis naprawy"
+              ></dxi-column>
+              <dxi-column
+                dataField="cost"
+                dataType="number"
+                caption="Koszt naprawy [PLN]"
+              ></dxi-column>
+              <dxi-column
+                dataField="repairDate"
+                dataType="date"
+                caption="Data naprawy"
+              ></dxi-column>
+            </dx-data-grid>
+          </div>
+        </div>
 
-  <div class="card p-2 mt-3">
-    <div class="row my-2">
-      <div class="col-12">
-        <h4>Raport napraw i kosztów eksploatacyjnych</h4>
-        <button
-          class="btn btn-primary mb-2 px-4"
-          (click)="addRepairReportPopup()"
-        >
-          Dodaj
-        </button>
+        <div class="row mt-3">
+          <dx-chart id="chart" [dataSource]="repairReportView">
+            <dxi-series
+              argumentField="month"
+              valueField="costPerMonth"
+              name="Suma wydatków"
+              type="bar"
+              color="#ffaa66"
+            >
+              <dxo-label
+                [visible]="true"
+                [format]="{
+                  type: 'fixedPoint',
+                  precision: '2'
+                }"
+              >
+              </dxo-label>
+            </dxi-series>
+          </dx-chart>
+        </div>
       </div>
-    </div>
-    <dx-popup
-      [width]="600"
-      [height]="360"
-      [showTitle]="true"
-      title="Dodaj nowy raport spalania"
-      [dragEnabled]="false"
-      [closeOnOutsideClick]="true"
-      [showCloseButton]="true"
-      [(visible)]="repairReportPopupVisible"
-    >
-      <div class="container">
-        <form
-          class="row"
-          [formGroup]="repairReportForm"
-          autocomplete="off"
-          (ngSubmit)="onRepairReportSubmit()"
-        >
+    </dxi-item>
+    <dxi-item title="Podsumowanie kosztów">
+      <div class="card p-2 mt-3">
+        <div class="row my-2">
           <div class="col-12">
-            <label for="description">Opis naprawy</label>
-            <dx-text-area
-              id="description"
-              [class.is-invalid]="
-                repairReportForm.get('description').errors &&
-                repairReportForm.get('description').touched
-              "
-              [maxLength]="128"
-              formControlName="description"
-              class="form-control my-2"
-              placeholder="Opis naprawy"
-            >
-            </dx-text-area>
+            <h4>Łączne wydatki</h4>
           </div>
-          <div class="col-6">
-            <label for="cost">Koszy naprawy</label>
-            <dx-number-box
-              id="cost"
-              [class.is-invalid]="
-                repairReportForm.get('cost').errors &&
-                repairReportForm.get('cost').touched
-              "
-              formControlName="cost"
-              class="form-control my-2"
-              placeholder="Koszt naprawy"
-              [showSpinButtons]="true"
-              [min]="0"
-              [max]="1000000"
-            >
-            </dx-number-box>
-          </div>
-          <div class="col-6">
-            <label for="repairDate">Data naprawy</label>
-            <dx-date-box
-              id="repairDate"
-              [class.is-invalid]="
-                repairReportForm.get('repairDate').errors &&
-                repairReportForm.get('repairDate').touched
-              "
-              formControlName="repairDate"
-              type="date"
-              class="form-control my-2"
-              placeholder="Data naprawy"
-            >
-            </dx-date-box>
-          </div>
-
-          <div class="col-12 mt-3">
-            <button
-              class="btn btn-success submit-repair-report-button"
-              [disabled]="!repairReportForm.valid"
-              type="submit"
-            >
-              Dodaj
-            </button>
-          </div>
-        </form>
-      </div>
-    </dx-popup>
-    <div class="row">
-      <div class="col-12">
-        <dx-data-grid
-          id="repairReport"
-          [dataSource]="repairReport"
-          keyExpr="id"
-          [remoteOperations]="false"
-          [allowColumnResizing]="true"
-        >
-          <dxo-filter-row [visible]="true"></dxo-filter-row>
-          <dxo-paging [pageSize]="5"></dxo-paging>
-          <dxo-pager
-            [showPageSizeSelector]="true"
-            [allowedPageSizes]="[5, 10, 15]"
-          ></dxo-pager>
-          <dxi-column
-            dataField="description"
-            dataType="string"
-            caption="Opis naprawy"
-          ></dxi-column>
-          <dxi-column
-            dataField="cost"
-            dataType="number"
-            caption="Koszt naprawy [PLN]"
-          ></dxi-column>
-          <dxi-column
-            dataField="repairDate"
-            dataType="date"
-            caption="Data naprawy"
-          ></dxi-column>
-        </dx-data-grid>
-      </div>
-    </div>
-
-    <div class="row mt-3">
-      <dx-chart id="chart" [dataSource]="repairReportView">
-        <dxi-series
-          argumentField="month"
-          valueField="costPerMonth"
-          name="Suma wydatków"
-          type="bar"
-          color="#ffaa66"
-        >
-          <dxo-label
-            [visible]="true"
-            [format]="{
-              type: 'fixedPoint',
-              precision: '2'
-            }"
+        </div>
+        <div class="row mt-3">
+          <dx-pie-chart
+            id="totalCosts"
+            palette="Dark Violet"
+            [dataSource]="totalCostsReportView"
           >
-          </dxo-label>
-        </dxi-series>
-      </dx-chart>
-    </div>
-  </div>
-
-  <div class="card p-2 mt-3">
-    <div class="row my-2">
-      <div class="col-12">
-        <h4>Łączne wydatki</h4>
+            <dxi-series argumentField="month" valueField="totalCostPerMonth">
+              <dxo-label [visible]="true" [customizeText]="customPieChartLabel">
+                <dxo-connector [visible]="true" [width]="1"></dxo-connector>
+              </dxo-label>
+            </dxi-series>
+          </dx-pie-chart>
+        </div>
       </div>
-    </div>
-    <div class="row mt-3">
-      <dx-pie-chart
-        id="totalCosts"
-        palette="Dark Violet"
-        [dataSource]="totalCostsReportView"
-      >
-        <dxi-series argumentField="month" valueField="totalCostPerMonth">
-          <dxo-label [visible]="true">
-            <dxo-connector [visible]="true" [width]="1"></dxo-connector>
-          </dxo-label>
-        </dxi-series>
-      </dx-pie-chart>
-    </div>
-  </div>
+    </dxi-item>
+  </dx-tab-panel>
 </div>

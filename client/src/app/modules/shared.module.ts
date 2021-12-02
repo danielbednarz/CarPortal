@@ -17,9 +17,13 @@ import {
   DxFormModule,
   DxNumberBoxModule,
   DxDateBoxModule,
-  DxPieChartModule
+  DxPieChartModule,
+  DxTabPanelModule,
+  DxTemplateModule
 } from 'devextreme-angular';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 @NgModule({
   declarations: [],
@@ -44,7 +48,11 @@ import {NgxPaginationModule} from 'ngx-pagination';
     DxFormModule,
     DxNumberBoxModule,
     DxDateBoxModule,
-    DxPieChartModule
+    DxPieChartModule,
+    AccordionModule.forRoot(),
+    TabsModule.forRoot(),
+    DxTabPanelModule,
+    DxTemplateModule
   ],
   exports: [
     BsDropdownModule,
@@ -64,7 +72,11 @@ import {NgxPaginationModule} from 'ngx-pagination';
     DxFormModule,
     DxNumberBoxModule,
     DxDateBoxModule,
-    DxPieChartModule
+    DxPieChartModule,
+    AccordionModule,
+    TabsModule,
+    DxTabPanelModule,
+    DxTemplateModule
   ]
 })
 export class SharedModule { }

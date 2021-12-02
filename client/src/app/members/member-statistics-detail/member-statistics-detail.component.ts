@@ -69,6 +69,10 @@ export class MemberStatisticsDetailComponent implements OnInit {
     })
   }
 
+  customPieChartLabel(arg) {
+    return `${arg.valueText} zł (${arg.percentText} wydatków)`;
+  }
+
   loadMember() {
     this.memberService.getMember(this.username).subscribe(member => {
       this.member = member;

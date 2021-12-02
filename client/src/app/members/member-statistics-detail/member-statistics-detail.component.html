@@ -1,14 +1,19 @@
 <div class="container">
-    <div class="row">
-      <h2>Statystyki</h2>
-    </div>
-    <div class="card p-2">
-      <div class="row mt-2">
+  <div class="row">
+    <h2>Statystyki</h2>
+  </div>
+
+  <dx-tab-panel
+    #tabPanel
+  >
+  <dxi-item title="Raport średniego spalania">
+    <div class="card p-2 mt-3">
+      <div class="row my-2">
         <div class="col-12">
           <h4>Raport średniego spalania</h4>
         </div>
       </div>
-      <div class="row">
+      <div class="row my-2">
         <div class="col-12">
           <dx-data-grid
             id="fuelReport"
@@ -17,7 +22,7 @@
             [remoteOperations]="false"
             [allowColumnResizing]="true"
           >
-          <dxo-filter-row [visible]="true"></dxo-filter-row>
+            <dxo-filter-row [visible]="true"></dxo-filter-row>
             <dxo-paging [pageSize]="5"></dxo-paging>
             <dxo-pager
               [showPageSizeSelector]="true"
@@ -68,14 +73,15 @@
         </dx-chart>
       </div>
     </div>
-
+  </dxi-item>
+  <dxi-item title="Raport napraw i kosztów eksploatacyjnych">
     <div class="card p-2 mt-3">
       <div class="row my-2">
         <div class="col-12">
           <h4>Raport napraw i kosztów eksploatacyjnych</h4>
         </div>
       </div>
-      <div class="row">
+      <div class="row my-2">
         <div class="col-12">
           <dx-data-grid
             id="repairReport"
@@ -130,10 +136,11 @@
         </dx-chart>
       </div>
     </div>
-
-    <div class="card p-2 mt-3">
+  </dxi-item>
+  <dxi-item title="Podsumowanie kosztów">
+    <div class="card p-2">
       <div class="row my-2">
-        <div class="col-12">
+        <div class="col-12 my-2">
           <h4>Łączne wydatki</h4>
         </div>
       </div>
@@ -144,12 +151,319 @@
           [dataSource]="totalCostsReportView"
         >
           <dxi-series argumentField="month" valueField="totalCostPerMonth">
-            <dxo-label [visible]="true">
+            <dxo-label [visible]="true" [customizeText]="customPieChartLabel">
               <dxo-connector [visible]="true" [width]="1"></dxo-connector>
             </dxo-label>
           </dxi-series>
         </dx-pie-chart>
       </div>
     </div>
+  </dxi-item>
+  </dx-tab-panel>
+
+  <!-- <tabset>
+    <tab heading="Raport średniego spalania" id="tab1">  
+      <div class="card p-2">
+    <div class="row mt-2">
+      <div class="col-12">
+        <h4>Raport średniego spalania</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <dx-data-grid
+          id="fuelReport"
+          [dataSource]="fuelReport"
+          keyExpr="id"
+          [remoteOperations]="false"
+          [allowColumnResizing]="true"
+        >
+          <dxo-filter-row [visible]="true"></dxo-filter-row>
+          <dxo-paging [pageSize]="5"></dxo-paging>
+          <dxo-pager
+            [showPageSizeSelector]="true"
+            [allowedPageSizes]="[5, 10, 15]"
+          ></dxo-pager>
+          <dxi-column
+            dataField="cost"
+            dataType="number"
+            caption="Koszt tankowania [PLN]"
+          ></dxi-column>
+          <dxi-column
+            dataField="fuelAmount"
+            dataType="number"
+            caption="Ilość zatankowanego paliwa [dm3]"
+          ></dxi-column>
+          <dxi-column
+            dataField="traveledDistance"
+            dataType="number"
+            caption="Przejechany dystans [km]"
+          ></dxi-column>
+          <dxi-column
+            dataField="refuelDate"
+            dataType="date"
+            caption="Data zatankowania"
+          ></dxi-column>
+        </dx-data-grid>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <dx-chart id="chart" [dataSource]="fuelReportView">
+        <dxi-series
+          argumentField="month"
+          valueField="averageConsumption"
+          name="Średnie spalanie<br/>(na 100km)"
+          type="bar"
+          color="#ffaa66"
+        >
+          <dxo-label
+            [visible]="true"
+            [format]="{
+              type: 'fixedPoint',
+              precision: '2'
+            }"
+          >
+          </dxo-label>
+        </dxi-series>
+      </dx-chart>
+    </div>
   </div>
-  
+  </tab>
+    <tab heading="Raport napraw">
+      <div class="card p-2 mt-3">
+        <div class="row my-2">
+          <div class="col-12">
+            <h4>Raport napraw i kosztów eksploatacyjnych</h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <dx-data-grid
+              id="repairReport"
+              [dataSource]="repairReport"
+              keyExpr="id"
+              [remoteOperations]="false"
+              [allowColumnResizing]="true"
+            >
+              <dxo-filter-row [visible]="true"></dxo-filter-row>
+              <dxo-paging [pageSize]="5"></dxo-paging>
+              <dxo-pager
+                [showPageSizeSelector]="true"
+                [allowedPageSizes]="[5, 10, 15]"
+              ></dxo-pager>
+              <dxi-column
+                dataField="description"
+                dataType="string"
+                caption="Opis naprawy"
+              ></dxi-column>
+              <dxi-column
+                dataField="cost"
+                dataType="number"
+                caption="Koszt naprawy [PLN]"
+              ></dxi-column>
+              <dxi-column
+                dataField="repairDate"
+                dataType="date"
+                caption="Data naprawy"
+              ></dxi-column>
+            </dx-data-grid>
+          </div>
+        </div>
+    
+        <div class="row mt-3">
+          <dx-chart id="chart" [dataSource]="repairReportView">
+            <dxi-series
+              argumentField="month"
+              valueField="costPerMonth"
+              name="Suma wydatków"
+              type="bar"
+              color="#ffaa66"
+            >
+              <dxo-label
+                [visible]="true"
+                [format]="{
+                  type: 'fixedPoint',
+                  precision: '2'
+                }"
+              >
+              </dxo-label>
+            </dxi-series>
+          </dx-chart>
+        </div>
+      </div>
+    </tab>
+    <tab heading="Basic Title 2">
+      <div class="card p-2 mt-3">
+        <div class="row my-2">
+          <div class="col-12">
+            <h4>Łączne wydatki</h4>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <dx-pie-chart
+            id="totalCosts"
+            palette="Dark Violet"
+            [dataSource]="totalCostsReportView"
+          >
+            <dxi-series argumentField="month" valueField="totalCostPerMonth">
+              <dxo-label [visible]="true">
+                <dxo-connector [visible]="true" [width]="1"></dxo-connector>
+              </dxo-label>
+            </dxi-series>
+          </dx-pie-chart>
+        </div>
+      </div>
+    </tab>
+  </tabset> -->
+
+  <!-- <div class="card p-2">
+    <div class="row mt-2">
+      <div class="col-12">
+        <h4>Raport średniego spalania</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <dx-data-grid
+          id="fuelReport"
+          [dataSource]="fuelReport"
+          keyExpr="id"
+          [remoteOperations]="false"
+          [allowColumnResizing]="true"
+        >
+          <dxo-filter-row [visible]="true"></dxo-filter-row>
+          <dxo-paging [pageSize]="5"></dxo-paging>
+          <dxo-pager
+            [showPageSizeSelector]="true"
+            [allowedPageSizes]="[5, 10, 15]"
+          ></dxo-pager>
+          <dxi-column
+            dataField="cost"
+            dataType="number"
+            caption="Koszt tankowania [PLN]"
+          ></dxi-column>
+          <dxi-column
+            dataField="fuelAmount"
+            dataType="number"
+            caption="Ilość zatankowanego paliwa [dm3]"
+          ></dxi-column>
+          <dxi-column
+            dataField="traveledDistance"
+            dataType="number"
+            caption="Przejechany dystans [km]"
+          ></dxi-column>
+          <dxi-column
+            dataField="refuelDate"
+            dataType="date"
+            caption="Data zatankowania"
+          ></dxi-column>
+        </dx-data-grid>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <dx-chart id="chart" [dataSource]="fuelReportView">
+        <dxi-series
+          argumentField="month"
+          valueField="averageConsumption"
+          name="Średnie spalanie<br/>(na 100km)"
+          type="bar"
+          color="#ffaa66"
+        >
+          <dxo-label
+            [visible]="true"
+            [format]="{
+              type: 'fixedPoint',
+              precision: '2'
+            }"
+          >
+          </dxo-label>
+        </dxi-series>
+      </dx-chart>
+    </div>
+  </div>
+
+  <div class="card p-2 mt-3">
+    <div class="row my-2">
+      <div class="col-12">
+        <h4>Raport napraw i kosztów eksploatacyjnych</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <dx-data-grid
+          id="repairReport"
+          [dataSource]="repairReport"
+          keyExpr="id"
+          [remoteOperations]="false"
+          [allowColumnResizing]="true"
+        >
+          <dxo-filter-row [visible]="true"></dxo-filter-row>
+          <dxo-paging [pageSize]="5"></dxo-paging>
+          <dxo-pager
+            [showPageSizeSelector]="true"
+            [allowedPageSizes]="[5, 10, 15]"
+          ></dxo-pager>
+          <dxi-column
+            dataField="description"
+            dataType="string"
+            caption="Opis naprawy"
+          ></dxi-column>
+          <dxi-column
+            dataField="cost"
+            dataType="number"
+            caption="Koszt naprawy [PLN]"
+          ></dxi-column>
+          <dxi-column
+            dataField="repairDate"
+            dataType="date"
+            caption="Data naprawy"
+          ></dxi-column>
+        </dx-data-grid>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <dx-chart id="chart" [dataSource]="repairReportView">
+        <dxi-series
+          argumentField="month"
+          valueField="costPerMonth"
+          name="Suma wydatków"
+          type="bar"
+          color="#ffaa66"
+        >
+          <dxo-label
+            [visible]="true"
+            [format]="{
+              type: 'fixedPoint',
+              precision: '2'
+            }"
+          >
+          </dxo-label>
+        </dxi-series>
+      </dx-chart>
+    </div>
+  </div>
+
+  <div class="card p-2 mt-3">
+    <div class="row my-2">
+      <div class="col-12">
+        <h4>Łączne wydatki</h4>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <dx-pie-chart
+        id="totalCosts"
+        palette="Dark Violet"
+        [dataSource]="totalCostsReportView"
+      >
+        <dxi-series argumentField="month" valueField="totalCostPerMonth">
+          <dxo-label [visible]="true">
+            <dxo-connector [visible]="true" [width]="1"></dxo-connector>
+          </dxo-label>
+        </dxi-series>
+      </dx-pie-chart>
+    </div>
+  </div> -->
+</div>
