@@ -1,5 +1,6 @@
 ﻿using API.Data;
 using API.Entities;
+using API.Entities.Views;
 using API.Interfaces.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -118,6 +119,14 @@ namespace API.Controllers
         public async Task<ActionResult<List<FuelReport>>> GetTotalCostsReportView(int userId)
         {
             var data = await _statisticsRepository.GetTotalCostsReportView(userId);
+
+            return Ok(data);
+        }
+
+        [HttpGet("getTotalRepairFuelCostsReportView/{userId}")]
+        public async Task<ActionResult<List<TotalRepairFuelCostsReportView>>> GetTotalRepairFuelCostsReportView(int userId)
+        {
+            var data = await _statisticsRepository.GetTotalRepairFuelCostsReportView(userId);
 
             return Ok(data);
         }

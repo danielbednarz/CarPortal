@@ -49,10 +49,22 @@ namespace API.Data.Repositories
         {
             return await _context.RepairReportView.Where(x => x.UserId == userId).ToListAsync();
         }
-
         public async Task<List<TotalCostsReportView>> GetTotalCostsReportView(int userId)
         {
             return await _context.TotalCostsReportView.Where(x => x.UserId == userId).ToListAsync();
+        }
+        public async Task<List<TotalRepairFuelCostsReportView>> GetTotalRepairFuelCostsReportView(int userId)
+        {
+
+            return await _context.TotalRepairFuelCostsReportView.FromSqlInterpolated(@$"SELECT 'Wydatki na paliwo' as [Text]
+                                                                  , SUM(fuel.Cost) as [Value]
+                                                            FROM FuelReports fuel
+                                                            WHERE fuel.UserId = {userId}
+                                                            UNION
+                                                            SELECT 'Wydatki na naprawy i koszty eksploatacyjne' as [Text]
+                                                                  , SUM(repair.Cost) as [Value]
+                                                            FROM RepairReports repair
+                                                            WHERE repair.UserId = {userId}").ToListAsync();
         }
     }
 }

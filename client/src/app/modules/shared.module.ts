@@ -19,7 +19,8 @@ import {
   DxDateBoxModule,
   DxPieChartModule,
   DxTabPanelModule,
-  DxTemplateModule
+  DxTemplateModule,
+  DxChartModule
 } from 'devextreme-angular';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
@@ -52,7 +53,8 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     AccordionModule.forRoot(),
     TabsModule.forRoot(),
     DxTabPanelModule,
-    DxTemplateModule
+    DxTemplateModule,
+    DxChartModule
   ],
   exports: [
     BsDropdownModule,
@@ -76,7 +78,8 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     AccordionModule,
     TabsModule,
     DxTabPanelModule,
-    DxTemplateModule
+    DxTemplateModule,
+    DxChartModule
   ]
 })
 export class SharedModule { }

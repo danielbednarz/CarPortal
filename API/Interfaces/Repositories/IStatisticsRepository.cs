@@ -13,5 +13,6 @@ namespace API.Interfaces.Repositories
         Task<List<RepairReport>> GetRepairReport(int userId);
         Task<List<RepairReportView>> GetRepairReportView(int userId);
         Task<List<TotalCostsReportView>> GetTotalCostsReportView(int userId);
+        Task<List<TotalRepairFuelCostsReportView>> GetTotalRepairFuelCostsReportView(int userId);
     }
 }

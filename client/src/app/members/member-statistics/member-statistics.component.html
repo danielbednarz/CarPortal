@@ -109,17 +109,14 @@
                 [allowedPageSizes]="[5, 10, 15]"
               ></dxo-pager>
               <dxo-editing
-              mode="row"
-              [allowUpdating]="false"
-              [allowDeleting]="true"
-              [allowAdding]="false"
-              [useIcons]="true"
-              [confirmDelete]="false"
-            >
-            <dxo-texts
-            deleteRow="Usuń">
-
-            </dxo-texts>
+                mode="row"
+                [allowUpdating]="false"
+                [allowDeleting]="true"
+                [allowAdding]="false"
+                [useIcons]="true"
+                [confirmDelete]="false"
+              >
+                <dxo-texts deleteRow="Usuń"> </dxo-texts>
               </dxo-editing>
               <dxi-column
                 dataField="cost"
@@ -267,19 +264,16 @@
               [allowColumnResizing]="true"
               (onRowRemoving)="deleteRepairReport($event)"
             >
-            <dxo-editing
-            mode="row"
-            [allowUpdating]="false"
-            [allowDeleting]="true"
-            [allowAdding]="false"
-            [useIcons]="true"
-            [confirmDelete]="false"
-          >
-          <dxo-texts
-          deleteRow="Usuń">
-
-          </dxo-texts>
-            </dxo-editing>
+              <dxo-editing
+                mode="row"
+                [allowUpdating]="false"
+                [allowDeleting]="true"
+                [allowAdding]="false"
+                [useIcons]="true"
+                [confirmDelete]="false"
+              >
+                <dxo-texts deleteRow="Usuń"> </dxo-texts>
+              </dxo-editing>
               <dxo-filter-row [visible]="true"></dxo-filter-row>
               <dxo-paging [pageSize]="5"></dxo-paging>
               <dxo-pager
@@ -331,13 +325,13 @@
       <div class="card p-2 mt-3">
         <div class="row my-2">
           <div class="col-12">
-            <h4>Łączne wydatki</h4>
+            <h4>Łączne wydatki z podziałem na miesiąc</h4>
           </div>
         </div>
         <div class="row mt-3">
           <dx-pie-chart
             id="totalCosts"
-            palette="Dark Violet"
+            palette="Pastel"
             [dataSource]="totalCostsReportView"
           >
             <dxi-series argumentField="month" valueField="totalCostPerMonth">
@@ -345,6 +339,36 @@
                 <dxo-connector [visible]="true" [width]="1"></dxo-connector>
               </dxo-label>
             </dxi-series>
+            <dxo-legend
+              verticalAlignment="bottom"
+              horizontalAlignment="center"
+              itemTextPosition="right"
+            >
+            </dxo-legend>
+          </dx-pie-chart>
+        </div>
+      </div>
+      <div class="card p-2 mt-3">
+        <div class="row my-2">
+          <div class="col-12">
+            <h4>Łączne wydatki z podziałem na rodzaj wydatku</h4>
+          </div>
+          <dx-pie-chart
+            id="totalCosts"
+            palette="Carmine"
+            [dataSource]="totalRepairFuelCostsReportView"
+          >
+            <dxi-series argumentField="text" valueField="value">
+              <dxo-label [visible]="true" [customizeText]="customPieChartLabel">
+                <dxo-connector [visible]="true" [width]="1"></dxo-connector>
+              </dxo-label>
+            </dxi-series>
+            <dxo-legend
+              verticalAlignment="bottom"
+              horizontalAlignment="center"
+              itemTextPosition="right"
+            >
+            </dxo-legend>
           </dx-pie-chart>
         </div>
       </div>

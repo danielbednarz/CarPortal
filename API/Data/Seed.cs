@@ -372,6 +372,7 @@ namespace API.Data
             context.Database.ExecuteSqlRaw(FuelReportView.createSql);
             context.Database.ExecuteSqlRaw(RepairReportView.createSql);
             context.Database.ExecuteSqlRaw(TotalCostsReportView.createSql);
+            context.Database.ExecuteSqlRaw(TotalRepairFuelCostsReportView.createSql);
         }
 
         private static void AddAudiEnginesForModels(MainDatabaseContext context)

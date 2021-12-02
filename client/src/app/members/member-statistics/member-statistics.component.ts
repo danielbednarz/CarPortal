@@ -9,6 +9,7 @@ import { Member } from 'src/app/models/member';
 import { RepairReport } from 'src/app/models/repairReport';
 import { RepairReportView } from 'src/app/models/repairReportView';
 import { TotalCostsReportView } from 'src/app/models/totalCostsReportView';
+import { TotalRepairFuelCostsReportView } from 'src/app/models/totalRepairFuelCostsReportView';
 import { User } from 'src/app/models/user';
 import { AccountService } from 'src/app/services/account.service';
 import { MembersService } from 'src/app/services/members.service';
@@ -37,6 +38,7 @@ export class MemberStatisticsComponent implements OnInit {
   repairReportPopupVisible = false;
 
   totalCostsReportView: TotalCostsReportView[];
+  totalRepairFuelCostsReportView: TotalRepairFuelCostsReportView[];
 
   constructor(private statisticsService: StatisticsService, public accountService: AccountService,
     private memberService: MembersService, private formBuilder: FormBuilder, private router: Router,
@@ -145,6 +147,12 @@ export class MemberStatisticsComponent implements OnInit {
     })
   }
 
+  loadTotalRepairFuelCostsReportView(userId: number) {
+    this.statisticsService.getTotalRepairFuelCostsReportView(userId).subscribe(totalRepairFuelCostsReportView => {
+      this.totalRepairFuelCostsReportView = totalRepairFuelCostsReportView;
+    })
+  }
+
   customPieChartLabel(arg) {
     return `${arg.valueText} zł (${arg.percentText} wydatków)`;
   }
@@ -157,6 +165,7 @@ export class MemberStatisticsComponent implements OnInit {
       this.loadRepairReport(member.id);
       this.loadRepairReportView(member.id);
       this.loadTotalCostsReportView(member.id);
+      this.loadTotalRepairFuelCostsReportView(member.id);
     })
   }
 
