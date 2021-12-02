@@ -28,7 +28,7 @@
   <div class="container">
     <div class="row message-row" *ngFor="let message of messages | paginate: { itemsPerPage: 20, currentPage: page }">
       <div class="row sender-row col-12 my-2">
-        <div class="card" *ngIf="message.senderUsername === username">
+        <div class="card-header left-card" *ngIf="message.senderUsername === username">
           <div class="card-title">
             <p class="username mt-2 mr-2">
               <strong>{{ message.senderUsername }}</strong>
@@ -43,7 +43,7 @@
       </div>
 
       <div class="row recipient-row col-12 my-2">
-        <div class="card-header" *ngIf="message.senderUsername !== username">
+        <div class="card-header right-card" *ngIf="message.senderUsername !== username">
           <div class="card-title">
             <p class="username mt-2 mr-2">
               <strong>{{ message.senderUsername }}</strong>
