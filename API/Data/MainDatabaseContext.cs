@@ -1,11 +1,15 @@
 ﻿using API.Entities;
 using API.Entities.Views;
+using API.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace API.Data
 {
-    public class MainDatabaseContext : DbContext
+    public class MainDatabaseContext : IdentityDbContext<AppUser, AppRole, int, IdentityUserClaim<int>, AppUserRole, 
+        IdentityUserLogin<int>, IdentityRoleClaim<int>, IdentityUserToken<int>>
     {
         public MainDatabaseContext(DbContextOptions options) : base(options)
         {
@@ -16,7 +20,6 @@ namespace API.Data
         // dotnet ef migrations add Init -o Data\Migrations
         // dotnet ef database update
 
-        public DbSet<User> Users { get; set; }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Model> Models { get; set; }
         public DbSet<Engine> Engines { get; set; }
@@ -32,6 +35,20 @@ namespace API.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<AppUser>()
+                .HasMany(x => x.UserRoles)
+                .WithOne(y => y.User)
+                .HasForeignKey(x => x.UserId)
+                .IsRequired();
+
+            modelBuilder.Entity<AppRole>()
+                .HasMany(x => x.UserRoles)
+                .WithOne(y => y.Role)
+                .HasForeignKey(x => x.RoleId)
+                .IsRequired();
+
             modelBuilder.Entity<Message>()
             .HasOne(x => x.Recipient)
             .WithMany(m => m.MessagesReceived);

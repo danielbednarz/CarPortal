@@ -7,16 +7,20 @@ using System.Threading.Tasks;
 
 namespace API.Entities
 {
-    public class RepairReport
+    public class FuelReport
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public Guid Id { get; set; }
         [Column(TypeName = "decimal(18,2)")]
         public decimal Cost { get; set; }
-        public DateTime RepairDate { get; set; }
-        public string Description { get; set; }
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal FuelAmount { get; set; }
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal TraveledDistance { get; set; }
+        public DateTime RefuelDate { get; set; }
         public int UserId { get; set; }
-        public virtual User User { get; set; }
+        public virtual AppUser User { get; set; }
+
     }
 }

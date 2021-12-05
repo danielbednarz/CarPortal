@@ -1,5 +1,8 @@
 using API.Data;
+using API.Entities;
+using API.Models;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,11 +22,15 @@ namespace API
             var host = CreateHostBuilder(args).Build();
             using var scope = host.Services.CreateScope();
             var services = scope.ServiceProvider;
+
             try
             {
                 var context = services.GetRequiredService<MainDatabaseContext>();
+                var userManager = services.GetRequiredService<UserManager<AppUser>>();
+                var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
+
                 await context.Database.MigrateAsync();
-                Seed.AddSeed(context);
+                await Seed.AddSeed(userManager, roleManager, context);
             }
             catch(Exception ex)
             {

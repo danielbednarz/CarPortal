@@ -59,19 +59,19 @@ namespace API.Data.Repositories
             return await PagedList<MemberDto>.CreateAsync(query.ProjectTo<MemberDto>(_mapper.ConfigurationProvider).AsNoTracking(), userParams.PageNumber, userParams.PageSize);
         }
 
-        public async Task<User> GetUserByIdAsync(int id)
+        public async Task<AppUser> GetUserByIdAsync(int id)
         {
             return await _context.Users.FindAsync(id);
         }
 
-        public async Task<User> GetUserByUsernameAsync(string username)
+        public async Task<AppUser> GetUserByUsernameAsync(string username)
         {
             return await _context.Users
                 .Include(x => x.Photos)
                 .FirstOrDefaultAsync(x => x.UserName == username);
         }
 
-        public async Task<IEnumerable<User>> GetUsersAsync()
+        public async Task<IEnumerable<AppUser>> GetUsersAsync()
         {
             return await _context.Users
                 .Include(x => x.Photos)
@@ -83,7 +83,7 @@ namespace API.Data.Repositories
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public void Update(User user)
+        public void Update(AppUser user)
         {
             _context.Entry(user).State = EntityState.Modified;
         }

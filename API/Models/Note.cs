@@ -17,6 +17,6 @@ namespace API.Entities
         public DateTime CreatedDate { get; set; } = DateTime.Now;
         public int UserId { get; set; }
         [JsonIgnore]
-        public virtual User User { get; set; }
+        public virtual AppUser User { get; set; }
     }
 }

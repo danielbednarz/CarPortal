@@ -6,12 +6,15 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using API.Data.SQL;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
+using API.Models;
 
 namespace API.Data
 {
     public class Seed
     {
-        public static void AddSeed(MainDatabaseContext context)
+        public static async Task AddSeed(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager, MainDatabaseContext context)
         {
             AddBrands(context);
             AddModels(context);
@@ -19,7 +22,8 @@ namespace API.Data
             AddEnginesForModels(context);
             AddViews(context);
 
-            AddUsers(context);
+            await AddRoles(roleManager);
+            await AddUsers(userManager, context);
 
 
             context.SaveChanges();
@@ -122,9 +126,28 @@ namespace API.Data
             context.SaveChanges();
         }
 
-        private static void AddUsers(MainDatabaseContext context)
+        private static async Task AddRoles(RoleManager<AppRole> roleManager)
         {
-            if (context.Users.Any())
+            if (await roleManager.Roles.AnyAsync())
+            {
+                return;
+            }
+
+            var roles = new List<AppRole>
+            {
+                new AppRole { Name = "Admin"},
+                new AppRole { Name = "User"},
+            };
+
+            foreach (var role in roles)
+            {
+                await roleManager.CreateAsync(role);
+            }
+        }
+
+        private static async Task AddUsers(UserManager<AppUser> userManager, MainDatabaseContext context)
+        {
+            if (await userManager.Users.AnyAsync())
             {
                 return;
             }
@@ -139,20 +162,9 @@ namespace API.Data
                 }
             };
 
-            var users = new List<User>
+            var users = new List<AppUser>
             {
-                new User
-                {
-                    UserName = "Admin",
-                    BrandId = context.Brands.FirstOrDefault(x => x.Name == "Volvo").Id,
-                    ModelId = context.Models.FirstOrDefault(x => x.Name == "S40").Id,
-                    EngineId = context.Engines.FirstOrDefault(x => x.EngineCapacity == "2.4i").Id,
-                    EnginePower = 170,
-                    Mileage = 252000,
-                    ProductionDate = new DateTime(2005, 03, 31),
-                    Photos = photos
-                },
-                new User
+                new AppUser
                 {
                     UserName = "Danio",
                     BrandId = context.Brands.FirstOrDefault(x => x.Name == "Volvo").Id,
@@ -163,7 +175,7 @@ namespace API.Data
                     ProductionDate = new DateTime(2005, 03, 31),
                     Photos = null
                 },
-                new User
+                new AppUser
                 {
                     UserName = "Test",
                     BrandId = context.Brands.FirstOrDefault(x => x.Name == "Volvo").Id,
@@ -174,7 +186,7 @@ namespace API.Data
                     ProductionDate = new DateTime(2005, 03, 31),
                     Photos = null
                 },
-                new User
+                new AppUser
                 {
                     UserName = "Rafal",
                     BrandId = context.Brands.FirstOrDefault(x => x.Name == "Volvo").Id,
@@ -185,7 +197,7 @@ namespace API.Data
                     ProductionDate = new DateTime(2005, 03, 31),
                     Photos = null
                 },
-                new User
+                new AppUser
                 {
                     UserName = "Witold",
                     BrandId = context.Brands.FirstOrDefault(x => x.Name == "Volvo").Id,
@@ -196,7 +208,7 @@ namespace API.Data
                     ProductionDate = new DateTime(2005, 03, 31),
                     Photos = null
                 },
-                new User
+                new AppUser
                 {
                     UserName = "Admin2",
                     BrandId = context.Brands.FirstOrDefault(x => x.Name == "Volvo").Id,
@@ -207,7 +219,7 @@ namespace API.Data
                     ProductionDate = new DateTime(2005, 03, 31),
                     Photos = null
                 },
-                new User
+                new AppUser
                 {
                     UserName = "Maciek",
                     BrandId = context.Brands.FirstOrDefault(x => x.Name == "BMW").Id,
@@ -218,7 +230,7 @@ namespace API.Data
                     ProductionDate = new DateTime(2001, 03, 31),
                     Photos = null
                 },
-                new User
+                new AppUser
                 {
                     UserName = "Sruba",
                     BrandId = context.Brands.FirstOrDefault(x => x.Name == "Volvo").Id,
@@ -229,34 +241,31 @@ namespace API.Data
                     ProductionDate = new DateTime(2005, 03, 31),
                     Photos = null
                 },
-        };
-
-            //var user = new User
-            //{
-            //    UserName = "Fot",
-            //    BrandId = context.Brands.FirstOrDefault(x => x.Name == "Volvo").Id,
-            //    ModelId = context.Models.FirstOrDefault(x => x.Name == "S40").Id,
-            //    EngineId = context.Engines.FirstOrDefault(x => x.EngineCapacity == "2.4").Id,
-            //    EnginePower = 140,
-            //    Mileage = 223000,
-            //    ProductionDate = new DateTime(2004, 03, 31),
-            //    Photos = photos
-            //};
-
-            using var hmac = new HMACSHA512();
+            };
 
 
-            foreach(var user in users)
+            foreach (var user in users)
             {
                 user.UserName = user.UserName.ToLower();
 
-                user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("Start.123"));
-                user.PasswordSalt = hmac.Key;
-
-                context.Users.Add(user);
+                await userManager.CreateAsync(user, "Start.123");
+                await userManager.AddToRoleAsync(user, "User");
             }
 
-            context.SaveChanges();
+            var admin = new AppUser
+            {
+                UserName = "Admin",
+                BrandId = context.Brands.FirstOrDefault(x => x.Name == "Volvo").Id,
+                ModelId = context.Models.FirstOrDefault(x => x.Name == "S40").Id,
+                EngineId = context.Engines.FirstOrDefault(x => x.EngineCapacity == "2.4i").Id,
+                EnginePower = 170,
+                Mileage = 252891,
+                ProductionDate = new DateTime(2005, 03, 31),
+                Photos = photos
+            };
+
+            await userManager.CreateAsync(admin, "Start.123");
+            await userManager.AddToRoleAsync(admin, "Admin");
         }
 
         private static void AddEngines(MainDatabaseContext context)

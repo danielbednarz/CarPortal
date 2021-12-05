@@ -1,15 +1,12 @@
-﻿using System;
+﻿using API.Models;
+using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace API.Entities
 {
-    public class User
+    public class AppUser : IdentityUser<int>
     {
-        public int Id { get; set; }
-        public string UserName { get; set; }
-        public byte[] PasswordHash { get; set; }
-        public byte[] PasswordSalt { get; set; }
         public DateTime CreateDate { get; set; } = DateTime.Now;
         public DateTime LastActive { get; set; } = DateTime.Now;
         public int BrandId { get; set; }
@@ -25,6 +22,7 @@ namespace API.Entities
         public ICollection<Note> Notes { get; set; }
         public ICollection<Message> MessagesSent { get; set; }
         public ICollection<Message> MessagesReceived { get; set; }
+        public ICollection<AppUserRole> UserRoles { get; set; }
 
     }
 }
