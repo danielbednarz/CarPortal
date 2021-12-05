@@ -9,3 +9,7 @@ p {
     width: 30px;
     height: 30px;
 }
+
+.content {
+    word-break: break-word;
+}
