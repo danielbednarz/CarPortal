@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
 import { FindOutMoreComponent } from './find-out-more/find-out-more.component';
+import { AdminGuard } from './guards/admin.guard';
 import { AuthGuard } from './guards/auth.guard';
 import { UnsavedChangesBlockGuard } from './guards/unsaved-changes-block.guard';
 import { HomeComponent } from './home/home.component';
@@ -14,7 +16,6 @@ import { MemberListComponent } from './members/member-list/member-list.component
 import { MemberStatisticsDetailComponent } from './members/member-statistics-detail/member-statistics-detail.component';
 import { MemberStatisticsComponent } from './members/member-statistics/member-statistics.component';
 import { MessagesComponent } from './messages/messages.component';
-import { MyProfileComponent } from './my-profile/my-profile.component';
 import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
@@ -28,12 +29,12 @@ const routes: Routes = [
       {path: 'members', component: MemberListComponent},
       {path: 'members/:username', component: MemberDetailComponent},
       {path: 'member/edit', component: MemberEditComponent, canDeactivate: [UnsavedChangesBlockGuard]},
-      {path: 'myProfile', component: MyProfileComponent},
       {path: 'messages', component: MessagesComponent},
       {path: 'members/:username/messages', component: MemberMessagesComponent},
       {path: 'register', component: RegisterComponent},
       {path: 'member/edit/statistics', component: MemberStatisticsComponent},
-      {path: 'members/:username/statistics', component: MemberStatisticsDetailComponent}
+      {path: 'members/:username/statistics', component: MemberStatisticsDetailComponent},
+      {path: 'admin', component: AdminPanelComponent, canActivate: [AdminGuard]}
     ]
   },
   {path: 'errors', component: TestErrorsComponent},

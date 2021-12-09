@@ -10,6 +10,9 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/messages" routerLinkActive="active">Wiadomości</a>
         </li>
+        <li *appCheckRole='["Admin"]' class="nav-item">
+          <a class="nav-link" routerLink="/admin" routerLinkActive="active">Panel administratora</a>
+        </li>
       </ng-container>
     </ul>
 

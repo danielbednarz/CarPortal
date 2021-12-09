@@ -1,0 +1,54 @@
+<div class="row">
+  <dx-data-grid
+    id="users"
+    keyExpr="id"
+    [dataSource]="users"
+    [remoteOperations]="false"
+    [allowColumnResizing]="true"
+    (onRowUpdating)="updateUserRole($event)"
+  >
+    <dxo-filter-row [visible]="true"></dxo-filter-row>
+    <dxo-paging [pageSize]="30"></dxo-paging>
+    <dxo-pager
+      [showPageSizeSelector]="true"
+      [allowedPageSizes]="[30, 50, 100]"
+    ></dxo-pager>
+    <dxo-editing
+      mode="popup"
+      [allowUpdating]="true"
+      [allowDeleting]="false"
+      [allowAdding]="false"
+    >
+    <dxo-texts editRow="Edytuj"></dxo-texts>
+      <dxo-popup
+        title="Edytuj rolę użytkownika"
+        [showTitle]="true"
+        [width]="400"
+        [height]="250"
+        
+      >
+      </dxo-popup>
+      <dxo-form>
+        <dxi-item itemType="group" [colCount]="1" [colSpan]="2">
+          <dxi-item [disabled]="true" dataField="username" id="usernameValue"></dxi-item>
+          <dxi-item dataField="roles" id="roleValue">
+          </dxi-item>
+        </dxi-item>
+      </dxo-form>
+    </dxo-editing>
+    <dxi-column
+      dataField="username"
+      dataType="string"
+      caption="Nazwa użytkownika"
+    ></dxi-column>
+
+    <dxi-column dataField="roles" dataType="string" caption="Rola">
+        <dxo-lookup
+        [dataSource]="roleTypes"
+        valueExpr="value"
+        displayExpr="text">
+            
+        </dxo-lookup>
+    </dxi-column>
+  </dx-data-grid>
+</div>

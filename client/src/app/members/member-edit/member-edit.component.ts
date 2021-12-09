@@ -80,6 +80,7 @@ export class MemberEditComponent implements OnInit {
   }
 
   loadEngines(id: number) {
+    debugger;
     this.carPropertiesService.getEngines(id).subscribe(engines => {
       this.engines = engines;
     })
@@ -96,7 +97,7 @@ export class MemberEditComponent implements OnInit {
       this.member = member;
       this.galleryImages = this.getImages();
       this.loadModels(member.brandId);
-      this.loadEngines(member.engineId);
+      this.loadEngines(member.modelId);
       this.loadNotes(member.id);
     })
   }

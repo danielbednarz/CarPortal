@@ -12,7 +12,6 @@ import { RegisterComponent } from './register/register.component';
 import { MemberListComponent } from './members/member-list/member-list.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MessagesComponent } from './messages/messages.component';
-import { MyProfileComponent } from './my-profile/my-profile.component';
 import { SharedModule } from './modules/shared.module';
 import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
@@ -29,6 +28,10 @@ import { MemberStatisticsComponent } from './members/member-statistics/member-st
 import { MemberStatisticsDetailComponent } from './members/member-statistics-detail/member-statistics-detail.component';
 import { NotesComponent } from './notes/notes.component';
 import { MemberMessagesComponent } from './member-messages/member-messages.component';
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { CheckRoleDirective } from './directives/check-role.directive';
+import { PhotoManagementComponent } from './admin-panel/photo-management/photo-management.component';
+import { UserManagementComponent } from './admin-panel/user-management/user-management.component';
 
 @NgModule({
   declarations: [
@@ -38,9 +41,7 @@ import { MemberMessagesComponent } from './member-messages/member-messages.compo
     RegisterComponent,
     MemberListComponent,
     MemberDetailComponent,
-    MyProfileComponent,
     MessagesComponent,
-    MyProfileComponent,
     TestErrorsComponent,
     NotFoundComponent,
     ServerErrorComponent,
@@ -51,7 +52,11 @@ import { MemberMessagesComponent } from './member-messages/member-messages.compo
     MemberStatisticsComponent,
     MemberStatisticsDetailComponent,
     NotesComponent,
-    MemberMessagesComponent
+    MemberMessagesComponent,
+    AdminPanelComponent,
+    CheckRoleDirective,
+    PhotoManagementComponent,
+    UserManagementComponent
   ],
   imports: [
     BrowserModule,
