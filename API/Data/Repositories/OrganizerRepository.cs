@@ -1,0 +1,42 @@
+﻿using API.Interfaces.Repositories;
+using API.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace API.Data.Repositories
+{
+    public class OrganizerRepository : IOrganizerRepository
+    {
+        private readonly MainDatabaseContext _context;
+
+        public OrganizerRepository(MainDatabaseContext context)
+        {
+            _context = context;
+        }
+
+        public async Task<List<CarInsurance>> GetCarInsurance(int userId)
+        {
+            return await _context.CarInsurances.Where(u => u.UserId == userId).OrderByDescending(x => x.ExpirationDate).ToListAsync();
+        }
+
+        public async Task<int> GetCarInsuranceRemainingDays(int userId)
+        {
+            var query = await _context.CarInsuranceRemainingDays.FromSqlInterpolated($@"SELECT TOP(1) ISNULL(DATEDIFF(DAY, GETDATE(), carInsurance.ExpirationDate), -999999) as remainingDays
+                                                                  FROM [CarInsurances] carInsurance
+                                                                  WHERE carInsurance.UserId = {userId}
+                                                                  ORDER BY carInsurance.ExpirationDate DESC").ToListAsync();
+
+            if(query.Count == 0)
+            {
+                return -99999;
+            }
+
+            var remainingDays = query[0];
+
+            return remainingDays.RemainingDays;
+        }
+    }
+}

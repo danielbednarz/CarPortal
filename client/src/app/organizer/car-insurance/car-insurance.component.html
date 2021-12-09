@@ -1,0 +1,197 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <button
+        class="btn btn-primary my-2 px-4"
+        (click)="turnOnCarInsurancePopup()"
+      >
+        Dodaj
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <dx-data-grid
+        [dataSource]="carInsurance"
+        [remoteOperations]="false"
+        [allowColumnResizing]="true"
+        (onRowRemoving)="deleteCarInsurance($event)"
+      >
+        <dxo-filter-row [visible]="true"></dxo-filter-row>
+        <dxo-paging [pageSize]="10"></dxo-paging>
+        <dxo-pager
+          [showPageSizeSelector]="true"
+          [allowedPageSizes]="[10, 15, 20]"
+        ></dxo-pager>
+        <dxo-editing
+          mode="row"
+          [allowUpdating]="false"
+          [allowDeleting]="true"
+          [allowAdding]="false"
+          [useIcons]="true"
+          [confirmDelete]="false"
+        >
+          <dxo-texts deleteRow="Usuń"> </dxo-texts>
+        </dxo-editing>
+        <dxi-column
+          dataField="carInsuranceType"
+          dataType="string"
+          caption="Typ ubezpieczenia"
+        >
+          <dxo-lookup
+            [dataSource]="carInsuranceTypes"
+            valueExpr="value"
+            displayExpr="text"
+          >
+          </dxo-lookup>
+        </dxi-column>
+        <dxi-column
+          dataField="insurerName"
+          type="string"
+          caption="Nazwa ubezpieczyciela"
+        >
+        </dxi-column>
+        <dxi-column
+          dataField="expirationDate"
+          dataType="date"
+          caption="Data wygaśnięcia ubezpieczenia"
+          format="dd.MM.yyyy"
+        >
+          <!-- <dxo-format
+          type="">
+    
+          </dxo-format> -->
+        </dxi-column>
+        <dxi-column
+          dataField="cost"
+          caption="Koszt ubezpieczenia [PLN]"
+        ></dxi-column>
+      </dx-data-grid>
+      <div class="row">
+        <div class="col-12" *ngIf="carInsuranceRemainingDays">
+          <p class="mt-2" *ngIf="carInsuranceRemainingDays == -99999">
+            Brak dodanego ubezpieczenia
+          </p>
+          <p class="text-muted mt-2" *ngIf="carInsuranceRemainingDays > 14">
+            Dni do utraty ważności ubezpieczenia:
+            {{ carInsuranceRemainingDays }}
+          </p>
+          <p
+            class="mt-2 warning"
+            *ngIf="
+              carInsuranceRemainingDays <= 14 && carInsuranceRemainingDays >= 0
+            "
+          >
+            Dni do utraty ważności ubezpieczenia:
+            {{ carInsuranceRemainingDays }}. Nie zapomnij wykupić ubezpieczenia
+            dla swojego auta!
+          </p>
+          <p
+            class="mt-2 danger"
+            *ngIf="
+              carInsuranceRemainingDays < 0 &&
+              carInsuranceRemainingDays != -99999
+            "
+          >
+            Twoje ubezpieczenie straciło ważność! Jak najszybciej wykup
+            ubezpieczenie.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <dx-popup
+    [width]="600"
+    [height]="360"
+    [showTitle]="true"
+    title="Dodaj ubezpieczenie samochodu"
+    [dragEnabled]="false"
+    [closeOnOutsideClick]="true"
+    [showCloseButton]="true"
+    [(visible)]="isCarInsurancePopupVisible"
+  >
+    <div class="container">
+      <form
+        class="row"
+        [formGroup]="carInsurancePopupForm"
+        autocomplete="off"
+        (ngSubmit)="addCarInsurance()"
+      >
+        <div class="col-6">
+          <label for="carInsuranceType">Typ ubezpieczenia</label>
+          <dx-select-box
+            id="carInsuranceType"
+            [class.is-invalid]="
+              carInsurancePopupForm.get('carInsuranceType').errors &&
+              carInsurancePopupForm.get('carInsuranceType').touched
+            "
+            [dataSource]="carInsuranceTypes"
+            displayExpr="text"
+            valueExpr="value"
+            formControlName="carInsuranceType"
+            class="form-control my-2"
+            placeholder="Typ ubezpieczenia"
+          >
+          </dx-select-box>
+        </div>
+        <div class="col-6">
+            <label for="insurerName">Nazwa ubezpieczyciela</label>
+            <dx-text-box
+              id="insurerName"
+              [class.is-invalid]="
+                carInsurancePopupForm.get('insurerName').errors &&
+                carInsurancePopupForm.get('insurerName').touched
+              "
+              formControlName="insurerName"
+              class="form-control my-2"
+              placeholder="Nazwa ubezpieczyciela"
+              [maxLength]="64"
+            >
+            </dx-text-box>
+          </div>
+        <div class="col-6">
+          <label for="expirationDate">Data wygaśnięcia ubezpieczenia</label>
+          <dx-date-box
+            id="expirationDate"
+            [class.is-invalid]="
+              carInsurancePopupForm.get('expirationDate').errors &&
+              carInsurancePopupForm.get('expirationDate').touched
+            "
+            formControlName="expirationDate"
+            type="date"
+            class="form-control my-2"
+            placeholder="Data wygaśnięcia ubezpieczenia"
+          >
+          </dx-date-box>
+        </div>
+        <div class="col-6">
+          <label for="cost">Koszt ubezpieczenia</label>
+          <dx-number-box
+            id="cost"
+            [class.is-invalid]="
+              carInsurancePopupForm.get('cost').errors &&
+              carInsurancePopupForm.get('cost').touched
+            "
+            formControlName="cost"
+            class="form-control my-2"
+            placeholder="Koszt ubezpieczenia"
+            [showSpinButtons]="true"
+            [min]="0"
+            [max]="1000000"
+          >
+          </dx-number-box>
+        </div>
+
+        <div class="col-12 mt-3 px-2">
+          <button
+            class="btn btn-success"
+            [disabled]="!carInsurancePopupForm.valid"
+            type="submit"
+          >
+            Dodaj
+          </button>
+        </div>
+      </form>
+    </div>
+  </dx-popup>
+</div>

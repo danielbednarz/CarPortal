@@ -32,6 +32,8 @@ import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { CheckRoleDirective } from './directives/check-role.directive';
 import { PhotoManagementComponent } from './admin-panel/photo-management/photo-management.component';
 import { UserManagementComponent } from './admin-panel/user-management/user-management.component';
+import { OrganizerComponent } from './organizer/organizer.component';
+import { CarInsuranceComponent } from './organizer/car-insurance/car-insurance.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +58,9 @@ import { UserManagementComponent } from './admin-panel/user-management/user-mana
     AdminPanelComponent,
     CheckRoleDirective,
     PhotoManagementComponent,
-    UserManagementComponent
+    UserManagementComponent,
+    OrganizerComponent,
+    CarInsuranceComponent
   ],
   imports: [
     BrowserModule,

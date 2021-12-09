@@ -8,12 +8,12 @@ using System.Linq;
 
 namespace API.Data
 {
-    public class MainDatabaseContext : IdentityDbContext<AppUser, AppRole, int, IdentityUserClaim<int>, AppUserRole, 
+    public class MainDatabaseContext : IdentityDbContext<AppUser, AppRole, int, IdentityUserClaim<int>, AppUserRole,
         IdentityUserLogin<int>, IdentityRoleClaim<int>, IdentityUserToken<int>>
     {
         public MainDatabaseContext(DbContextOptions options) : base(options)
         {
-            
+
         }
 
         // Add-Migration -o Data/Migrations Init
@@ -32,6 +32,8 @@ namespace API.Data
         public DbSet<TotalRepairFuelCostsReportView> TotalRepairFuelCostsReportView { get; set; }
         public DbSet<Note> Notes { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<CarInsurance> CarInsurances { get; set; }
+        public DbSet<CarInsuranceRemainingDays> CarInsuranceRemainingDays { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -50,12 +52,20 @@ namespace API.Data
                 .IsRequired();
 
             modelBuilder.Entity<Message>()
-            .HasOne(x => x.Recipient)
-            .WithMany(m => m.MessagesReceived);
+                .HasOne(x => x.Recipient)
+                .WithMany(m => m.MessagesReceived);
+
+            modelBuilder.Entity<Note>()
+                .HasOne(x => x.User)
+                .WithMany(y => y.Notes);
+
+            modelBuilder.Entity<CarInsurance>()
+                .HasOne(x => x.User)
+                .WithMany(y => y.CarInsurances);
 
             modelBuilder.Entity<Message>()
-            .HasOne(x => x.Sender)
-            .WithMany(m => m.MessagesSent);
+                .HasOne(x => x.Sender)
+                .WithMany(m => m.MessagesSent);
 
             var cascadeFKs = modelBuilder.Model.GetEntityTypes()
             .SelectMany(t => t.GetForeignKeys())
@@ -71,6 +81,7 @@ namespace API.Data
             modelBuilder.Entity<TotalCostsReportView>().HasNoKey().ToView("TotalCostsReportView");
             modelBuilder.Entity<TotalRepairFuelCostsReportView>().HasNoKey().ToView("TotalRepairFuelCostsReportView");
 
+            modelBuilder.Entity<CarInsuranceRemainingDays>().HasNoKey();
         }
     }
 }

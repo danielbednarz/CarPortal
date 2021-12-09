@@ -16,6 +16,7 @@ import { MemberListComponent } from './members/member-list/member-list.component
 import { MemberStatisticsDetailComponent } from './members/member-statistics-detail/member-statistics-detail.component';
 import { MemberStatisticsComponent } from './members/member-statistics/member-statistics.component';
 import { MessagesComponent } from './messages/messages.component';
+import { OrganizerComponent } from './organizer/organizer.component';
 import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
@@ -34,7 +35,8 @@ const routes: Routes = [
       {path: 'register', component: RegisterComponent},
       {path: 'member/edit/statistics', component: MemberStatisticsComponent},
       {path: 'members/:username/statistics', component: MemberStatisticsDetailComponent},
-      {path: 'admin', component: AdminPanelComponent, canActivate: [AdminGuard]}
+      {path: 'admin', component: AdminPanelComponent, canActivate: [AdminGuard]},
+      {path: 'organizer', component: OrganizerComponent}
     ]
   },
   {path: 'errors', component: TestErrorsComponent},

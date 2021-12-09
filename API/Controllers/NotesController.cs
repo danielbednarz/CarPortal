@@ -26,7 +26,7 @@ namespace API.Controllers
         }
 
         [HttpGet("getNotes/{userId}")]
-        public async Task<ActionResult<List<FuelReport>>> GetNotes(int userId)
+        public async Task<ActionResult<List<Note>>> GetNotes(int userId)
         {
             var data = await _notesRepository.GetNotesToList(userId);
 

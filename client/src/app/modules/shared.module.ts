@@ -20,11 +20,13 @@ import {
   DxPieChartModule,
   DxTabPanelModule,
   DxTemplateModule,
-  DxChartModule
+  DxChartModule,
+  DxTextBoxModule
 } from 'devextreme-angular';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 @NgModule({
   declarations: [],
@@ -54,7 +56,9 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     TabsModule.forRoot(),
     DxTabPanelModule,
     DxTemplateModule,
-    DxChartModule
+    DxChartModule,
+    TooltipModule.forRoot(),
+    DxTextBoxModule
   ],
   exports: [
     BsDropdownModule,
@@ -79,7 +83,9 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     TabsModule,
     DxTabPanelModule,
     DxTemplateModule,
-    DxChartModule
+    DxChartModule,
+    TooltipModule,
+    DxTextBoxModule
   ]
 })
 export class SharedModule { }

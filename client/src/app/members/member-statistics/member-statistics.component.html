@@ -95,9 +95,9 @@
         <div class="row">
           <div class="col-12">
             <dx-data-grid
-              i="fuelReport"
+              id="fuelReport"
               [dataSource]="fuelReport"
-              keyExpr="id"d
+              keyExpr="id"
               [remoteOperations]="false"
               [allowColumnResizing]="true"
               (onRowRemoving)="deleteFuelReport($event)"
