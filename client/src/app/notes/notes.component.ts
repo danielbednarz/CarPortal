@@ -30,7 +30,7 @@ export class NotesComponent implements OnInit {
 
   deleteNote() {
     this.noteService.deleteNote(this.note.id).subscribe(() => {
-      this.toastrService.success("Notatka została usunięta");
+      this.toastrService.success("Wpis został usunięty");
       this.reloadComponent();
     });
   }

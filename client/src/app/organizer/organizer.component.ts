@@ -22,6 +22,7 @@ export class OrganizerComponent implements OnInit {
     private toastrService: ToastrService, private router: Router) { }
 
   ngOnInit(): void {
+    this.getCarInsuranceRemainingDays();
   }
 
   // initializeCarInsurancePopupForm() {
@@ -45,11 +46,11 @@ export class OrganizerComponent implements OnInit {
   //   })
   // }
 
-  // getCarInsuranceRemainingDays() {
-  //   this.organizerService.getCarInsuranceRemainingDays().subscribe(remainingDays => {
-  //     this.carInsuranceRemainingDays = remainingDays;
-  //   })
-  // }
+  getCarInsuranceRemainingDays() {
+    this.organizerService.getCarInsuranceRemainingDays().subscribe(remainingDays => {
+      this.carInsuranceRemainingDays = remainingDays;
+    })
+  }
 
   // addCarInsurance() {
   //   this.organizerService.addCarInsurance(this.carInsurancePopupForm.value).subscribe(() => {

@@ -2,23 +2,24 @@
   <div class="row mb-3">
     <div class="col-12 col-xs-12">
       <div class="card card-header title">
-        <h2 class="title">Organizer <i class="fas fa-info-circle fa-xs" tooltip="Informacje dodawane do organizera widoczne są tylko przez Ciebie."></i></h2>
+        <h2 class="title">
+          Organizer 
+          <i
+            class="fas fa-info-circle fa-xs ml-1"
+            tooltip="Informacje dodawane do organizera widoczne są tylko przez Ciebie."
+          ></i>
+        </h2>
       </div>
     </div>
   </div>
 
-
   <dx-tab-panel #tabPanel>
-
     <dxi-item title="Ubezpieczenie">
-        <app-car-insurance></app-car-insurance>
+      <app-car-insurance></app-car-insurance>
     </dxi-item>
     <dxi-item title="Przegląd okresowy">
-        
+      <app-periodic-inspection></app-periodic-inspection>   
     </dxi-item>
-    <dxi-item title="Dziennik samochodu">
-       
-   </dxi-item>
+    <dxi-item title="Dziennik samochodu"> </dxi-item>
   </dx-tab-panel>
-
 </div>

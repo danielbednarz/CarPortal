@@ -1,0 +1,137 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <button
+        class="btn btn-primary my-2 px-4"
+        (click)="turnOnPeriodicInspectionPopup()"
+      >
+        Dodaj
+      </button>
+    </div>
+  </div>
+  <div class="row mb-2">
+    <div class="col-12">
+      <dx-data-grid
+        [dataSource]="periodicInspection"
+        [remoteOperations]="false"
+        [allowColumnResizing]="true"
+        (onRowRemoving)="deletePeriodicInspection($event)"
+      >
+        <dxo-filter-row [visible]="true"></dxo-filter-row>
+        <dxo-paging [pageSize]="10"></dxo-paging>
+        <dxo-pager
+          [showPageSizeSelector]="true"
+          [allowedPageSizes]="[10, 15, 20]"
+        ></dxo-pager>
+        <dxo-editing
+          mode="row"
+          [allowUpdating]="false"
+          [allowDeleting]="true"
+          [allowAdding]="false"
+          [useIcons]="true"
+          [confirmDelete]="false"
+        >
+          <dxo-texts deleteRow="Usuń"> </dxo-texts>
+        </dxo-editing>
+        <dxi-column
+          dataField="inspectionDate"
+          dataType="date"
+          format="dd.MM.yyyy"
+          caption="Data przeglądu"
+          sortOrder="desc"
+        >
+        </dxi-column>
+        <dxi-column
+          dataField="isPositive"
+          dataType="boolean"
+          caption="Czy wynik badania był pozytywny?"
+        >
+        </dxi-column>
+      </dx-data-grid>
+      <div class="row">
+        <div class="col-12" *ngIf="periodicInspectionRemainingDays">
+          <p class="mt-2" *ngIf="periodicInspectionRemainingDays == -99999">
+            Brak dodanego ubezpieczenia
+          </p>
+          <p class="text-muted mt-2" *ngIf="periodicInspectionRemainingDays > 14">
+            Dni do utraty ważności przeglądu:
+            {{ periodicInspectionRemainingDays }}
+          </p>
+          <p
+            class="mt-2 warning"
+            *ngIf="
+            periodicInspectionRemainingDays <= 14 && periodicInspectionRemainingDays >= 0
+            "
+          >
+          Dni do utraty ważności przeglądu:
+            {{ periodicInspectionRemainingDays }}. Nie zapomnij jechać na przegląd!
+          </p>
+          <p
+            class="mt-2 danger"
+            *ngIf="
+            periodicInspectionRemainingDays < 0 &&
+              periodicInspectionRemainingDays != -99999
+            "
+          >
+            Twój przegląd stracił ważność! Jak najszybciej udaj się na przegląd.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <dx-popup
+    [width]="600"
+    [height]="220"
+    [showTitle]="true"
+    title="Dodaj przegląd okresowy samochodu"
+    [dragEnabled]="false"
+    [closeOnOutsideClick]="true"
+    [showCloseButton]="true"
+    [(visible)]="isPeriodicInspectionPopupVisible"
+  >
+    <div class="container">
+      <form
+        class="row"
+        [formGroup]="periodicInspectionFormPopup"
+        autocomplete="off"
+        (ngSubmit)="addPeriodicInspection()"
+      >
+        <div class="col-6">
+          <dx-date-box
+            id="inspectionDate"
+            [class.is-invalid]="
+              periodicInspectionFormPopup.get('inspectionDate').errors &&
+              periodicInspectionFormPopup.get('inspectionDate').touched
+            "
+            formControlName="inspectionDate"
+            type="date"
+            class="form-control my-2"
+            displayFormat="dd.MM.yyyy"
+            placeholder="Data przeglądu"
+          >
+          </dx-date-box>
+        </div>
+        <div class="col-6">
+          <!-- <label for="isPositive">Czy wynik badania był pozytywny?<br/></label> -->
+          <p class="my-1">Czy wynik badania był pozytywny?</p>
+          <dx-check-box
+          id="isPositive"
+          formControlName="isPositive"
+          [value]="true"
+        >
+        </dx-check-box>
+        </div>
+
+        <div class="col-12 mt-4">
+          <button
+            class="btn btn-success btn-add-periodic-inspection"
+            [disabled]="!periodicInspectionFormPopup.valid"
+            type="submit"
+          >
+            Dodaj
+          </button>
+        </div>
+      </form>
+    </div>
+  </dx-popup>
+</div>

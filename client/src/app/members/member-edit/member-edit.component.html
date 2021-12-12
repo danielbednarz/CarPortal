@@ -69,7 +69,7 @@
             [width]="600"
             [height]="460"
             [showTitle]="true"
-            title="Dodaj nową notatkę"
+            title="Dodaj nowy wpis"
             [dragEnabled]="false"
             [closeOnOutsideClick]="true"
             [showCloseButton]="true"
@@ -82,7 +82,7 @@
                 (ngSubmit)="addNote()"
               >
                 <p class="text-muted mb-1">
-                  *Możesz utworzyć notatkę o maksymalnej długości 1024 znaków.
+                  *Możesz utworzyć wpis o maksymalnej długości 1024 znaków.
                 </p>
                 <dx-text-area
                   formControlName="content"
@@ -188,7 +188,7 @@
     <div class="col-6">
       <div class="card mb-1">
         <h5 class="card-header text-muted">
-          <strong>Notatki</strong>
+          <strong>Wpisy</strong>
           <i
             class="fas fa-pen add-note-popup-button"
             (click)="turnOnAddNotePopup()"

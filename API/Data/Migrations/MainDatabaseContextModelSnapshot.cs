@@ -474,6 +474,29 @@ namespace API.Data.Migrations
                     b.ToTable("CarInsuranceRemainingDays");
                 });
 
+            modelBuilder.Entity("API.Models.PeriodicInspection", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("InspectionDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("isPositive")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("PeriodicInspections");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.Property<int>("Id")
@@ -710,6 +733,17 @@ namespace API.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("API.Models.PeriodicInspection", b =>
+                {
+                    b.HasOne("API.Entities.AppUser", "User")
+                        .WithMany("PeriodicInspections")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.HasOne("API.Models.AppRole", null)
@@ -755,6 +789,8 @@ namespace API.Data.Migrations
                     b.Navigation("MessagesSent");
 
                     b.Navigation("Notes");
+
+                    b.Navigation("PeriodicInspections");
 
                     b.Navigation("Photos");
 

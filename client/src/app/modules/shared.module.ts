@@ -21,7 +21,8 @@ import {
   DxTabPanelModule,
   DxTemplateModule,
   DxChartModule,
-  DxTextBoxModule
+  DxTextBoxModule,
+  DxCheckBoxModule
 } from 'devextreme-angular';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
@@ -58,7 +59,8 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
     DxTemplateModule,
     DxChartModule,
     TooltipModule.forRoot(),
-    DxTextBoxModule
+    DxTextBoxModule,
+    DxCheckBoxModule
   ],
   exports: [
     BsDropdownModule,
@@ -85,7 +87,8 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
     DxTemplateModule,
     DxChartModule,
     TooltipModule,
-    DxTextBoxModule
+    DxTextBoxModule,
+    DxCheckBoxModule
   ]
 })
 export class SharedModule { }

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { CarInsurance } from '../models/carInsurance';
 import { enumType } from '../models/enumType';
+import { PeriodicInspection } from '../models/periodicInspection';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,22 @@ export class OrganizerService {
 
   addCarInsurance(model: any) {
     return this.http.post<CarInsurance>(this.baseUrl + '/addCarInsurance', model);
+  }
+
+  getPeriodicInspections() {
+    return this.http.get<PeriodicInspection[]>(this.baseUrl + '/getPeriodicInspections');
+  }
+
+  getPeriodicInspectionsRemainingDays() {
+    return this.http.get<number>(this.baseUrl + '/getPeriodicInspectionRemainingDays');
+  }
+
+  addPeriodicInspection(model: any) {
+    return this.http.post<PeriodicInspection>(this.baseUrl + '/addPeriodicInspection', model);
+  }
+
+  deletePeriodicInspection(periodicInspectionId: number) {
+    return this.http.delete(this.baseUrl + '/deletePeriodicInspection/' + periodicInspectionId);
   }
 
 }

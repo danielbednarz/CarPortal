@@ -34,6 +34,9 @@ export class AppComponent implements OnInit{
         "dxDataGrid-filterRowOperationNotContains": "Nie zawiera",
         "dxDataGrid-filterRowOperationBetween": "Pomiędzy",
         "dxDataGrid-noDataText": "Brak danych",
+        "dxCollectionWidget-noDataText": "Brak danych do wyświetlenia",
+        "dxDataGrid-trueText": "Tak",
+        "dxDataGrid-falseText": "Nie",
       }
     });
   }

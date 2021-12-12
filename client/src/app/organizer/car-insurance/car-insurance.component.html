@@ -9,7 +9,7 @@
       </button>
     </div>
   </div>
-  <div class="row">
+  <div class="row mb-2">
     <div class="col-12">
       <dx-data-grid
         [dataSource]="carInsurance"
@@ -57,10 +57,6 @@
           caption="Data wygaśnięcia ubezpieczenia"
           format="dd.MM.yyyy"
         >
-          <!-- <dxo-format
-          type="">
-    
-          </dxo-format> -->
         </dxi-column>
         <dxi-column
           dataField="cost"
@@ -102,7 +98,7 @@
   </div>
   <dx-popup
     [width]="600"
-    [height]="360"
+    [height]="340"
     [showTitle]="true"
     title="Dodaj ubezpieczenie samochodu"
     [dragEnabled]="false"
@@ -160,12 +156,13 @@
             formControlName="expirationDate"
             type="date"
             class="form-control my-2"
+            displayFormat="dd.MM.yyyy"
             placeholder="Data wygaśnięcia ubezpieczenia"
           >
           </dx-date-box>
         </div>
         <div class="col-6">
-          <label for="cost">Koszt ubezpieczenia</label>
+          <label for="cost">Koszt ubezpieczenia [PLN]</label>
           <dx-number-box
             id="cost"
             [class.is-invalid]="
@@ -174,7 +171,7 @@
             "
             formControlName="cost"
             class="form-control my-2"
-            placeholder="Koszt ubezpieczenia"
+            placeholder="Koszt ubezpieczenia [PLN]"
             [showSpinButtons]="true"
             [min]="0"
             [max]="1000000"
@@ -182,9 +179,9 @@
           </dx-number-box>
         </div>
 
-        <div class="col-12 mt-3 px-2">
+        <div class="col-12 mt-3">
           <button
-            class="btn btn-success"
+            class="btn btn-success btn-add-car-insurance"
             [disabled]="!carInsurancePopupForm.valid"
             type="submit"
           >

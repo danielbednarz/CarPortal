@@ -34,6 +34,7 @@ import { PhotoManagementComponent } from './admin-panel/photo-management/photo-m
 import { UserManagementComponent } from './admin-panel/user-management/user-management.component';
 import { OrganizerComponent } from './organizer/organizer.component';
 import { CarInsuranceComponent } from './organizer/car-insurance/car-insurance.component';
+import { PeriodicInspectionComponent } from './organizer/periodic-inspection/periodic-inspection.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { CarInsuranceComponent } from './organizer/car-insurance/car-insurance.c
     PhotoManagementComponent,
     UserManagementComponent,
     OrganizerComponent,
-    CarInsuranceComponent
+    CarInsuranceComponent,
+    PeriodicInspectionComponent
   ],
   imports: [
     BrowserModule,

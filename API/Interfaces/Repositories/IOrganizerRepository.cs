@@ -11,5 +11,7 @@ namespace API.Interfaces.Repositories
     {
         public Task<List<CarInsurance>> GetCarInsurance(int userId);
         public Task<int> GetCarInsuranceRemainingDays(int userId);
+        public Task<List<PeriodicInspection>> GetPeriodicInspections(int userId);
+        public Task<int> GetPeriodicInspectionRemainingDays(int userId);
     }
 }

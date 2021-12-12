@@ -362,6 +362,27 @@ namespace API.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PeriodicInspections",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    InspectionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    isPositive = table.Column<bool>(type: "bit", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PeriodicInspections", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PeriodicInspections_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Photos",
                 columns: table => new
                 {
@@ -499,6 +520,11 @@ namespace API.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PeriodicInspections_UserId",
+                table: "PeriodicInspections",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Photos_AppUserId",
                 table: "Photos",
                 column: "AppUserId");
@@ -543,6 +569,9 @@ namespace API.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Notes");
+
+            migrationBuilder.DropTable(
+                name: "PeriodicInspections");
 
             migrationBuilder.DropTable(
                 name: "Photos");

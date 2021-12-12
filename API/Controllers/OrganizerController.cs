@@ -25,6 +25,8 @@ namespace API.Controllers
             _organizerRepository = organizerRepository;
         }
 
+        #region CarInsurance
+
         [HttpGet("getCarInsuranceTypes")]
         public ActionResult<CarInsuranceType> GetCarInsuranceTypes()
         {
@@ -91,5 +93,69 @@ namespace API.Controllers
 
             return Ok();
         }
+
+        #endregion
+
+        #region PeriodicInspection
+
+        [HttpGet("getPeriodicInspections")]
+        public async Task<ActionResult> GetPeriodicInspections()
+        {
+            var currentUsername = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = await _userRepository.GetUserByUsernameAsync(currentUsername);
+
+            var data = await _organizerRepository.GetPeriodicInspections(user.Id);
+
+            return Ok(data);
+        }
+
+        [HttpPost("addPeriodicInspection")]
+        public async Task<ActionResult<CarInsurance>> AddPeriodicInspection(PeriodicInspectionDto periodicInspection)
+        {
+            var currentUsername = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = await _userRepository.GetUserByUsernameAsync(currentUsername);
+
+            var data = new PeriodicInspection()
+            {
+                InspectionDate = periodicInspection.InspectionDate,
+                isPositive = periodicInspection.isPositive,
+                UserId = user.Id
+            };
+
+            await _context.PeriodicInspections.AddAsync(data);
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        [HttpDelete("deletePeriodicInspection/{periodicInspectionId}")]
+        public async Task<ActionResult> DeletePeriodicInspection(int periodicInspectionId)
+        {
+            var periodicInspection = await _context.PeriodicInspections.FirstOrDefaultAsync(x => x.Id == periodicInspectionId);
+
+            if (periodicInspection == null)
+            {
+                return NotFound();
+            }
+
+            _context.PeriodicInspections.Remove(periodicInspection);
+            await _userRepository.SaveAllAsync();
+
+            return Ok();
+        }
+
+        [HttpGet("getPeriodicInspectionRemainingDays")]
+        public async Task<ActionResult> GetPeriodicInspectionRemainingDays()
+        {
+            var currentUsername = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = await _userRepository.GetUserByUsernameAsync(currentUsername);
+
+            var data = await _organizerRepository.GetPeriodicInspectionRemainingDays(user.Id);
+
+            return Ok(data);
+        }
+
+        #endregion
+
     }
 }

@@ -34,6 +34,7 @@ namespace API.Data
         public DbSet<Message> Messages { get; set; }
         public DbSet<CarInsurance> CarInsurances { get; set; }
         public DbSet<CarInsuranceRemainingDays> CarInsuranceRemainingDays { get; set; }
+        public DbSet<PeriodicInspection> PeriodicInspections { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -62,6 +63,10 @@ namespace API.Data
             modelBuilder.Entity<CarInsurance>()
                 .HasOne(x => x.User)
                 .WithMany(y => y.CarInsurances);
+
+            modelBuilder.Entity<PeriodicInspection>()
+                .HasOne(x => x.User)
+                .WithMany(y => y.PeriodicInspections);
 
             modelBuilder.Entity<Message>()
                 .HasOne(x => x.Sender)

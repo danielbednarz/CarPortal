@@ -34,9 +34,31 @@ namespace API.Data.Repositories
                 return -99999;
             }
 
-            var remainingDays = query[0];
+            var remainingDays = query[0].RemainingDays;
 
-            return remainingDays.RemainingDays;
+            return remainingDays;
+        }
+
+        public async Task<List<PeriodicInspection>> GetPeriodicInspections(int userId)
+        {
+            return await _context.PeriodicInspections.Where(u => u.UserId == userId).OrderByDescending(x => x.InspectionDate).ToListAsync();
+        }
+
+        public async Task<int> GetPeriodicInspectionRemainingDays(int userId)
+        {
+            var query = await _context.CarInsuranceRemainingDays.FromSqlInterpolated(@$"SELECT TOP(1) DATEDIFF(DAY, GETDATE(), periodicInspection.InspectionDate) as remainingDays
+                                                                  FROM PeriodicInspections periodicInspection
+                                                                  WHERE periodicInspection.UserId = {userId} AND periodicInspection.isPositive = 1
+                                                                  ORDER BY periodicInspection.InspectionDate DESC").ToListAsync();
+
+            if(query.Count == 0)
+            {
+                return -99999;
+            }
+
+            var remainingDays = query[0].RemainingDays;
+
+            return remainingDays;
         }
     }
 }

@@ -1,3 +1,7 @@
+.btn-add-periodic-inspection {
+    width: 100%;
+}
+
 .text-muted {
     font-size: 16px;
 }
@@ -10,10 +14,6 @@
 .danger {
     font-size: 22px;
     color: red;
-}
-
-.btn-add-car-insurance {
-    width: 100%;
 }
 
 p {

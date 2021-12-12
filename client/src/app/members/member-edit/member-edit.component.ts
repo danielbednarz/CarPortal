@@ -138,7 +138,7 @@ export class MemberEditComponent implements OnInit {
 
   addNote() {
     this.notesService.addNote(this.noteForm.value).subscribe(() => {
-      this.toastrService.success('Notatka została dodana');
+      this.toastrService.success('Wpis został dodana');
       this.reloadComponent();
     })
   }

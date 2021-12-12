@@ -64,7 +64,7 @@ export class CarInsuranceComponent implements OnInit {
     })
   }
 
-  deleteCarInsurance(e) {
+  deleteCarInsurance(e: any) {
     const carInsuranceId = e.key.id;
     this.organizerService.deleteCarInsurance(carInsuranceId).subscribe(() => {
       this.toastrService.success("Ubezpieczenie auta zostało usunięte");
