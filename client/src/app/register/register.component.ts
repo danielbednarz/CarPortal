@@ -21,6 +21,8 @@ export class RegisterComponent implements OnInit {
   models: Model[];
   engines: Engine[];
   validationErrors: string[] = [];
+  siteKey = "6LdGfZkdAAAAAPgq234FcMQa2HUrQGS5SINacMKF";
+  secret = "6LdGfZkdAAAAAE7Ki42nVEpbLM_bajKQY0DZRSGY";
 
   constructor(private accountService: AccountService, private toastr: ToastrService,
     private formBuilder: FormBuilder, private carPropertiesService: CarPropertiesService, private router: Router) { }
@@ -40,7 +42,8 @@ export class RegisterComponent implements OnInit {
       mileage: ['', Validators.required],
       productionDate: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(32)]],
-      confirmPassword: ['', [Validators.required, this.matchValidator('password')]]
+      confirmPassword: ['', [Validators.required, this.matchValidator('password')]],
+      recaptcha: ['', Validators.required]
     });
     this.registerForm.controls.password.valueChanges.subscribe(() => {
       this.registerForm.controls.confirmPassword.updateValueAndValidity();

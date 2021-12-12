@@ -28,7 +28,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { BsDropdownConfig } from 'ngx-bootstrap/dropdown';
+import { NgxCaptchaModule } from 'ngx-captcha';
 
 @NgModule({
   declarations: [],
@@ -61,7 +61,8 @@ import { BsDropdownConfig } from 'ngx-bootstrap/dropdown';
     DxChartModule,
     TooltipModule.forRoot(),
     DxTextBoxModule,
-    DxCheckBoxModule
+    DxCheckBoxModule,
+    NgxCaptchaModule
   ],
   exports: [
     BsDropdownModule,
@@ -89,7 +90,8 @@ import { BsDropdownConfig } from 'ngx-bootstrap/dropdown';
     DxChartModule,
     TooltipModule,
     DxTextBoxModule,
-    DxCheckBoxModule
+    DxCheckBoxModule,
+    NgxCaptchaModule
   ]
 })
 export class SharedModule { }

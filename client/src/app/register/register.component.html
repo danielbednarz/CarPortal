@@ -240,6 +240,15 @@
           </div>
         </div>
 
+        <div class="form-group">
+          <ngx-recaptcha2 #captchaElem
+            [siteKey]="siteKey"
+            size="normal"
+            theme="dark"
+            formControlName="recaptcha">
+          </ngx-recaptcha2>
+        </div>
+
         <!-- Przyciski -->
         <div class="form-group text-center">
           <button
