@@ -1,23 +1,20 @@
-﻿using System.Collections.Generic;
-using API.Data;
+﻿using API.DTOs;
 using API.Entities;
-using Microsoft.AspNetCore.Mvc;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
-using API.Interfaces.Repositories;
-using API.DTOs;
-using AutoMapper;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Http;
-using API.Interfaces.Services;
-using API.Helpers;
 using API.Extensions;
+using API.Helpers;
+using API.Interfaces.Repositories;
+using API.Interfaces.Services;
+using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace API.Controllers
 {
-    [Authorize]
     public class UsersController : AppController
     {
         private readonly IUserRepository _userRepository;
@@ -54,6 +51,7 @@ namespace API.Controllers
             return Ok(data);
         }
 
+        [Authorize]
         [HttpPut]
         public async Task<ActionResult> UpdateUser(MemberUpdateDto member)
         {
@@ -73,6 +71,7 @@ namespace API.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost("add-photo")]
         public async Task<ActionResult<PhotoDto>> AddPhoto(IFormFile file)
         {
@@ -114,6 +113,7 @@ namespace API.Controllers
             return CreatedAtRoute("GetUser", new { username = user.UserName }, data);
         }
 
+        [Authorize]
         [HttpPut("set-main-photo/{photoId}")]
         public async Task<ActionResult> SetMainPhoto(int photoId)
         {
@@ -143,6 +143,7 @@ namespace API.Controllers
             return NoContent();
         }
 
+        [Authorize]
         [HttpDelete("delete-photo/{photoId}")]
         public async Task<ActionResult> DeletePhoto(int photoId)
         {

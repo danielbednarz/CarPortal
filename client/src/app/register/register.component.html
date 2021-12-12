@@ -1,250 +1,261 @@
-<form [formGroup]="registerForm" (ngSubmit)="registerForm.valid && register()" autocomplete="off">
-  <h1 class="text-center">Rejestracja</h1>
-  <hr />
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <form
+        [formGroup]="registerForm"
+        (ngSubmit)="registerForm.valid && register()"
+        autocomplete="off"
+      >
+        <h1 class="text-center">Rejestracja</h1>
+        <hr />
 
-  <!-- Nazwa użytkownika -->
-  <div class="form-group">
-    <input
-      [class.is-invalid]="
-        registerForm.get('username').errors &&
-        registerForm.get('username').touched
-      "
-      type="text"
-      class="form-control"
-      formControlName="username"
-      placeholder="Nazwa użytkownika"
-    />
-    <div class="invalid-feedback">Podaj nazwę użytkownika</div>
+          <!-- Nazwa użytkownika -->
+          <div class="form-group">
+            <label for="username">Nazwa użytkownika</label>
+            <input
+              [class.is-invalid]="
+                registerForm.get('username').errors &&
+                registerForm.get('username').touched
+              "
+              id="username"
+              type="text"
+              class="form-control"
+              formControlName="username"
+            />
+            <div class="invalid-feedback">Podaj nazwę użytkownika</div>
+          </div>
+
+        <!-- Marka samochodu -->
+        <div class="form-group">
+          <label for="brand">Marka samochodu</label>
+          <select
+            [class.is-invalid]="
+              registerForm.get('brandId').errors &&
+              registerForm.get('brandId').touched
+            "
+            id="brand"
+            type="number"
+            name="brandId"
+            class="form-select"
+            formControlName="brandId"
+            (change)="onBrandChange($event)"
+            required
+          >
+            <option label="" selected disabled hidden></option>
+            <option
+              *ngFor="let brand of brands"
+              [ngValue]="brand.id"
+              [label]="brand.name"
+            ></option>
+          </select>
+          <div
+            *ngIf="registerForm.get('brandId').hasError('required')"
+            class="invalid-feedback"
+          >
+            Podaj markę samochodu
+          </div>
+        </div>
+
+        <!-- Model samochodu -->
+        <div class="form-group">
+          <label for="model">Model</label>
+          <select
+            [class.is-invalid]="
+              registerForm.get('modelId').errors &&
+              registerForm.get('modelId').touched
+            "
+            id="model"
+            type="number"
+            name="modelId"
+            class="form-select"
+            formControlName="modelId"
+            (change)="onModelChange($event.target.value)"
+            required
+          >
+            <option label="" selected hidden></option>
+            <option
+              *ngFor="let model of models"
+              [ngValue]="model.id"
+              [label]="model.name"
+            ></option>
+          </select>
+          <div
+            *ngIf="registerForm.get('modelId').hasError('required')"
+            class="invalid-feedback"
+          >
+            Podaj model samochodu
+          </div>
+        </div>
+
+        <!-- Pojemność silnika -->
+        <div class="form-group">
+          <label for="engine">Silnik</label>
+          <select
+            [class.is-invalid]="
+              registerForm.get('engineId').errors &&
+              registerForm.get('engineId').touched
+            "
+            id="engine"
+            type="number"
+            name="engineId"
+            class="form-select"
+            formControlName="engineId"
+            required
+          >
+            <option label="" selected hidden></option>
+            <option
+              *ngFor="let engine of engines"
+              [ngValue]="engine.id"
+              [label]="engine.engineCapacity"
+            ></option>
+          </select>
+          <div
+            *ngIf="registerForm.get('engineId').hasError('required')"
+            class="invalid-feedback"
+          >
+            Podaj pojemność silnika
+          </div>
+        </div>
+
+        <!-- Moc silnika -->
+        <div class="form-group">
+          <label for="enginePower">Moc silnika [KM]</label>
+          <input
+            [class.is-invalid]="
+              registerForm.get('enginePower').errors &&
+              registerForm.get('enginePower').touched
+            "
+            id="enginePower"
+            type="number"
+            class="form-control"
+            formControlName="enginePower"
+          />
+          <div
+            *ngIf="registerForm.get('enginePower').hasError('required')"
+            class="invalid-feedback"
+          >
+            Podaj moc silnika
+          </div>
+        </div>
+
+        <!-- Przebieg -->
+        <div class="form-group">
+          <label for="mileage">Przebieg [km]</label>
+          <input
+            [class.is-invalid]="
+              registerForm.get('mileage').errors &&
+              registerForm.get('mileage').touched
+            "
+            id="mileage"
+            type="number"
+            class="form-control"
+            formControlName="mileage"
+          />
+          <div
+            *ngIf="registerForm.get('mileage').hasError('required')"
+            class="invalid-feedback"
+          >
+            Podaj przebieg
+          </div>
+        </div>
+
+        <!-- Rok produkcji -->
+        <div class="form-group">
+          <label for="productionDate">Data produkcji</label>
+          <input
+            [class.is-invalid]="
+              registerForm.get('productionDate').errors &&
+              registerForm.get('productionDate').touched
+            "
+            id="productionDate"
+            type="date"
+            class="form-control"
+            formControlName="productionDate"
+          />
+          <div
+            *ngIf="registerForm.get('productionDate').hasError('required')"
+            class="invalid-feedback"
+          >
+            Podaj rok produkcji
+          </div>
+        </div>
+
+        <!-- Hasło -->
+        <div class="form-group">
+          <label for="password">Hasło</label>
+          <input
+            [class.is-invalid]="
+              registerForm.get('password').errors &&
+              registerForm.get('password').touched
+            "
+            id="password"
+            type="password"
+            class="form-control"
+            formControlName="password"
+          />
+          <div
+            *ngIf="registerForm.get('password').hasError('required')"
+            class="invalid-feedback"
+          >
+            Podaj hasło
+          </div>
+          <div
+            *ngIf="registerForm.get('password').hasError('minlength')"
+            class="invalid-feedback"
+          >
+            Hasło musi zawierać co najmniej 8 znaków
+          </div>
+          <div
+            *ngIf="registerForm.get('password').hasError('maxlength')"
+            class="invalid-feedback"
+          >
+            Hasło może zawierać maksymalnie 32 znaki
+          </div>
+        </div>
+
+        <!-- Powtórz hasło -->
+        <div class="form-group">
+          <label for="confirmPassword">Potwierdź hasło</label>
+          <input
+            [class.is-invalid]="
+              registerForm.get('confirmPassword').errors &&
+              registerForm.get('confirmPassword').touched
+            "
+            id="confirmPassword"
+            type="password"
+            class="form-control"
+            formControlName="confirmPassword"
+          />
+          <div
+            *ngIf="registerForm.get('confirmPassword').hasError('required')"
+            class="invalid-feedback"
+          >
+            Podaj ponownie hasło
+          </div>
+          <div
+            *ngIf="registerForm.get('confirmPassword').hasError('isMatching')"
+            class="invalid-feedback"
+          >
+            Hasła są różne
+          </div>
+        </div>
+
+        <!-- Przyciski -->
+        <div class="form-group text-center">
+          <button
+            [disabled]="!registerForm.valid"
+            class="btn btn-success mr-2"
+            type="submit"
+          >
+            Zarejestruj się
+          </button>
+          <button class="btn btn-danger mr-2" routerLink="/members" type="button">
+            Anuluj
+          </button>
+        </div>
+      </form>
+    </div>
+
+
   </div>
-
-  <!-- Marka samochodu -->
-  <div class="form-group">
-    <select
-      [class.is-invalid]="
-        registerForm.get('brandId').errors && registerForm.get('brandId').touched
-      "
-      type="number"
-      name="brandId"
-      class="form-select"
-      formControlName="brandId"
-      (change)="onBrandChange($event)"
-      required
-    >
-      <option
-        label="Marka samochodu"
-        selected
-        hidden
-      ></option>
-      <option
-        *ngFor="let brand of brands"
-        [ngValue]="brand.id"
-        [label]="brand.name"
-      ></option>
-    </select>
-    <div
-      *ngIf="registerForm.get('brandId').hasError('required')"
-      class="invalid-feedback"
-    >
-      Podaj markę samochodu
-    </div>
-  </div>
-
-  <!-- Model samochodu -->
-  <div class="form-group">
-    <!-- <select
-      [class.is-invalid]="
-        registerForm.get('modelId').errors && registerForm.get('modelId').touched
-      "
-      type="number"
-      name="modelId"
-      class="form-select"
-      formControlName="modelId"
-      (ngModelChange)="onModelChange($event)"
-      [ngModel]="models"
-      placeholder="Model"
-      required
-    > -->
-        <select
-      [class.is-invalid]="
-        registerForm.get('modelId').errors && registerForm.get('modelId').touched
-      "
-      type="number"
-      name="modelId"
-      class="form-select"
-      formControlName="modelId"
-      (change)="onModelChange($event.target.value)"
-      required
-    >
-      <option label="Model" selected hidden></option>
-      <option
-        *ngFor="let model of models"
-        [ngValue]="model.id"
-        [label]="model.name"
-      ></option>
-    </select>
-    <div
-      *ngIf="registerForm.get('modelId').hasError('required')"
-      class="invalid-feedback"
-    >
-      Podaj model samochodu
-    </div>
-  </div>
-
-  <!-- Pojemność silnika -->
-  <div class="form-group">
-    <select
-    [class.is-invalid]="
-      registerForm.get('engineId').errors && registerForm.get('engineId').touched
-    "
-    type="number"
-    name="engineId"
-    class="form-select"
-    formControlName="engineId"
-    required
-  >
-    <option
-      label="Pojemność silnika"
-      selected
-      hidden
-    ></option>
-    <option
-      *ngFor="let engine of engines"
-      [ngValue]="engine.id"
-      [label]="engine.engineCapacity"
-    ></option>
-  </select>
-    <div
-      *ngIf="registerForm.get('engineId').hasError('required')"
-      class="invalid-feedback"
-    >
-      Podaj pojemność silnika
-    </div>
-  </div>
-
-  <!-- Moc silnika -->
-  <div class="form-group">
-    <input
-      [class.is-invalid]="
-        registerForm.get('enginePower').errors &&
-        registerForm.get('enginePower').touched
-      "
-      type="number"
-      class="form-control"
-      formControlName="enginePower"
-      placeholder="Moc silnika [KM]"
-    />
-    <div
-      *ngIf="registerForm.get('enginePower').hasError('required')"
-      class="invalid-feedback"
-    >
-      Podaj moc silnika
-    </div>
-  </div>
-
-  <!-- Przebieg -->
-  <div class="form-group">
-    <input
-      [class.is-invalid]="
-        registerForm.get('mileage').errors &&
-        registerForm.get('mileage').touched
-      "
-      type="number"
-      class="form-control"
-      formControlName="mileage"
-      placeholder="Przebieg [km]"
-    />
-    <div
-      *ngIf="registerForm.get('mileage').hasError('required')"
-      class="invalid-feedback"
-    >
-      Podaj przebieg
-    </div>
-  </div>
-
-  <!-- Rok produkcji -->
-  <div class="form-group">
-    <input
-      [class.is-invalid]="
-        registerForm.get('productionDate').errors &&
-        registerForm.get('productionDate').touched
-      "
-      type="date"
-      class="form-control"
-      formControlName="productionDate"
-      placeholder="Data produkcji"
-    />
-    <div
-      *ngIf="registerForm.get('productionDate').hasError('required')"
-      class="invalid-feedback"
-    >
-      Podaj rok produkcji
-    </div>
-  </div>
-
-  <!-- Hasło -->
-  <div class="form-group">
-    <input
-      [class.is-invalid]="
-        registerForm.get('password').errors &&
-        registerForm.get('password').touched
-      "
-      type="password"
-      class="form-control"
-      formControlName="password"
-      placeholder="Hasło"
-    />
-    <div
-      *ngIf="registerForm.get('password').hasError('required')"
-      class="invalid-feedback"
-    >
-      Podaj hasło
-    </div>
-    <div
-      *ngIf="registerForm.get('password').hasError('minlength')"
-      class="invalid-feedback"
-    >
-      Hasło musi zawierać co najmniej 8 znaków
-    </div>
-    <div
-      *ngIf="registerForm.get('password').hasError('maxlength')"
-      class="invalid-feedback"
-    >
-      Hasło może zawierać maksymalnie 32 znaki
-    </div>
-  </div>
-
-  <!-- Powtórz hasło -->
-  <div class="form-group">
-    <input
-      [class.is-invalid]="
-        registerForm.get('confirmPassword').errors &&
-        registerForm.get('confirmPassword').touched
-      "
-      type="password"
-      class="form-control"
-      formControlName="confirmPassword"
-      placeholder="Powtórz hasło"
-    />
-    <div
-      *ngIf="registerForm.get('confirmPassword').hasError('required')"
-      class="invalid-feedback"
-    >
-      Podaj ponownie hasło
-    </div>
-    <div
-      *ngIf="registerForm.get('confirmPassword').hasError('isMatching')"
-      class="invalid-feedback"
-    >
-      Hasła są różne
-    </div>
-  </div>
-
-  <!-- Przyciski -->
-  <div class="form-group text-center">
-    <button [disabled]='!registerForm.valid' class="btn btn-success mr-2" type="submit">Zarejestruj się</button>
-    <button class="btn btn-danger mr-2" (click)="cancel()" type="button">
-      Anuluj
-    </button>
-  </div>
-
-</form>
+</div>

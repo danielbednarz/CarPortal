@@ -28,6 +28,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { BsDropdownConfig } from 'ngx-bootstrap/dropdown';
 
 @NgModule({
   declarations: [],

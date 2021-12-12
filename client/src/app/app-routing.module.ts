@@ -20,14 +20,16 @@ import { OrganizerComponent } from './organizer/organizer.component';
 import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
-  {path: '', component: HomeComponent},
+  {path: '', redirectTo: '/members', pathMatch:'full'},
+  // {path: '', component: HomeComponent},
+  {path: 'members', component: MemberListComponent},
+  {path: 'register', component: RegisterComponent},
   {path: 'info', component: FindOutMoreComponent},
   {
     path: '',
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard],
     children: [
-      {path: 'members', component: MemberListComponent},
       {path: 'members/:username', component: MemberDetailComponent},
       {path: 'member/edit', component: MemberEditComponent, canDeactivate: [UnsavedChangesBlockGuard]},
       {path: 'messages', component: MessagesComponent},
