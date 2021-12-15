@@ -137,6 +137,7 @@
                 dataField="refuelDate"
                 dataType="date"
                 caption="Data zatankowania"
+                format="dd.MM.yyyy"
               ></dxi-column>
             </dx-data-grid>
           </div>
@@ -294,6 +295,7 @@
                 dataField="repairDate"
                 dataType="date"
                 caption="Data naprawy"
+                format="dd.MM.yyyy"
               ></dxi-column>
             </dx-data-grid>
           </div>
@@ -325,7 +327,7 @@
       <div class="card p-2 mt-3">
         <div class="row my-2">
           <div class="col-12">
-            <h4>Łączne wydatki z podziałem na miesiąc</h4>
+            <h4>Łączne wydatki w ujęciu miesięcznym</h4>
           </div>
         </div>
         <div class="row mt-3">
@@ -335,7 +337,7 @@
             [dataSource]="totalCostsReportView"
           >
             <dxi-series argumentField="month" valueField="totalCostPerMonth">
-              <dxo-label [visible]="true" [customizeText]="customPieChartLabel">
+              <dxo-label [visible]="true" [customizeText]="customPieChartLabel2">
                 <dxo-connector [visible]="true" [width]="1"></dxo-connector>
               </dxo-label>
             </dxi-series>

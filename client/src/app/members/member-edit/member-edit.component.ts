@@ -15,6 +15,8 @@ import value from 'globalize';
 import { Engine } from 'src/app/models/engine';
 import { NotesService } from 'src/app/services/notes.service';
 import { Note } from 'src/app/models/note';
+import { FuelReportView } from 'src/app/models/fuelReportView';
+import { StatisticsService } from 'src/app/services/statistics.service';
 
 @Component({
   selector: 'app-member-edit',
@@ -34,6 +36,8 @@ export class MemberEditComponent implements OnInit {
   noteForm: FormGroup;
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
+  fuelReport: FuelReportView[];
+
   @HostListener("window:beforeunload", ['$event']) unloadNotification($event: any) {
     if(this.editForm.dirty) {
       $event.returnValue = true;
@@ -42,7 +46,7 @@ export class MemberEditComponent implements OnInit {
 
   constructor(private accountService: AccountService, private memberService: MembersService, 
     private toastrService: ToastrService, private router: Router, private carPropertiesService: CarPropertiesService,
-    private notesService: NotesService, private formBuilder: FormBuilder) { 
+    private notesService: NotesService, private formBuilder: FormBuilder, private statisticsService: StatisticsService) { 
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
   }
 
@@ -80,7 +84,6 @@ export class MemberEditComponent implements OnInit {
   }
 
   loadEngines(id: number) {
-    debugger;
     this.carPropertiesService.getEngines(id).subscribe(engines => {
       this.engines = engines;
     })
@@ -99,6 +102,7 @@ export class MemberEditComponent implements OnInit {
       this.loadModels(member.brandId);
       this.loadEngines(member.modelId);
       this.loadNotes(member.id);
+      this.loadAverageConsumption(member.id);
     })
   }
 
@@ -141,6 +145,12 @@ export class MemberEditComponent implements OnInit {
       this.toastrService.success('Wpis został dodany');
       this.reloadComponent();
     })
+  }
+
+  loadAverageConsumption(id: number) {
+    this.statisticsService.getAverageConsumption(id).subscribe(x => {
+      this.fuelReport = x;
+    });
   }
 
   reloadComponent() {

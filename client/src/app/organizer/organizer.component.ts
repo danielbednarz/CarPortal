@@ -25,41 +25,11 @@ export class OrganizerComponent implements OnInit {
     this.getCarInsuranceRemainingDays();
   }
 
-  // initializeCarInsurancePopupForm() {
-  //   this.carInsurancePopupForm = this.formBuilder.group({
-  //     carInsuranceType: ['', Validators.required],
-  //     expirationDate: ['', Validators.required],
-  //     cost: ['', Validators.required],
-  //   });
-  // }
-
-  // getCarInsuranceTypes() { 
-  //   debugger;
-  //   this.organizerService.getCarInsuranceTypes().subscribe(insuranceTypes => {
-  //     this.carInsuranceTypes = insuranceTypes;
-  //   });
-  // }
-
-  // getCarInsurances() {
-  //   this.organizerService.getCarInsurance().subscribe(carInsurance => {
-  //     this.carInsurance = carInsurance;
-  //   })
-  // }
-
   getCarInsuranceRemainingDays() {
     this.organizerService.getCarInsuranceRemainingDays().subscribe(remainingDays => {
       this.carInsuranceRemainingDays = remainingDays;
     })
   }
-
-  // addCarInsurance() {
-  //   this.organizerService.addCarInsurance(this.carInsurancePopupForm.value).subscribe(() => {
-  //     this.carInsurancePopupForm.reset();
-  //     this.toastrService.success("Ubezpieczenie auta zostało dodane");
-  //     this.getCarInsuranceRemainingDays();
-  //     this.reloadComponent();
-  //   })
-  // }
 
   turnOnCarInsurancePopup() {
     this.isCarInsurancePopupVisible = true;

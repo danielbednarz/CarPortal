@@ -53,7 +53,6 @@ export class MessagesComponent implements OnInit {
   }
 
   deleteMessage(messageId: string) {
-    debugger;
     this.messageService.deleteMessage(messageId).subscribe(() => {
       this.messages.splice(this.messages.findIndex(x => x.id === messageId), 1);
       this.toastr.success("Wiadomość usunięta pomyślnie");

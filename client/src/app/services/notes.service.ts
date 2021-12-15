@@ -21,7 +21,6 @@ export class NotesService {
   }
 
   addNote(model: any) {
-    debugger;
     return this.http.post(this.baseUrl + '/add-note', model).pipe(
       map((user: User) => {
         if(user) {

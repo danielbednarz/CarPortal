@@ -72,13 +72,14 @@ namespace API.Data
                 .HasOne(x => x.Sender)
                 .WithMany(m => m.MessagesSent);
 
+
             var cascadeFKs = modelBuilder.Model.GetEntityTypes()
             .SelectMany(t => t.GetForeignKeys())
             .Where(fk => !fk.IsOwnership && fk.DeleteBehavior == DeleteBehavior.Cascade);
 
             foreach (var fk in cascadeFKs)
             {
-                fk.DeleteBehavior = DeleteBehavior.Restrict;
+                fk.DeleteBehavior = DeleteBehavior.ClientSetNull;
             }
 
             modelBuilder.Entity<FuelReportView>().HasNoKey().ToView("FuelReportView");

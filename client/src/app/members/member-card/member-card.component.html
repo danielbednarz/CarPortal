@@ -1,11 +1,23 @@
 <div class="card h-100">
-  <div class="card-img-wrapper">
+  <div class="card-img-wrapper" *ngIf="(accountService.currentUser$ | async) !== null">
     <img
       src="{{ member.photoUrl || './assets/img/nophoto.png' }}"
       class="card-img-top"
       alt="{{ member.username }}"
       routerLink="/members/{{ member.username }}"
     />
+  </div>
+  <div class="card-img-wrapper" *ngIf="(accountService.currentUser$ | async) === null">
+    <img
+    src="{{ member.photoUrl || './assets/img/nophoto.png' }}"
+    class="card-img-top"
+    alt="{{ member.username }}"
+    routerLink="/members/{{ member.username }}"
+    *ngIf="(accountService.currentUser$ | async) === null"
+  />
+    <div class="overlay">
+      <div class="text">Zaloguj się aby wejść na profil</div>
+    </div>
   </div>
   <div class="card-body p-1">
     <h5 class="card-title text-center mb-1">

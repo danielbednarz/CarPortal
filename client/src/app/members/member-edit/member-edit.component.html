@@ -50,11 +50,21 @@
             <h5 class="card-header text-muted">
               <strong>Dziennik kosztów</strong>
             </h5>
-            <div class="card-body">
-              <h5 class="card-text text-muted">Spalanie: 10.5l/100km</h5>
-              <h5 class="card-text text-muted">
-                Średni koszt przejechania 100km: 49.88zł
+            <div class="card-body" *ngIf="fuelReport">
+              <h5
+                class="card-text text-muted"
+                *ngIf="fuelReport[0].averageConsumption !== 0"
+              >
+                Spalanie: {{ fuelReport[0].averageConsumption }} l/100km
               </h5>
+              <h5
+                class="card-text text-muted"
+                *ngIf="fuelReport[0].averageConsumption === 0"
+              >
+                Spalanie: brak danych
+              </h5>
+              <h5 class="card-text text-muted" *ngIf="fuelReport[0].averageCost !== 0">Średni koszt przejechania 100km: {{fuelReport[0].averageCost}}zł</h5>
+              <h5 class="card-text text-muted" *ngIf="fuelReport[0].averageCost === 0">Średni koszt przejechania 100km: brak danych</h5>
               <div
                 class="details-btn btn btn-primary"
                 routerLink="/member/edit/statistics"

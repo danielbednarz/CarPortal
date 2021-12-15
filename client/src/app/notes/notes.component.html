@@ -1,6 +1,6 @@
 <div class="card card-content py-2 px-3 text-muted">
   <div class="row ml-1">
-    <p>{{ note.createdDate | date: "dd.MM.yyyy" }}</p>
+    <p class="date">{{ note.createdDate | date: "dd.MM.yyyy" }}</p>
     <button
       *ngIf="router.url.includes('edit')"
       class="btn btn-sm btn-danger ml-2"

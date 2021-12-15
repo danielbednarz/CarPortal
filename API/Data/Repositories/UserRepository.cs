@@ -32,7 +32,7 @@ namespace API.Data.Repositories
 
         public async Task<PagedList<MemberDto>> GetMembersAsync(UserParameters userParams)
         {
-            var query = _context.Users.Where(x => x.UserName != userParams.CurrentUsername).AsQueryable();
+            var query = _context.Users.AsQueryable();
 
             if(userParams?.BrandId != 0)
             {

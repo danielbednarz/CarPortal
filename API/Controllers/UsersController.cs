@@ -1,4 +1,5 @@
-﻿using API.DTOs;
+﻿using API.Data;
+using API.DTOs;
 using API.Entities;
 using API.Extensions;
 using API.Helpers;
@@ -17,12 +18,14 @@ namespace API.Controllers
 {
     public class UsersController : AppController
     {
+        private readonly MainDatabaseContext _context;
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
         private readonly IPhotoService _photoService;
 
-        public UsersController(IUserRepository userRepository, IMapper mapper, IPhotoService photoService)
+        public UsersController(MainDatabaseContext context, IUserRepository userRepository, IMapper mapper, IPhotoService photoService)
         {
+            _context = context;
             _userRepository = userRepository;
             _mapper = mapper;
             _photoService = photoService;
@@ -170,10 +173,10 @@ namespace API.Controllers
                 {
                     return BadRequest(result.Error.Message);
                 }
-            }
 
-            user.Photos.Remove(photo);
-            await _userRepository.SaveAllAsync();
+                user.Photos.Remove(photo);
+                await _userRepository.SaveAllAsync();
+            }
 
             return Ok();
         }

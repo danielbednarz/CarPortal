@@ -66,7 +66,8 @@
               >
                 Spalanie: brak danych
               </h5>
-              <h5 class="card-text text-muted">Średni koszt przejechania 100km: {{fuelReport[0].averageCost}}zł</h5>
+              <h5 class="card-text text-muted" *ngIf="fuelReport[0].averageCost !== 0">Średni koszt przejechania 100km: {{fuelReport[0].averageCost}}zł</h5>
+              <h5 class="card-text text-muted" *ngIf="fuelReport[0].averageCost === 0">Średni koszt przejechania 100km: brak danych</h5>
               <div
                 class="details-btn btn btn-primary"
                 routerLink="/members/{{ member.username }}/statistics"
@@ -109,7 +110,7 @@
         *ngIf="notes.length === 0"
         class="card card-content py-2 px-3 text-muted"
       >
-        <p>Brak notatek</p>
+        <p>Brak wpisów</p>
       </div>
       <div
         class="row my-1"

@@ -240,7 +240,7 @@
           </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group mt-2">
           <ngx-recaptcha2 #captchaElem
             [siteKey]="siteKey"
             size="normal"
@@ -264,7 +264,17 @@
         </div>
       </form>
     </div>
-
-
   </div>
 </div>
+
+<dx-popup
+width="400"
+height="250"
+[showTitle]="true"
+title="Pomyślnie utworzono konto"
+[showCloseButton]="false"
+[closeOnOutsideClick]="false"
+[(visible)]="isRegisterSuccessInfoPopupVisible">
+<p>Dziękujemy za utworzenie konta na naszym portalu. W zakładce 'Edytuj profil' możesz dodać zdjęcie swojego auta, dzięki czemu Twój profil będzie bardziej rozpoznawalny.</p>
+<button class="btn btn-primary mt-4 understand-btn" routerLink="/members" type="button">Rozumiem</button>
+</dx-popup>
