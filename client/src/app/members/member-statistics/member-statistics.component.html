@@ -18,8 +18,8 @@
           </div>
         </div>
         <dx-popup
-          [width]="400"
-          [height]="320"
+          [width]="600"
+          [height]="340"
           [showTitle]="true"
           title="Dodaj nowy raport spalania"
           [dragEnabled]="false"
@@ -28,68 +28,75 @@
           [(visible)]="fuelReportPopupVisible"
         >
           <div class="container">
-            <div class="row">
-              <div class="form-group col-12">
-                <form
-                  [formGroup]="fuelReportForm"
-                  autocomplete="off"
-                  (ngSubmit)="onFuelReportSubmit()"
+            <form
+              class="row"
+              [formGroup]="fuelReportForm"
+              autocomplete="off"
+              (ngSubmit)="onFuelReportSubmit()"
+            >
+              <div class="col-6">
+                <label for="cost">Koszt tankowania[PLN]</label>
+                <dx-number-box
+                id="cost"
+                  [class.is-invalid]="
+                    fuelReportForm.get('cost').errors &&
+                    fuelReportForm.get('cost').touched
+                  "
+                  formControlName="cost"
+                  class="form-control my-2"
+                  [min]="0"
                 >
-                  <input
-                    [class.is-invalid]="
-                      fuelReportForm.get('cost').errors &&
-                      fuelReportForm.get('cost').touched
-                    "
-                    formControlName="cost"
-                    type="number"
-                    class="form-control my-2"
-                    placeholder="Koszt paliwa"
-                  />
-
-                  <input
-                    [class.is-invalid]="
-                      fuelReportForm.get('fuelAmount').errors &&
-                      fuelReportForm.get('fuelAmount').touched
-                    "
-                    formControlName="fuelAmount"
-                    type="number"
-                    class="form-control my-2"
-                    placeholder="Ilość zatankowanego paliwa [dm3]"
-                  />
-
-                  <input
-                    [class.is-invalid]="
-                      fuelReportForm.get('traveledDistance').errors &&
-                      fuelReportForm.get('traveledDistance').touched
-                    "
-                    formControlName="traveledDistance"
-                    type="number"
-                    class="form-control my-2"
-                    placeholder="Przejechany dystans"
-                  />
-
-                  <input
-                    [class.is-invalid]="
-                      fuelReportForm.get('refuelDate').errors &&
-                      fuelReportForm.get('refuelDate').touched
-                    "
-                    formControlName="refuelDate"
-                    type="date"
-                    class="form-control my-2"
-                    placeholder="Data tankowania"
-                  />
-                  <div class="row form-group">
-                    <button
-                      class="btn btn-success mt-2"
-                      [disabled]="!fuelReportForm.valid"
-                      type="submit"
-                    >
-                      Dodaj
-                    </button>
-                  </div>
-                </form>
+                </dx-number-box>
+                <label for="traveledDistance">Przejechany dystans [km]</label>
+                <dx-number-box
+                id="traveledDistance"
+                  [class.is-invalid]="
+                    fuelReportForm.get('traveledDistance').errors &&
+                    fuelReportForm.get('traveledDistance').touched
+                  "
+                  formControlName="traveledDistance"
+                  class="form-control my-2"
+                  [min]="0"
+                >
+                </dx-number-box>
               </div>
-            </div>
+              <div class="col-6">
+                <label for="fuelAmount">Ilość zatankowanego paliwa [l]</label>
+                <dx-number-box
+                id="fuelAmount"
+                  [class.is-invalid]="
+                    fuelReportForm.get('fuelAmount').errors &&
+                    fuelReportForm.get('fuelAmount').touched
+                  "
+                  formControlName="fuelAmount"
+                  class="form-control my-2"
+                  [min]="0"
+                >
+                </dx-number-box>
+                <label for="refuelDate">Data tankowania</label>
+                <dx-date-box
+                  id="refuelDate"
+                  [class.is-invalid]="
+                    fuelReportForm.get('refuelDate').errors &&
+                    fuelReportForm.get('refuelDate').touched
+                  "
+                  formControlName="refuelDate"
+                  class="form-control my-2"
+                  displayFormat="dd.MM.yyyy"
+                >
+                </dx-date-box>
+              </div>
+
+              <div class="col-12">
+                <button
+                  class="btn btn-success submit-button mt-3"
+                  [disabled]="!fuelReportForm.valid"
+                  type="submit"
+                >
+                  Dodaj
+                </button>
+              </div>
+            </form>
           </div>
         </dx-popup>
         <div class="row">
@@ -126,7 +133,7 @@
               <dxi-column
                 dataField="fuelAmount"
                 dataType="number"
-                caption="Ilość zatankowanego paliwa [dm3]"
+                caption="Ilość zatankowanego paliwa [l]"
               ></dxi-column>
               <dxi-column
                 dataField="traveledDistance"
@@ -138,6 +145,7 @@
                 dataType="date"
                 caption="Data zatankowania"
                 format="dd.MM.yyyy"
+                sortOrder="desc"
               ></dxi-column>
             </dx-data-grid>
           </div>
@@ -182,7 +190,7 @@
           [width]="600"
           [height]="360"
           [showTitle]="true"
-          title="Dodaj nowy raport spalania"
+          title="Dodaj nowy raport naprawy"
           [dragEnabled]="false"
           [closeOnOutsideClick]="true"
           [showCloseButton]="true"
@@ -239,13 +247,14 @@
                   type="date"
                   class="form-control my-2"
                   placeholder="Data naprawy"
+                  displayFormat="dd.MM.yyyy"
                 >
                 </dx-date-box>
               </div>
 
               <div class="col-12 mt-3">
                 <button
-                  class="btn btn-success submit-repair-report-button"
+                  class="btn btn-success submit-button"
                   [disabled]="!repairReportForm.valid"
                   type="submit"
                 >
@@ -337,7 +346,10 @@
             [dataSource]="totalCostsReportView"
           >
             <dxi-series argumentField="month" valueField="totalCostPerMonth">
-              <dxo-label [visible]="true" [customizeText]="customPieChartLabel2">
+              <dxo-label
+                [visible]="true"
+                [customizeText]="customPieChartLabel2"
+              >
                 <dxo-connector [visible]="true" [width]="1"></dxo-connector>
               </dxo-label>
             </dxi-series>

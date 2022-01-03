@@ -1,8 +1,21 @@
 <div class="container" *ngIf="member">
   <div class="row">
-    <div class="alert alert-info" *ngIf="editForm.dirty">
-      <i class="fas fa-info-circle fa-3x mr-3"></i>Masz niezapisane zmiany.
-      Zostaną one utracone, jeżeli nie ich nie zapiszesz.
+    <div class="col-12">
+      <div class="alert alert-info" *ngIf="editForm.dirty">
+        <i class="fas fa-info-circle fa-3x mr-3"></i>Masz niezapisane zmiany.
+        Zostaną one utracone, jeżeli nie ich nie zapiszesz.
+      </div>
+    </div>
+    
+    <div class="col-3 mb-3">
+      <button
+        [hidden]="!editForm.dirty"
+        type="submit"
+        form="editForm"
+        class="btn btn-success"
+      >
+        Zapisz zmiany
+      </button>
     </div>
   </div>
   <div class="row mb-3">
@@ -10,16 +23,6 @@
       <div class="card card-header title">
         <h2 class="">Edytuj profil</h2>
       </div>
-    </div>
-    <div class="col-3">
-      <button
-        [hidden]="!editForm.dirty"
-        type="submit"
-        form="editForm"
-        class="btn btn-success float-right"
-      >
-        Zapisz zmiany
-      </button>
     </div>
   </div>
   <div class="row mb-3">

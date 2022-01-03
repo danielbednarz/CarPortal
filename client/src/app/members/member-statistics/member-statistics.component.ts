@@ -112,6 +112,8 @@ export class MemberStatisticsComponent implements OnInit {
 
   onRepairReportSubmit() {
     this.repairReportForm.controls.userId.setValue(this.member.id);
+    const repairDate = this.repairReportForm.controls.repairDate;
+    debugger;
     this.statisticsService.addRepairReport(this.repairReportForm.value).subscribe(() => {
       this.repairReportForm.reset();
       this.toastr.success('Wpis do raportu napraw został dodany');

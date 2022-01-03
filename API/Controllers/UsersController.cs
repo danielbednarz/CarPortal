@@ -174,7 +174,8 @@ namespace API.Controllers
                     return BadRequest(result.Error.Message);
                 }
 
-                user.Photos.Remove(photo);
+                //user.Photos.Remove(photo);
+                _context.Photos.Remove(photo);
                 await _userRepository.SaveAllAsync();
             }
 

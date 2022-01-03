@@ -67,7 +67,7 @@ namespace API.Controllers
             {
                 CarInsuranceType = carInsurance.CarInsuranceType,
                 Cost = carInsurance.Cost,
-                ExpirationDate = carInsurance.ExpirationDate,
+                ExpirationDate = carInsurance.ExpirationDate.AddDays(1),
                 InsurerName = carInsurance.InsurerName,
                 UserId = user.Id
             };
@@ -117,7 +117,7 @@ namespace API.Controllers
 
             var data = new PeriodicInspection()
             {
-                InspectionDate = periodicInspection.InspectionDate,
+                InspectionDate = periodicInspection.InspectionDate.AddDays(1),
                 isPositive = periodicInspection.isPositive,
                 UserId = user.Id
             };

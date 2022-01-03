@@ -112,9 +112,8 @@ export class MemberEditComponent implements OnInit {
     this.memberService.updateMember(this.member).subscribe(() => {
       this.toastrService.success("Profil został zaktualizowany");
       this.editForm.reset(this.member);
+      this.reloadComponent();
     });
-    this.router.navigate([`/members/${this.member.username}`])
-
   }
 
   getImages(): NgxGalleryImage[] {

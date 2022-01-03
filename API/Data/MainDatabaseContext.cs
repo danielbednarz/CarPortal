@@ -35,6 +35,7 @@ namespace API.Data
         public DbSet<CarInsurance> CarInsurances { get; set; }
         public DbSet<CarInsuranceRemainingDays> CarInsuranceRemainingDays { get; set; }
         public DbSet<PeriodicInspection> PeriodicInspections { get; set; }
+        public DbSet<Photo> Photos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

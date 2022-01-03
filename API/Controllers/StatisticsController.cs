@@ -50,6 +50,8 @@ namespace API.Controllers
         [HttpPost("add-fuel-report")]
         public async Task<ActionResult<FuelReport>> AddFuelReport(FuelReport fuelReport)
         {
+            fuelReport.RefuelDate = fuelReport.RefuelDate.AddDays(1);
+
             _context.FuelReports.Add(fuelReport);
 
             await _context.SaveChangesAsync();
@@ -92,6 +94,8 @@ namespace API.Controllers
         [HttpPost("addRepairReport")]
         public async Task<ActionResult> AddRepairReport(RepairReport repairReport)
         {
+            repairReport.RepairDate = repairReport.RepairDate.AddDays(1);
+
             _context.RepairReports.Add(repairReport);
 
             await _context.SaveChangesAsync();
