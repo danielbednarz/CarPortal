@@ -12,7 +12,6 @@ namespace API.Extensions
 
             foreach (var itemType in Enum.GetValues(typeof(T)))
             {
-                //For each value of this enumeration, add a new EnumValue instance
                 values.Add(new EnumValue()
                 {
                     Text = Enum.GetName(typeof(T), itemType),

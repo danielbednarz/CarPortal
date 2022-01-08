@@ -110,6 +110,8 @@ export class MemberStatisticsComponent implements OnInit {
     });
   }
 
+  resolveOverlappingTypes = ['shift', 'hide', 'none'];
+
   onRepairReportSubmit() {
     this.repairReportForm.controls.userId.setValue(this.member.id);
     const repairDate = this.repairReportForm.controls.repairDate;

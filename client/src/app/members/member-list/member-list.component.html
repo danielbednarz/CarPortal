@@ -116,6 +116,7 @@
   </div>
   <div class="d-flex justify-content-center mt-2" *ngIf="pagination">
     <pagination
+      *ngIf="members.length > 19"
       [boundaryLinks]="false"
       [totalItems]="pagination.totalItems"
       [itemsPerPage]="pagination.itemsPerPage"

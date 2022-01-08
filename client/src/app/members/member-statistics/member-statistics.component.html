@@ -344,11 +344,13 @@
             id="totalCosts"
             palette="Pastel"
             [dataSource]="totalCostsReportView"
+            [resolveLabelOverlapping]="resolveOverlappingTypes[0]"
           >
             <dxi-series argumentField="month" valueField="totalCostPerMonth">
               <dxo-label
                 [visible]="true"
                 [customizeText]="customPieChartLabel2"
+                position="columns"
               >
                 <dxo-connector [visible]="true" [width]="1"></dxo-connector>
               </dxo-label>

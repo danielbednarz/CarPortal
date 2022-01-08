@@ -32,8 +32,8 @@ namespace API.Data.Repositories
         {
             return await _context.FuelReportView.FromSqlInterpolated(@$"SELECT
 												'' as [Month],
-												CAST(ISNULL(AVG(((fuelReport.FuelAmount * 100) / fuelReport.TraveledDistance)), 0) as decimal(18,2)) as [AverageConsumption],
-                                                CAST(ISNULL(AVG((fuelReport.Cost * 100) / fuelReport.TraveledDistance),0) as decimal(18,2)) as [AverageCost],
+												CAST(ISNULL(((SUM(fuelReport.FuelAmount) * 100) / SUM(fuelReport.TraveledDistance)), 0) as decimal(18,2)) as [AverageConsumption],
+                                                CAST(ISNULL((SUM(fuelReport.Cost) * 100) / SUM(fuelReport.TraveledDistance), 0) as decimal(18,2)) as [AverageCost],
 												{userId} as [UserId]
 											FROM FuelReports fuelReport
 											WHERE UserId = {userId}").ToListAsync(); 

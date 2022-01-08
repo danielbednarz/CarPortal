@@ -6,6 +6,7 @@
     [remoteOperations]="false"
     [allowColumnResizing]="true"
     (onRowUpdating)="updateUserRole($event)"
+    (onRowRemoving)="updateUserRole($event)"
   >
     <dxo-filter-row [visible]="true"></dxo-filter-row>
     <dxo-paging [pageSize]="30"></dxo-paging>
@@ -16,10 +17,10 @@
     <dxo-editing
       mode="popup"
       [allowUpdating]="true"
-      [allowDeleting]="false"
+      [allowDeleting]="true"
       [allowAdding]="false"
     >
-    <dxo-texts editRow="Edytuj"></dxo-texts>
+    <dxo-texts editRow="Edytuj" deleteRow="Usuń"></dxo-texts>
       <dxo-popup
         title="Edytuj rolę użytkownika"
         [showTitle]="true"

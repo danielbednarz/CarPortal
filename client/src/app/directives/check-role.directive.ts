@@ -1,4 +1,5 @@
 import { Directive, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { take } from 'rxjs/operators';
 import { User } from '../models/user';
 import { AccountService } from '../services/account.service';
@@ -30,5 +31,4 @@ export class CheckRoleDirective implements OnInit{
         this.viewContainerRef.clear();
       }
     }
-
 }

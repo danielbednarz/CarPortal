@@ -209,6 +209,12 @@
         </h5>
       </div>
       <div
+        *ngIf="notes.length === 0"
+        class="card card-content py-2 px-3 text-muted"
+      >
+        <p class="no-notes">Brak wpisów</p>
+      </div>
+      <div
         class="row my-1"
         *ngFor="
           let note of notes | paginate: { itemsPerPage: 5, currentPage: page }

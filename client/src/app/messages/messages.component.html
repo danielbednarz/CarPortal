@@ -9,7 +9,7 @@
         [(ngModel)]="container"
         (click)="loadUnreadMessages()"
       >
-        <i class="far fa-envelope fa-2x"></i>
+        <i class="far fa-envelope fa-2x"></i> Nieodczytane
       </button>
       <button
       ngDefaultControl
@@ -19,7 +19,7 @@
         [(ngModel)]="container"
         (click)="loadInboxMessages()"
       >
-        <i class="far fa-envelope-open fa-2x"></i>
+        <i class="far fa-envelope-open fa-2x"></i> Przychodzące
       </button>
       <button
       ngDefaultControl
@@ -29,7 +29,7 @@
         [(ngModel)]="container"
         (click)="loadOutboxMessages()"
       >
-        <i class="far fa-paper-plane fa-2x"></i>
+        <i class="far fa-paper-plane fa-2x"></i> Wysłane
       </button>
     </div>
   </div>
@@ -105,7 +105,7 @@
       firstText="&laquo;"
       lastText="&raquo;"
       class="my-pagination"
-      *ngIf="messages?.length !== 0"
+      *ngIf="messages?.length > 10"
     >
     </pagination>
   </div>
